@@ -1,0 +1,1791 @@
+{
+  "Cycle": 9,
+  "ID": 6,
+  "age": 46,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6253264735114098, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6446474765164522, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49598560738733904, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 2,
+  "age": 27,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4177102442439964, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3287410046170869, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 27,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3257826831829973, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5517303763795768, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3287410046170869, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 2,
+  "age": 27,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.22236417698937333, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3287410046170869, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.42629778228468257, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 2,
+  "age": 27,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.13618208849468666, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 4,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6828173584381919, Condition name\u003dPREECLAMPSIA, pom\u003d0.09715758435798716, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3287410046170869, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.42629778228468257, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 2,
+  "age": 27,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.08231828318550749, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 51,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5367094298505404, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 6,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3287410046170869, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.42629778228468257, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 4,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.524613018828644, Condition name\u003dPREECLAMPSIA, pom\u003d0.09715758435798716, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 2,
+  "age": 27,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.05807957079637688, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3287410046170869, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.42629778228468257, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 4,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.524613018828644, Condition name\u003dPREECLAMPSIA, pom\u003d0.09715758435798716, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 5,
+  "age": 51,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5373764976153085, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 8,
+  "ID": 2,
+  "age": 27,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.051009946349547114, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3287410046170869, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.42629778228468257, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 4,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.524613018828644, Condition name\u003dPREECLAMPSIA, pom\u003d0.09715758435798716, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 5,
+  "age": 51,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5373764976153085, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 29,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7734499610791071, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 9,
+  "ID": 2,
+  "age": 27,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.05, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 7,
+  "age": 23,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4795436798968036, Condition name\u003dPREECLAMPSIA, pom\u003d0.06871056831686308, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 9,
+  "ID": 1,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3287410046170869, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.42629778228468257, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 4,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.524613018828644, Condition name\u003dPREECLAMPSIA, pom\u003d0.09715758435798716, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 5,
+  "age": 51,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5373764976153085, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 9,
+  "ID": 6,
+  "age": 29,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7734499610791071, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.18564845789800738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.15173634342350556, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.11358521463969097, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 3,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3832398515983387, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.11358521463969097, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 3,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.29992988869875403, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.11358521463969097, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 4,
+  "age": 53,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.844094311800202, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 3,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.2062061804367213, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.11358521463969097, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 4,
+  "age": 53,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.844094311800202, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 3,
+  "age": 22,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.12810309021836064, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7931760177651387, Condition name\u003dPREECLAMPSIA, pom\u003d0.3593836748538738, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.11358521463969097, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 4,
+  "age": 53,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.844094311800202, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 5,
+  "age": 54,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.38225881698132935, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5308193881687445, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4106145411265584, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 1,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.275384088204099, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.16269204410204952, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.2027847932253557, Condition name\u003dPREECLAMPSIA, pom\u003d0.5444143703564275, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.16269204410204952, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.2027847932253557, Condition name\u003dPREECLAMPSIA, pom\u003d0.5444143703564275, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.16269204410204952, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.2027847932253557, Condition name\u003dPREECLAMPSIA, pom\u003d0.5444143703564275, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 4,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.38328664222976644, Condition name\u003dPREECLAMPSIA, pom\u003d0.6265288454567385, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.16269204410204952, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.2027847932253557, Condition name\u003dPREECLAMPSIA, pom\u003d0.5444143703564275, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 4,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.38328664222976644, Condition name\u003dPREECLAMPSIA, pom\u003d0.6265288454567385, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.16269204410204952, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.2027847932253557, Condition name\u003dPREECLAMPSIA, pom\u003d0.5444143703564275, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 4,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.38328664222976644, Condition name\u003dPREECLAMPSIA, pom\u003d0.6265288454567385, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.16269204410204952, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.2027847932253557, Condition name\u003dPREECLAMPSIA, pom\u003d0.5444143703564275, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 4,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.38328664222976644, Condition name\u003dPREECLAMPSIA, pom\u003d0.6265288454567385, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 2,
+  "age": 40,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.6349112170915084, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 1,
+  "age": 48,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.16269204410204952, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 3,
+  "age": 42,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.2027847932253557, Condition name\u003dPREECLAMPSIA, pom\u003d0.5444143703564275, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 4,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.38328664222976644, Condition name\u003dPREECLAMPSIA, pom\u003d0.6265288454567385, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.647685853173582, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 2,
+  "age": 31,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.04022730199739124, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49826438988018645, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 31,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.04267047649804343, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49826438988018645, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 2,
+  "age": 31,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.04541904781127715, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49826438988018645, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 60,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3018320483575286, Condition name\u003dPPH, pom\u003d0.22699938348443172, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 2,
+  "age": 31,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.047709523905638575, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 4,
+  "age": 29,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.21239357796504849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49826438988018645, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 3,
+  "age": 60,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3018320483575286, Condition name\u003dPPH, pom\u003d0.22699938348443172, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 2,
+  "age": 31,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.049141071464614466, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 4,
+  "age": 29,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.17179518347378636, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49826438988018645, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 3,
+  "age": 60,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3018320483575286, Condition name\u003dPPH, pom\u003d0.22699938348443172, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 59,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.9007459960951146, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 7,
+  "ID": 2,
+  "age": 31,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.049785267866153615, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49826438988018645, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 3,
+  "age": 60,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3018320483575286, Condition name\u003dPPH, pom\u003d0.22699938348443172, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 5,
+  "age": 59,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.9007459960951146, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 7,
+  "ID": 4,
+  "age": 29,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.12612198967111649, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 6,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.618289912175387, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 8,
+  "ID": 2,
+  "age": 31,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.049973158483269206, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49826438988018645, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 3,
+  "age": 60,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3018320483575286, Condition name\u003dPPH, pom\u003d0.22699938348443172, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 5,
+  "age": 59,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.9007459960951146, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 8,
+  "ID": 4,
+  "age": 29,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.12612198967111649, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.618289912175387, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 9,
+  "ID": 2,
+  "age": 31,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.05, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 1,
+  "age": 47,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.49826438988018645, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 3,
+  "age": 60,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3018320483575286, Condition name\u003dPPH, pom\u003d0.22699938348443172, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 5,
+  "age": 59,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.9007459960951146, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 9,
+  "ID": 4,
+  "age": 29,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.12612198967111649, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 6,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.618289912175387, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4607083142202245, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 2,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.43147743397019356, Condition name\u003dPREECLAMPSIA, pom\u003d0.7222605796127238, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.43147743397019356, Condition name\u003dPREECLAMPSIA, pom\u003d0.7222605796127238, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4436836344609669, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 2,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.43147743397019356, Condition name\u003dPREECLAMPSIA, pom\u003d0.7222605796127238, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 3,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3452627258457252, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 2,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.43147743397019356, Condition name\u003dPREECLAMPSIA, pom\u003d0.7222605796127238, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 2,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.43147743397019356, Condition name\u003dPREECLAMPSIA, pom\u003d0.7222605796127238, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 3,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.23453920365357828, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 2,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.43147743397019356, Condition name\u003dPREECLAMPSIA, pom\u003d0.7222605796127238, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 3,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.23453920365357828, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 2,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.43147743397019356, Condition name\u003dPREECLAMPSIA, pom\u003d0.7222605796127238, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 3,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.23453920365357828, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 1,
+  "age": 26,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.35803123566516837, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 2,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.43147743397019356, Condition name\u003dPREECLAMPSIA, pom\u003d0.7222605796127238, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 3,
+  "age": 37,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.23453920365357828, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.34207187623898155, Condition name\u003dPPH, pom\u003d0.3825162855893607, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.34207187623898155, Condition name\u003dPPH, pom\u003d0.3825162855893607, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 36,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.44564073129386883, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 4,
+  "age": 34,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.22420213803222305, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.34207187623898155, Condition name\u003dPPH, pom\u003d0.3825162855893607, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 36,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.44564073129386883, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 4,
+  "age": 34,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.18065160352416731, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.34207187623898155, Condition name\u003dPPH, pom\u003d0.3825162855893607, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 3,
+  "age": 36,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.44564073129386883, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 4,
+  "age": 34,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.1316572522026046, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 2,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.34207187623898155, Condition name\u003dPPH, pom\u003d0.3825162855893607, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 3,
+  "age": 36,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.44564073129386883, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 4,
+  "age": 34,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.0908286261013023, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 3,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.34207187623898155, Condition name\u003dPPH, pom\u003d0.3825162855893607, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 3,
+  "age": 36,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.44564073129386883, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 4,
+  "age": 34,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.06531073478798836, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 4,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.34207187623898155, Condition name\u003dPPH, pom\u003d0.3825162855893607, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 3,
+  "age": 36,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.44564073129386883, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 5,
+  "age": 19,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5747680844366435, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 9,
+  "ID": 4,
+  "age": 34,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.05382768369699709, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 4,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 1,
+  "age": 32,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.464098999731881, Condition name\u003dPPH, pom\u003d0.3780745422143875, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 2,
+  "age": 20,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.34207187623898155, Condition name\u003dPPH, pom\u003d0.3825162855893607, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 3,
+  "age": 36,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.44564073129386883, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 5,
+  "age": 19,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5747680844366435, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 9,
+  "ID": 6,
+  "age": 24,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5914153461656655, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 0
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5790997550239799, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 2,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4468248162679849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 3,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4468248162679849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 4,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4468248162679849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 5,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4468248162679849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 6,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4468248162679849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4468248162679849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 7,
+  "ID": 2,
+  "age": 18,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7429352347098875, Condition name\u003dPPH, pom\u003d0.5471852757856125, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 3,
+  "age": 53,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.3086999128127542, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4468248162679849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 8,
+  "ID": 2,
+  "age": 18,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7429352347098875, Condition name\u003dPPH, pom\u003d0.5471852757856125, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 3,
+  "age": 53,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.24402493460956565, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 1,
+  "age": 52,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.4468248162679849, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 2,
+  "age": 18,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.7429352347098875, Condition name\u003dPPH, pom\u003d0.5471852757856125, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}{
+  "Cycle": 9,
+  "ID": 4,
+  "age": 62,
+  "Condition": "Condition name\u003dDELIVERY, pom\u003d0.5197230824842455, Condition name\u003dPREECLAMPSIA, pom\u003d0.9489119923134588, ",
+  "Survival": false,
+  "DoctorsUsed": 0,
+  "NursesUsed": 1,
+  "DosesUsed": 25.0
+}

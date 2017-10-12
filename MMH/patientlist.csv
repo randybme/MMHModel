@@ -1,0 +1,421 @@
+ID,Age,Condition,POM,Survival
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=2, age=60, Condition name=DELIVERY, pom=0.33655453298914406, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=2, age=60, Condition name=DELIVERY, pom=0.26491589974185803, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=2, age=60, Condition name=DELIVERY, pom=0.18432243733866127, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=2, age=60, Condition name=DELIVERY, pom=0.11716121866933064, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=2, age=60, Condition name=DELIVERY, pom=0.07518545700099899, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=2, age=60, Condition name=DELIVERY, pom=0.05629636425024975, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+Patient id=2, age=60, Condition name=DELIVERY, pom=0.05078704553128122, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.8476662546129091, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=2, age=43, Condition name=DELIVERY, pom=0.17860084307244412, ,Survived
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=2, age=43, Condition name=DELIVERY, pom=0.14645063230433308, ,Survived
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=3, age=58, Condition name=DELIVERY, pom=0.6172062953549909, ,Survived
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=2, age=43, Condition name=DELIVERY, pom=0.11028164519020818, ,Died
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=2, age=43, Condition name=DELIVERY, pom=0.11028164519020818, ,Died
+Patient id=3, age=58, Condition name=DELIVERY, pom=0.4754047215162432, ,Died
+Patient id=4, age=27, Condition name=DELIVERY, pom=0.6642719678021538, ,Died
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=2, age=43, Condition name=DELIVERY, pom=0.11028164519020818, ,Died
+Patient id=3, age=58, Condition name=DELIVERY, pom=0.4754047215162432, ,Died
+Patient id=4, age=27, Condition name=DELIVERY, pom=0.6642719678021538, ,Died
+Patient id=5, age=31, Condition name=DELIVERY, pom=0.27541598673566764, ,Survived
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=2, age=43, Condition name=DELIVERY, pom=0.11028164519020818, ,Died
+Patient id=3, age=58, Condition name=DELIVERY, pom=0.4754047215162432, ,Died
+Patient id=4, age=27, Condition name=DELIVERY, pom=0.6642719678021538, ,Died
+Patient id=5, age=31, Condition name=DELIVERY, pom=0.2761257647882443, ,Survived
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=2, age=43, Condition name=DELIVERY, pom=0.11028164519020818, ,Died
+Patient id=3, age=58, Condition name=DELIVERY, pom=0.4754047215162432, ,Died
+Patient id=4, age=27, Condition name=DELIVERY, pom=0.6642719678021538, ,Died
+Patient id=5, age=31, Condition name=DELIVERY, pom=0.277190662185606, ,Survived
+Patient id=1, age=62, Condition name=DELIVERY, pom=0.17528964324660784, Condition name=PREECLAMPSIA, pom=0.7760158490099942, ,Died
+Patient id=2, age=43, Condition name=DELIVERY, pom=0.11028164519020818, ,Died
+Patient id=3, age=58, Condition name=DELIVERY, pom=0.4754047215162432, ,Died
+Patient id=4, age=27, Condition name=DELIVERY, pom=0.6642719678021538, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.24856427048424473, Condition name=PREECLAMPSIA, pom=0.8625863143937583, ,Died
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.24856427048424473, Condition name=PREECLAMPSIA, pom=0.8625863143937583, ,Died
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.24856427048424473, Condition name=PREECLAMPSIA, pom=0.8625863143937583, ,Died
+Patient id=4, age=55, Condition name=DELIVERY, pom=0.36838940804558695, Condition name=SEPSIS, pom=0.20226737066006706, ,Died
+Patient id=5, age=18, Condition name=DELIVERY, pom=0.038696196795440875, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.24856427048424473, Condition name=PREECLAMPSIA, pom=0.8625863143937583, ,Died
+Patient id=4, age=55, Condition name=DELIVERY, pom=0.36838940804558695, Condition name=SEPSIS, pom=0.20226737066006706, ,Died
+Patient id=5, age=18, Condition name=DELIVERY, pom=0.03894819255527296, ,Survived
+Patient id=6, age=43, Condition name=DELIVERY, pom=0.4025179236858088, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.24856427048424473, Condition name=PREECLAMPSIA, pom=0.8625863143937583, ,Died
+Patient id=4, age=55, Condition name=DELIVERY, pom=0.36838940804558695, Condition name=SEPSIS, pom=0.20226737066006706, ,Died
+Patient id=5, age=18, Condition name=DELIVERY, pom=0.03932812113136863, ,Survived
+Patient id=6, age=43, Condition name=DELIVERY, pom=0.40324972105822815, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.7845146667646943, ,Died
+Patient id=2, age=58, Condition name=DELIVERY, pom=0.5268083098295377, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.24856427048424473, Condition name=PREECLAMPSIA, pom=0.8625863143937583, ,Died
+Patient id=4, age=55, Condition name=DELIVERY, pom=0.36838940804558695, Condition name=SEPSIS, pom=0.20226737066006706, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=2, age=38, Condition name=DELIVERY, pom=0.5948621600323589, ,Survived
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=2, age=38, Condition name=DELIVERY, pom=0.45864662002426915, ,Survived
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=2, age=38, Condition name=DELIVERY, pom=0.3054041375151682, ,Survived
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=2, age=38, Condition name=DELIVERY, pom=0.1777020687575841, ,Survived
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.45202060851390796, ,Died
+Patient id=2, age=38, Condition name=DELIVERY, pom=0.09788827578409404, ,Survived
+Patient id=4, age=28, Condition name=DELIVERY, pom=0.4056305358488781, ,Survived
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.45202060851390796, ,Died
+Patient id=2, age=38, Condition name=DELIVERY, pom=0.061972068946023515, ,Survived
+Patient id=4, age=28, Condition name=DELIVERY, pom=0.3167229018866586, ,Survived
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.45202060851390796, ,Died
+Patient id=5, age=25, Condition name=DELIVERY, pom=0.3747279196248621, ,Died
+Patient id=2, age=38, Condition name=DELIVERY, pom=0.051496508618252945, ,Survived
+Patient id=1, age=53, Condition name=DELIVERY, pom=0.3173027322000161, ,Died
+Patient id=3, age=35, Condition name=DELIVERY, pom=0.45202060851390796, ,Died
+Patient id=5, age=25, Condition name=DELIVERY, pom=0.3747279196248621, ,Died
+Patient id=4, age=28, Condition name=DELIVERY, pom=0.21670181367916164, ,Died
+Patient id=6, age=50, Condition name=DELIVERY, pom=0.993881355008012, Condition name=SEPSIS, pom=0.7307964590734206, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=2, age=35, Condition name=DELIVERY, pom=0.6267456377528274, ,Died
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=2, age=35, Condition name=DELIVERY, pom=0.6267456377528274, ,Died
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=2, age=35, Condition name=DELIVERY, pom=0.6267456377528274, ,Died
+Patient id=3, age=52, Condition name=DELIVERY, pom=0.7739705689431152, ,Survived
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=2, age=35, Condition name=DELIVERY, pom=0.6267456377528274, ,Died
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=2, age=35, Condition name=DELIVERY, pom=0.6267456377528274, ,Died
+Patient id=3, age=52, Condition name=DELIVERY, pom=0.5929779267073364, ,Died
+Patient id=4, age=30, Condition name=DELIVERY, pom=0.5631542683482218, ,Survived
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=2, age=35, Condition name=DELIVERY, pom=0.6267456377528274, ,Died
+Patient id=3, age=52, Condition name=DELIVERY, pom=0.5929779267073364, ,Died
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=2, age=35, Condition name=DELIVERY, pom=0.6267456377528274, ,Died
+Patient id=3, age=52, Condition name=DELIVERY, pom=0.5929779267073364, ,Died
+Patient id=4, age=30, Condition name=DELIVERY, pom=0.4348657012611663, ,Died
+Patient id=1, age=38, Condition name=DELIVERY, pom=0.769597957918626, ,Died
+Patient id=2, age=35, Condition name=DELIVERY, pom=0.6267456377528274, ,Died
+Patient id=3, age=52, Condition name=DELIVERY, pom=0.5929779267073364, ,Died
+Patient id=4, age=30, Condition name=DELIVERY, pom=0.4348657012611663, ,Died
+Patient id=5, age=24, Condition name=DELIVERY, pom=0.8771344456110775, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.5304193050090019, ,Survived
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.4103144787567514, ,Survived
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.27519654922296966, ,Died
+Patient id=3, age=24, Condition name=DELIVERY, pom=0.513687122093334, Condition name=PREECLAMPSIA, pom=0.4761382406482756, ,Died
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.27519654922296966, ,Died
+Patient id=3, age=24, Condition name=DELIVERY, pom=0.513687122093334, Condition name=PREECLAMPSIA, pom=0.4761382406482756, ,Died
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.27519654922296966, ,Died
+Patient id=3, age=24, Condition name=DELIVERY, pom=0.513687122093334, Condition name=PREECLAMPSIA, pom=0.4761382406482756, ,Died
+Patient id=4, age=41, Condition name=DELIVERY, pom=0.5070670843832552, Condition name=PPH, pom=0.987029811844434, ,Died
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.27519654922296966, ,Died
+Patient id=3, age=24, Condition name=DELIVERY, pom=0.513687122093334, Condition name=PREECLAMPSIA, pom=0.4761382406482756, ,Died
+Patient id=4, age=41, Condition name=DELIVERY, pom=0.5070670843832552, Condition name=PPH, pom=0.987029811844434, ,Died
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.27519654922296966, ,Died
+Patient id=3, age=24, Condition name=DELIVERY, pom=0.513687122093334, Condition name=PREECLAMPSIA, pom=0.4761382406482756, ,Died
+Patient id=4, age=41, Condition name=DELIVERY, pom=0.5070670843832552, Condition name=PPH, pom=0.987029811844434, ,Died
+Patient id=5, age=19, Condition name=DELIVERY, pom=0.6180193316154323, Condition name=SEPSIS, pom=0.36167119264433617, ,Died
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.27519654922296966, ,Died
+Patient id=3, age=24, Condition name=DELIVERY, pom=0.513687122093334, Condition name=PREECLAMPSIA, pom=0.4761382406482756, ,Died
+Patient id=4, age=41, Condition name=DELIVERY, pom=0.5070670843832552, Condition name=PPH, pom=0.987029811844434, ,Died
+Patient id=5, age=19, Condition name=DELIVERY, pom=0.6180193316154323, Condition name=SEPSIS, pom=0.36167119264433617, ,Died
+Patient id=1, age=49, Condition name=DELIVERY, pom=0.5442602911387684, Condition name=SEPSIS, pom=0.515001296458977, ,Died
+Patient id=2, age=46, Condition name=DELIVERY, pom=0.27519654922296966, ,Died
+Patient id=3, age=24, Condition name=DELIVERY, pom=0.513687122093334, Condition name=PREECLAMPSIA, pom=0.4761382406482756, ,Died
+Patient id=4, age=41, Condition name=DELIVERY, pom=0.5070670843832552, Condition name=PPH, pom=0.987029811844434, ,Died
+Patient id=5, age=19, Condition name=DELIVERY, pom=0.6180193316154323, Condition name=SEPSIS, pom=0.36167119264433617, ,Died
+Patient id=6, age=49, Condition name=DELIVERY, pom=0.5213047243154356, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=2, age=45, Condition name=DELIVERY, pom=0.7362426073637905, ,Died
+Patient id=3, age=57, Condition name=DELIVERY, pom=0.048477477083697755, ,Survived
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=2, age=45, Condition name=DELIVERY, pom=0.7362426073637905, ,Died
+Patient id=3, age=57, Condition name=DELIVERY, pom=0.04885810781277332, ,Survived
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=2, age=45, Condition name=DELIVERY, pom=0.7362426073637905, ,Died
+Patient id=4, age=46, Condition name=DELIVERY, pom=0.6143217381204493, ,Died
+Patient id=3, age=57, Condition name=DELIVERY, pom=0.04928631738298332, ,Survived
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=2, age=45, Condition name=DELIVERY, pom=0.7362426073637905, ,Died
+Patient id=4, age=46, Condition name=DELIVERY, pom=0.6143217381204493, ,Died
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=2, age=45, Condition name=DELIVERY, pom=0.7362426073637905, ,Died
+Patient id=4, age=46, Condition name=DELIVERY, pom=0.6143217381204493, ,Died
+Patient id=3, age=57, Condition name=DELIVERY, pom=0.04964315869149166, ,Died
+Patient id=5, age=61, Condition name=DELIVERY, pom=0.508837364165013, Condition name=PPH, pom=0.5793835896152735, ,Died
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=2, age=45, Condition name=DELIVERY, pom=0.7362426073637905, ,Died
+Patient id=4, age=46, Condition name=DELIVERY, pom=0.6143217381204493, ,Died
+Patient id=3, age=57, Condition name=DELIVERY, pom=0.04964315869149166, ,Died
+Patient id=5, age=61, Condition name=DELIVERY, pom=0.508837364165013, Condition name=PPH, pom=0.5793835896152735, ,Died
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=2, age=45, Condition name=DELIVERY, pom=0.7362426073637905, ,Died
+Patient id=4, age=46, Condition name=DELIVERY, pom=0.6143217381204493, ,Died
+Patient id=3, age=57, Condition name=DELIVERY, pom=0.04964315869149166, ,Died
+Patient id=5, age=61, Condition name=DELIVERY, pom=0.508837364165013, Condition name=PPH, pom=0.5793835896152735, ,Died
+Patient id=6, age=46, Condition name=DELIVERY, pom=0.6253264735114098, ,Died
+Patient id=7, age=48, Condition name=DELIVERY, pom=0.47855071091961404, ,Survived
+Patient id=1, age=51, Condition name=DELIVERY, pom=0.8666022305440364, ,Died
+Patient id=2, age=45, Condition name=DELIVERY, pom=0.7362426073637905, ,Died
+Patient id=4, age=46, Condition name=DELIVERY, pom=0.6143217381204493, ,Died
+Patient id=3, age=57, Condition name=DELIVERY, pom=0.04964315869149166, ,Died
+Patient id=5, age=61, Condition name=DELIVERY, pom=0.508837364165013, Condition name=PPH, pom=0.5793835896152735, ,Died
+Patient id=6, age=46, Condition name=DELIVERY, pom=0.6253264735114098, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.6446474765164522, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.49598560738733904, ,Survived
+Patient id=2, age=27, Condition name=DELIVERY, pom=0.4177102442439964, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.3287410046170869, ,Died
+Patient id=2, age=27, Condition name=DELIVERY, pom=0.3257826831829973, ,Survived
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.5517303763795768, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.3287410046170869, ,Died
+Patient id=2, age=27, Condition name=DELIVERY, pom=0.22236417698937333, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.3287410046170869, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.42629778228468257, ,Died
+Patient id=2, age=27, Condition name=DELIVERY, pom=0.13618208849468666, ,Survived
+Patient id=4, age=32, Condition name=DELIVERY, pom=0.6828173584381919, Condition name=PREECLAMPSIA, pom=0.09715758435798716, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.3287410046170869, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.42629778228468257, ,Died
+Patient id=2, age=27, Condition name=DELIVERY, pom=0.08231828318550749, ,Survived
+Patient id=5, age=51, Condition name=DELIVERY, pom=0.5367094298505404, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.3287410046170869, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.42629778228468257, ,Died
+Patient id=4, age=32, Condition name=DELIVERY, pom=0.524613018828644, Condition name=PREECLAMPSIA, pom=0.09715758435798716, ,Died
+Patient id=2, age=27, Condition name=DELIVERY, pom=0.05807957079637688, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.3287410046170869, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.42629778228468257, ,Died
+Patient id=4, age=32, Condition name=DELIVERY, pom=0.524613018828644, Condition name=PREECLAMPSIA, pom=0.09715758435798716, ,Died
+Patient id=5, age=51, Condition name=DELIVERY, pom=0.5373764976153085, ,Died
+Patient id=2, age=27, Condition name=DELIVERY, pom=0.051009946349547114, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.3287410046170869, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.42629778228468257, ,Died
+Patient id=4, age=32, Condition name=DELIVERY, pom=0.524613018828644, Condition name=PREECLAMPSIA, pom=0.09715758435798716, ,Died
+Patient id=5, age=51, Condition name=DELIVERY, pom=0.5373764976153085, ,Died
+Patient id=6, age=29, Condition name=DELIVERY, pom=0.7734499610791071, ,Died
+Patient id=2, age=27, Condition name=DELIVERY, pom=0.05, ,Survived
+Patient id=7, age=23, Condition name=DELIVERY, pom=0.4795436798968036, Condition name=PREECLAMPSIA, pom=0.06871056831686308, ,Survived
+Patient id=1, age=22, Condition name=DELIVERY, pom=0.3287410046170869, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.42629778228468257, ,Died
+Patient id=4, age=32, Condition name=DELIVERY, pom=0.524613018828644, Condition name=PREECLAMPSIA, pom=0.09715758435798716, ,Died
+Patient id=5, age=51, Condition name=DELIVERY, pom=0.5373764976153085, ,Died
+Patient id=6, age=29, Condition name=DELIVERY, pom=0.7734499610791071, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.18564845789800738, ,Survived
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.15173634342350556, ,Survived
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.11358521463969097, ,Died
+Patient id=3, age=22, Condition name=DELIVERY, pom=0.3832398515983387, ,Survived
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.11358521463969097, ,Died
+Patient id=3, age=22, Condition name=DELIVERY, pom=0.29992988869875403, ,Survived
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.11358521463969097, ,Died
+Patient id=4, age=53, Condition name=DELIVERY, pom=0.844094311800202, ,Died
+Patient id=3, age=22, Condition name=DELIVERY, pom=0.2062061804367213, ,Survived
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.11358521463969097, ,Died
+Patient id=4, age=53, Condition name=DELIVERY, pom=0.844094311800202, ,Died
+Patient id=3, age=22, Condition name=DELIVERY, pom=0.12810309021836064, ,Survived
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.7931760177651387, Condition name=PREECLAMPSIA, pom=0.3593836748538738, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.11358521463969097, ,Died
+Patient id=4, age=53, Condition name=DELIVERY, pom=0.844094311800202, ,Died
+Patient id=5, age=54, Condition name=DELIVERY, pom=0.38225881698132935, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.5308193881687445, ,Survived
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.4106145411265584, ,Survived
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.275384088204099, ,Survived
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.16269204410204952, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.2027847932253557, Condition name=PREECLAMPSIA, pom=0.5444143703564275, ,Died
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.16269204410204952, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.2027847932253557, Condition name=PREECLAMPSIA, pom=0.5444143703564275, ,Died
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.16269204410204952, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.2027847932253557, Condition name=PREECLAMPSIA, pom=0.5444143703564275, ,Died
+Patient id=4, age=37, Condition name=DELIVERY, pom=0.38328664222976644, Condition name=PREECLAMPSIA, pom=0.6265288454567385, ,Died
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.16269204410204952, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.2027847932253557, Condition name=PREECLAMPSIA, pom=0.5444143703564275, ,Died
+Patient id=4, age=37, Condition name=DELIVERY, pom=0.38328664222976644, Condition name=PREECLAMPSIA, pom=0.6265288454567385, ,Died
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.16269204410204952, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.2027847932253557, Condition name=PREECLAMPSIA, pom=0.5444143703564275, ,Died
+Patient id=4, age=37, Condition name=DELIVERY, pom=0.38328664222976644, Condition name=PREECLAMPSIA, pom=0.6265288454567385, ,Died
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.16269204410204952, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.2027847932253557, Condition name=PREECLAMPSIA, pom=0.5444143703564275, ,Died
+Patient id=4, age=37, Condition name=DELIVERY, pom=0.38328664222976644, Condition name=PREECLAMPSIA, pom=0.6265288454567385, ,Died
+Patient id=2, age=40, Condition name=DELIVERY, pom=0.6349112170915084, ,Died
+Patient id=1, age=48, Condition name=DELIVERY, pom=0.16269204410204952, ,Died
+Patient id=3, age=42, Condition name=DELIVERY, pom=0.2027847932253557, Condition name=PREECLAMPSIA, pom=0.5444143703564275, ,Died
+Patient id=4, age=37, Condition name=DELIVERY, pom=0.38328664222976644, Condition name=PREECLAMPSIA, pom=0.6265288454567385, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.647685853173582, ,Survived
+Patient id=2, age=31, Condition name=DELIVERY, pom=0.04022730199739124, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.49826438988018645, ,Died
+Patient id=2, age=31, Condition name=DELIVERY, pom=0.04267047649804343, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.49826438988018645, ,Died
+Patient id=2, age=31, Condition name=DELIVERY, pom=0.04541904781127715, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.49826438988018645, ,Died
+Patient id=3, age=60, Condition name=DELIVERY, pom=0.3018320483575286, Condition name=PPH, pom=0.22699938348443172, ,Died
+Patient id=2, age=31, Condition name=DELIVERY, pom=0.047709523905638575, ,Survived
+Patient id=4, age=29, Condition name=DELIVERY, pom=0.21239357796504849, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.49826438988018645, ,Died
+Patient id=3, age=60, Condition name=DELIVERY, pom=0.3018320483575286, Condition name=PPH, pom=0.22699938348443172, ,Died
+Patient id=2, age=31, Condition name=DELIVERY, pom=0.049141071464614466, ,Survived
+Patient id=4, age=29, Condition name=DELIVERY, pom=0.17179518347378636, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.49826438988018645, ,Died
+Patient id=3, age=60, Condition name=DELIVERY, pom=0.3018320483575286, Condition name=PPH, pom=0.22699938348443172, ,Died
+Patient id=5, age=59, Condition name=DELIVERY, pom=0.9007459960951146, ,Died
+Patient id=2, age=31, Condition name=DELIVERY, pom=0.049785267866153615, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.49826438988018645, ,Died
+Patient id=3, age=60, Condition name=DELIVERY, pom=0.3018320483575286, Condition name=PPH, pom=0.22699938348443172, ,Died
+Patient id=5, age=59, Condition name=DELIVERY, pom=0.9007459960951146, ,Died
+Patient id=4, age=29, Condition name=DELIVERY, pom=0.12612198967111649, ,Died
+Patient id=6, age=26, Condition name=DELIVERY, pom=0.618289912175387, ,Died
+Patient id=2, age=31, Condition name=DELIVERY, pom=0.049973158483269206, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.49826438988018645, ,Died
+Patient id=3, age=60, Condition name=DELIVERY, pom=0.3018320483575286, Condition name=PPH, pom=0.22699938348443172, ,Died
+Patient id=5, age=59, Condition name=DELIVERY, pom=0.9007459960951146, ,Died
+Patient id=4, age=29, Condition name=DELIVERY, pom=0.12612198967111649, ,Died
+Patient id=6, age=26, Condition name=DELIVERY, pom=0.618289912175387, ,Died
+Patient id=2, age=31, Condition name=DELIVERY, pom=0.05, ,Survived
+Patient id=1, age=47, Condition name=DELIVERY, pom=0.49826438988018645, ,Died
+Patient id=3, age=60, Condition name=DELIVERY, pom=0.3018320483575286, Condition name=PPH, pom=0.22699938348443172, ,Died
+Patient id=5, age=59, Condition name=DELIVERY, pom=0.9007459960951146, ,Died
+Patient id=4, age=29, Condition name=DELIVERY, pom=0.12612198967111649, ,Died
+Patient id=6, age=26, Condition name=DELIVERY, pom=0.618289912175387, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.4607083142202245, ,Survived
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=2, age=62, Condition name=DELIVERY, pom=0.43147743397019356, Condition name=PREECLAMPSIA, pom=0.7222605796127238, ,Died
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=2, age=62, Condition name=DELIVERY, pom=0.43147743397019356, Condition name=PREECLAMPSIA, pom=0.7222605796127238, ,Died
+Patient id=3, age=37, Condition name=DELIVERY, pom=0.4436836344609669, ,Survived
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=2, age=62, Condition name=DELIVERY, pom=0.43147743397019356, Condition name=PREECLAMPSIA, pom=0.7222605796127238, ,Died
+Patient id=3, age=37, Condition name=DELIVERY, pom=0.3452627258457252, ,Survived
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=2, age=62, Condition name=DELIVERY, pom=0.43147743397019356, Condition name=PREECLAMPSIA, pom=0.7222605796127238, ,Died
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=2, age=62, Condition name=DELIVERY, pom=0.43147743397019356, Condition name=PREECLAMPSIA, pom=0.7222605796127238, ,Died
+Patient id=3, age=37, Condition name=DELIVERY, pom=0.23453920365357828, ,Died
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=2, age=62, Condition name=DELIVERY, pom=0.43147743397019356, Condition name=PREECLAMPSIA, pom=0.7222605796127238, ,Died
+Patient id=3, age=37, Condition name=DELIVERY, pom=0.23453920365357828, ,Died
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=2, age=62, Condition name=DELIVERY, pom=0.43147743397019356, Condition name=PREECLAMPSIA, pom=0.7222605796127238, ,Died
+Patient id=3, age=37, Condition name=DELIVERY, pom=0.23453920365357828, ,Died
+Patient id=1, age=26, Condition name=DELIVERY, pom=0.35803123566516837, ,Died
+Patient id=2, age=62, Condition name=DELIVERY, pom=0.43147743397019356, Condition name=PREECLAMPSIA, pom=0.7222605796127238, ,Died
+Patient id=3, age=37, Condition name=DELIVERY, pom=0.23453920365357828, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.34207187623898155, Condition name=PPH, pom=0.3825162855893607, ,Died
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.34207187623898155, Condition name=PPH, pom=0.3825162855893607, ,Died
+Patient id=3, age=36, Condition name=DELIVERY, pom=0.44564073129386883, ,Died
+Patient id=4, age=34, Condition name=DELIVERY, pom=0.22420213803222305, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.34207187623898155, Condition name=PPH, pom=0.3825162855893607, ,Died
+Patient id=3, age=36, Condition name=DELIVERY, pom=0.44564073129386883, ,Died
+Patient id=4, age=34, Condition name=DELIVERY, pom=0.18065160352416731, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.34207187623898155, Condition name=PPH, pom=0.3825162855893607, ,Died
+Patient id=3, age=36, Condition name=DELIVERY, pom=0.44564073129386883, ,Died
+Patient id=4, age=34, Condition name=DELIVERY, pom=0.1316572522026046, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.34207187623898155, Condition name=PPH, pom=0.3825162855893607, ,Died
+Patient id=3, age=36, Condition name=DELIVERY, pom=0.44564073129386883, ,Died
+Patient id=4, age=34, Condition name=DELIVERY, pom=0.0908286261013023, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.34207187623898155, Condition name=PPH, pom=0.3825162855893607, ,Died
+Patient id=3, age=36, Condition name=DELIVERY, pom=0.44564073129386883, ,Died
+Patient id=4, age=34, Condition name=DELIVERY, pom=0.06531073478798836, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.34207187623898155, Condition name=PPH, pom=0.3825162855893607, ,Died
+Patient id=3, age=36, Condition name=DELIVERY, pom=0.44564073129386883, ,Died
+Patient id=5, age=19, Condition name=DELIVERY, pom=0.5747680844366435, ,Died
+Patient id=4, age=34, Condition name=DELIVERY, pom=0.05382768369699709, ,Survived
+Patient id=1, age=32, Condition name=DELIVERY, pom=0.464098999731881, Condition name=PPH, pom=0.3780745422143875, ,Died
+Patient id=2, age=20, Condition name=DELIVERY, pom=0.34207187623898155, Condition name=PPH, pom=0.3825162855893607, ,Died
+Patient id=3, age=36, Condition name=DELIVERY, pom=0.44564073129386883, ,Died
+Patient id=5, age=19, Condition name=DELIVERY, pom=0.5747680844366435, ,Died
+Patient id=6, age=24, Condition name=DELIVERY, pom=0.5914153461656655, ,Died
+ID,Age,Condition,POM,Survival
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.5790997550239799, ,Survived
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.4468248162679849, ,Died
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.4468248162679849, ,Died
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.4468248162679849, ,Died
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.4468248162679849, ,Died
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.4468248162679849, ,Died
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.4468248162679849, ,Died
+Patient id=2, age=18, Condition name=DELIVERY, pom=0.7429352347098875, Condition name=PPH, pom=0.5471852757856125, ,Died
+Patient id=3, age=53, Condition name=DELIVERY, pom=0.3086999128127542, ,Survived
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.4468248162679849, ,Died
+Patient id=2, age=18, Condition name=DELIVERY, pom=0.7429352347098875, Condition name=PPH, pom=0.5471852757856125, ,Died
+Patient id=3, age=53, Condition name=DELIVERY, pom=0.24402493460956565, ,Survived
+Patient id=1, age=52, Condition name=DELIVERY, pom=0.4468248162679849, ,Died
+Patient id=2, age=18, Condition name=DELIVERY, pom=0.7429352347098875, Condition name=PPH, pom=0.5471852757856125, ,Died
+Patient id=4, age=62, Condition name=DELIVERY, pom=0.5197230824842455, Condition name=PREECLAMPSIA, pom=0.9489119923134588, ,Died
