@@ -1,0 +1,561 @@
+{
+  "Cycle": 9,
+  "ID": 6,
+  "age": 33,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 0,
+  "ID": 0,
+  "age": 0,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 0
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 54,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 54,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 51,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 29,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 29,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 29,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 29,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 3,
+  "age": 29,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 9,
+  "ID": 4,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 1,
+  "ID": 1,
+  "age": 29,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 2,
+  "ID": 2,
+  "age": 34,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 2,
+  "ID": 2,
+  "age": 34,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 26,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 26,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 26,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 4,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 4,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 4,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 4,
+  "age": 44,
+  "isAlive": false,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 4,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 4,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 4,
+  "ID": 4,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 45,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 45,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 45,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 45,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 45,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 45,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 45,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 5,
+  "age": 45,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 37,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 37,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 37,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 37,
+  "isAlive": false,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 37,
+  "isAlive": false,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 37,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 37,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 6,
+  "age": 37,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 38,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 38,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 38,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 25,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 2,
+  "age": 25,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 5,
+  "ID": 3,
+  "age": 58,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 4,
+  "age": 26,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 4,
+  "age": 26,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 4,
+  "age": 26,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 6,
+  "ID": 4,
+  "age": 26,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 39,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 39,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 2,
+  "ID": 2,
+  "age": 58,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 48,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 48,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 48,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 3,
+  "ID": 3,
+  "age": 48,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 7,
+  "ID": 4,
+  "age": 22,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 5,
+  "age": 50,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 8,
+  "ID": 5,
+  "age": 50,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 0,
+  "ID": 1,
+  "age": 36,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 1,
+  "ID": 2,
+  "age": 24,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 2,
+  "ID": 3,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 2,
+  "ID": 3,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 2,
+  "ID": 3,
+  "age": 44,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 5,
+  "ID": 4,
+  "age": 18,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 5,
+  "ID": 4,
+  "age": 18,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 5,
+  "ID": 4,
+  "age": 18,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 5,
+  "ID": 4,
+  "age": 18,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}{
+  "Cycle": 9,
+  "ID": 5,
+  "age": 18,
+  "isAlive": true,
+  "POM": 0,
+  "SecondPOM": 0,
+  "DoctorsUsed": 1
+}
