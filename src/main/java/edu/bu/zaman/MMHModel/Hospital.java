@@ -59,8 +59,7 @@ public class Hospital
         DETTOL,
         POVIDINE,
         METH_SPIRIT,
-        CHLORINE,
-        
+        CHLORINE        
     }
     
     /**
@@ -136,8 +135,7 @@ public class Hospital
         stockDisposableResource(MaterialResource.DETTOL, 10);
         stockDisposableResource(MaterialResource.POVIDINE, 40);
         stockDisposableResource(MaterialResource.METH_SPIRIT, 15);
-        stockDisposableResource(MaterialResource.CHLORINE, 5);
-        
+        stockDisposableResource(MaterialResource.CHLORINE, 5);        
     }
     
     /**
@@ -204,30 +202,34 @@ public class Hospital
         
         m_totalDisposableResources.put(resource, currentAmount);
     }
-    public static HashMap<MaterialResource, Double> getHospitalStock() {
+    
+    public static HashMap<MaterialResource, Double> getHospitalStock() 
+    {
     	return m_totalDisposableResources;
     }
-    public static void timeCheck(int cycle) {
-    	if (cycle%16 == 0)
+    
+    public static void timeCheck(int cycle) 
+    {
+    	if (cycle % 16 == 0)
     	{
     		Hospital.nurses = 5;
     		Hospital.doctors = 3;
     	}
-    	else if ((cycle%8 == 0) && (cycle%16 != 0))
+    	else if ((cycle % 8 == 0) && (cycle % 16 != 0))
     	{
     		Hospital.doctors = 1;
     	}
-    	else if (cycle%4 == 0 && (cycle%8 != 0) && (cycle%16 != 0))
+    	else if (cycle % 4 == 0 && (cycle % 8 != 0) && (cycle % 16 != 0))
     	{
     		Hospital.nurses = 3;
     		Hospital.doctors = 2;
     	}
     	
-    	if (cycle%10 == 0) {
+    	if (cycle % 10 == 0) 
+    	{
     		stockDisposableResource(MaterialResource.OXYTOCIN, 15000);
             stockDisposableResource(MaterialResource.HYDRALAZINE, 2200);
-            stockDisposableResource(MaterialResource.MG_SO4, 15000);
-           
+            stockDisposableResource(MaterialResource.MG_SO4, 15000);           
     	}
     }
 }

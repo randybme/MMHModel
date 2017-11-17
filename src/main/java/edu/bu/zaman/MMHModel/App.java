@@ -30,11 +30,6 @@ public class App
 	
 	static List<String> jsonList = new ArrayList<String>();
 	
-
-
-
-	
-	
 	/**
 	 * Filename of the setup excel spreadsheet stored in the project root folder.
 	 */
@@ -55,9 +50,7 @@ public class App
 	 * json/csv/ser output files
 	 *
 	 */
-	
-	
-	
+
 	public static String getSetupFilepath()
 	{
 		String currentDir = System.getProperty("user.dir");
@@ -66,8 +59,6 @@ public class App
         return filepath;
 	}
 	
-	
-	
 	public static String pointJSONfilepath() {
 		
 		String currentDir = System.getProperty("user.dir");
@@ -75,8 +66,6 @@ public class App
         
         return filepath;
 	}
-	
-	
 	
 	public static String getSpreadsheetFilepath()
 	{
@@ -93,8 +82,7 @@ public class App
         
         return filepath;
 	}
-	
-	
+		
 	/***********************************************************MODEL**************************************************************
 	 * The main run loop for the model.
 	 * update collection after every var
@@ -108,23 +96,16 @@ public class App
     	FileWriter writer = new FileWriter(spreadsheetPath, true);
     	
     	Collector.writeLine(writer, Arrays.asList("ID", "Age", "Condition", "POM", "Survival"));
-    	   	
     	
+    	Hospital.nurses = 10;
+		Hospital.doctors = 10;
     	
         ArrayList<Patient> currentPatients = new ArrayList<>();
         ArrayList<Patient> deceasedPatients = new ArrayList<>();
-        
-        
-        
-        
+
 		double probabilityNewPatient = 0.41; // The probability of acquiring a new patient
 		int totalCycles = 10; // Number of cycles to run simulation, 1 cycle is 15 minutes
-
-		Hospital.nurses = 10;
-		Hospital.doctors = 10;
-		//TODO export
-		
-		
+				
         // Iterates through cycles of 15 minutes
 		for (int cycle = 0; cycle < totalCycles; cycle++)
         {
@@ -140,24 +121,13 @@ public class App
 			System.out.println("Cycle " + cycle + ", " + currentPatients.size() +  " patients");
 			double newPatient = Math.random();
 		
-			
-			
 			if (newPatient <= probabilityNewPatient);
-			//if (cycle == 1)
 			{
                 // Create a new patient with a random age and set of conditions
-                // LIMITATION: Can only add 1 patient per cycle
                 Patient p = Shiva.createPatient(18, 45);
 				currentPatients.add(p);
 
-				
-				
-									
-
-               
-                //System.out.println("Creating patient: " + p.toString());
-                
-
+                // TODO: Implement ability to add multiple patients at once
 			} 
 
             /////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +147,7 @@ public class App
                 @Override
                 public int compare(Patient patient1, Patient patient2)
                 {
-                	int diff = 0;
+                	/*int diff = 0;
                 	if ((patient2.probabilityOfMortality() - patient1.probabilityOfMortality()) < 0)
                 	{
                 		diff = -1;
@@ -185,8 +155,9 @@ public class App
                 	else if  (((patient2.probabilityOfMortality() - patient1.probabilityOfMortality()) > 0))
                 	{
                 		diff = 1;
-                	}
-                return diff;
+                	}*
+                return diff;*/
+                	return Double.compare(patient2.probabilityOfMortality(), patient2.probabilityOfMortality());
                 }
             });
             
@@ -227,8 +198,10 @@ public class App
 	                        break;
 	                    }
 	                }
+	                
 	                System.out.println(patient.toString());
 	                System.out.println("Resources for patient " + patient.getPatientId());
+	                
 	                for (Hospital.MaterialResource resource: requiredMaterialResources.keySet()){
 	
 	                    String key =resource.toString();
@@ -236,10 +209,7 @@ public class App
 	                    System.out.println("\t" + key + " " + value);  
 	                }
 	                
-	                
-	                
-	                if (Hospital.nurses < requiredNurses || 
-	                		Hospital.doctors < requiredDoctors)
+	                if (Hospital.nurses < requiredNurses || Hospital.doctors < requiredDoctors)
 	                {
 	                    resourcesAvailable = false;
 	                    //System.out.println("No staff resources for patient " + patient.getPatientId());
@@ -257,9 +227,7 @@ public class App
 	                		Hospital.consumeResource(resource, requiredMaterialResources.get(resource));            
 	                        //patient.setDoses(requiredMaterialResources.get(resource));
 	                    }
-	                	
-	                    
-	                    
+	                		                    
 	                    // Check out the number of nurses and doctors required for treatment in the current cycle
 	                    Hospital.nurses -= requiredNurses;
 	                    
@@ -274,9 +242,7 @@ public class App
 	                    //System.out.println("Number of doctors in the hospital: " + Hospital.doctors);
 	                    
 	                    patient.setDoctor(requiredDoctors);
-	                    patient.setNurse(requiredNurses);
-	                    
-	           
+	                    patient.setNurse(requiredNurses);	                   
 	
 	                    // Treat the patient, updating his or her probability of mortality
 	                    plan.treatPatient();
@@ -324,9 +290,6 @@ public class App
             // human resources that are now available after the current treatment cycle.
             /////////////////////////////////////////////////////////////////////////////////
 
-
-            
-            
             Iterator<Patient> iterator = currentPatients.iterator();
             while (iterator.hasNext())
             {
@@ -346,15 +309,9 @@ public class App
 	                    // Add patient to running list of deceased patients and remove from the list of
 	                    // current patients
 	                    deceasedPatients.add(patient);
-	                    iterator.remove();
-	                  
+	                    iterator.remove();	                  
 				 	}
-				 	
-				 	
-				 	
-				 	
-				 	
-	                 
+
 				 	int freeNurses = plan.freeNursesAfterTreatment();
 				 	int freeDoctors = plan.freeDoctorsAfterTreatment();
 	                 
@@ -367,7 +324,6 @@ public class App
 				 	//System.out.println("Doctors in the hospital (end of cycle): " + Hospital.doctors);
 				 	//System.out.println(" ");
                 }
-
 			 }
 
 			 /*
@@ -376,11 +332,12 @@ public class App
 
 			 */
 
-			 // CHECK: How many cycles until night shift?
+			 // TODO: Update staff resources based on day/night shifts
             
             //System.out.println("Cycle " + cycle + ", " + currentPatients.size() + " patients");
             System.out.println(" ");
             System.out.println(" ");
+            
             /**********************************************************JSON STORE!************************************/
            // gsonBuild(Cycle, ID, Age, Survival, DoctorsUsed);
             if (cycle%100 == 0)
@@ -392,63 +349,46 @@ public class App
             {
             	System.out.println("Run finished.");
             }
-
             
             for (Patient patient : currentPatients)
             {
                 //System.out.println("\t" + patient.toString());
                 Collector.writeLine(writer, Arrays.asList(patient.toString(), "Survived"));
                 gsonBuild2(patient, cycle);
-
-
-
-
             }
             
-            for (Patient patienter : deceasedPatients) {
+            for (Patient patienter : deceasedPatients) 
+            {
             	Collector.writeLine(writer, Arrays.asList(patienter.toString(), "Died"));
-            	gsonBuild2(patienter, cycle);
-            	
-            }
-            
-          
-            
+            	gsonBuild2(patienter, cycle);            	
+            }            
 		}
 		
-		
-		
-	      try {
-	    	  String serpath = getserFilepath();
-	          FileOutputStream fileOut = new FileOutputStream(serpath);
-	          ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	          out.writeObject(patientList);
-	          out.close();
-	          fileOut.close();
-	          System.out.printf("Serialized data is saved in " + System.getProperty("user.dir"));
-	       }catch(IOException i) {
-	          i.printStackTrace();
-	       }
-	        
-	 
-	      
-	      
-	      
-		
+		try 
+		{
+			String serpath = getserFilepath();
+			FileOutputStream fileOut = new FileOutputStream(serpath);
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(patientList);
+			out.close();
+			fileOut.close();
+			System.out.printf("Serialized data is saved in " + System.getProperty("user.dir"));
+	    }
+	    catch(IOException i) 
+	    {
+	    	i.printStackTrace();
+	    }
+
         writer.flush();
         writer.close();
-        
-
     }
     
 	/******************************************JSON****************************************/
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	
-    
-    public static void gsonBuild2(Patient patientObj, int Cycle) {
-    	
-    	
+	   
+    public static void gsonBuild2(Patient patientObj, int Cycle) 
+    {
     	PatientSerialize patientAdd = new PatientSerialize();
-    	
     	
     	//POJO Hierarchy
     	//internalize resources into patientObj
@@ -459,7 +399,6 @@ public class App
     	int NursesUsed = patientObj.getNurse();
     	Double DosesUsed = patientObj.getDoses();
     	
-
     	patientAdd.setCycle(Cycle);
     	patientAdd.setPatientCollected(IDer);
     	patientAdd.setAge(ager);
@@ -468,25 +407,19 @@ public class App
     	patientAdd.setNurses(NursesUsed);
     	patientAdd.setDoses(DosesUsed);
     	
-    	
     	String json = gson.toJson(patientAdd);
     	
     	String writeToFile = pointJSONfilepath();
     	
-    	try (FileWriter writer = new FileWriter(writeToFile, true)){
+    	try (FileWriter writer = new FileWriter(writeToFile, true))
+    	{
     		//True to prevent new file
-    		gson.toJson(patientAdd, writer);
-    	
-    	} catch(IOException e) {
+    		gson.toJson(patientAdd, writer);    	
+    	} 
+    	catch(IOException e) 
+    	{
     		e.printStackTrace();
-    	}
-
-    
-    	
-    	
-    	
+    	}    	
     }
 	/*********************************Toodle-Loo!********************JSON END*************Toodle-Loo!****************************************/
-    
-
 }

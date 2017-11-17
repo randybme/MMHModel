@@ -42,9 +42,7 @@ public class Patient
     /**
      * Using number of Doses
      */
-   private Double doses_using;
-    
-    
+   private Double doses_using;    
     
 	/**
 	 * Creates a new patient.
@@ -188,50 +186,40 @@ public class Patient
     {
 		m_isAlive = false;
 	}
-	
-	
+		
 	public void setDoctor(int Doctor) 
 	{
 		doctors_using = doctors_using + Doctor;
 	}
+	
 	/******Cumulative**********/
-	
-	
+		
 	public int getDoctor() 
 	{
 		return doctors_using;
 	}
-	
-	
+		
 	public void setNurse(int Nurse) 
 	{
 		nurses_using = nurses_using + Nurse;
 	}
+	
 	/******Cumulative**********/
-	
-	
+		
 	public int getNurse() 
 	{
 		return nurses_using;
 	}
-    
-	
+    	
 	public void setDoses(Double Doseage) 
 	{
 		doses_using = Double.valueOf(doses_using) + Double.valueOf(Doseage);
 	}
-	
-	
+		
 	public Double getDoses() 
 	{
 		return doses_using;
 	}
-	
-	
-	
-	
-	
-	
 	
     @Override
     public String toString()
@@ -244,8 +232,7 @@ public class Patient
         }
             
         return value;
-    }
-    
+    }    
     
     public String toStringCondition() {
     	
