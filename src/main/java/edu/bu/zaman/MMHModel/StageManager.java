@@ -116,6 +116,14 @@ public class StageManager
 		String[] trajectoryConditions = trajectory.getCell(Fields.PATIENT_CONDITIONS).getStringCellValue().split(",");
 		String[] conditionSeverities = trajectory.getCell(Fields.SEVERITIES).getStringCellValue().split(",");
 		
+		// Check to make sure that the patient has the same number of conditions as specified
+		// by this trajectory
+		
+		if (patient.getConditions().size() != trajectoryConditions.length)
+		{
+			return false;
+		}
+		
 		boolean match = true;		
 		for (int index = 0;index < trajectoryConditions.length; index++)
 		{
@@ -123,7 +131,10 @@ public class StageManager
 			// current trajectory
 			Condition.Type condition = Condition.Type.valueOf(trajectoryConditions[index]);
 			Condition patientCondition = patient.getCondition(condition);
-			if (condition != null && patientCondition != null && condition == patientCondition.getType())
+			
+			//System.out.println("Checking condition: " + condition);
+			
+			if (patientCondition != null)
 			{
 				
 				// If the patient has the condition, check to see if the patient's severity for

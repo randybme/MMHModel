@@ -113,7 +113,7 @@ public class Shiva
 	public static Patient createPatient(int minAge, int maxAge)
     {
         // Generates a random age for the patient
-        int age = minAge + (int)(Math.random() * maxAge);
+		int age = minAge + (int)(Math.random() * (maxAge-minAge+1));
         
         // Randomly assign conditions to the patient
         double variate = Math.random();
@@ -153,6 +153,11 @@ public class Shiva
      */
     public static void reassessConditions(Patient patient)
     {
-        
+        /*ADD CONDITION:condition.add() based on random probability parsing through condition incidence rates (see createPatient)
+         * Co-morbidities: Parse through spreadsheet for conditional probabilities, get conditional probabilities
+         * Each co-morbidity - condition probability is modulated by other condition or dictated by other condition
+         * REMOVE CONDITION:
+         * Threshold value to remove conditions - same threshold or different for different conditions?
+         */
     }
 }

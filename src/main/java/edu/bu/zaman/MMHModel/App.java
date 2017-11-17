@@ -117,11 +117,11 @@ public class App
         
         
         
-		double probabilityNewPatient = 0.5; // The probability of acquiring a new patient
+		double probabilityNewPatient = 0.41; // The probability of acquiring a new patient
 		int totalCycles = 10; // Number of cycles to run simulation, 1 cycle is 15 minutes
 
-		Hospital.nurses = 3;
-		Hospital.doctors = 1;
+		Hospital.nurses = 10;
+		Hospital.doctors = 10;
 		//TODO export
 		
 		
@@ -137,12 +137,14 @@ public class App
             /////////////////////////////////////////////////////////////////////////////////
             
             // Determine if a new patient has arrived
+			System.out.println("Cycle " + cycle + ", " + currentPatients.size() +  " patients");
 			double newPatient = Math.random();
 		
 			
 			
-			if (newPatient <= probabilityNewPatient)
-            {
+			if (newPatient <= probabilityNewPatient);
+			//if (cycle == 1)
+			{
                 // Create a new patient with a random age and set of conditions
                 // LIMITATION: Can only add 1 patient per cycle
                 Patient p = Shiva.createPatient(18, 45);
@@ -152,8 +154,8 @@ public class App
 				
 									
 
-                //TODO Export
-                System.out.println("Creating patient: " + p.toString());
+               
+                //System.out.println("Creating patient: " + p.toString());
                 
 
 			} 
@@ -170,82 +172,126 @@ public class App
             
             // Sort the patients according to their current probability of mortality from most
             // severe to least severe
-            Collections.sort(currentPatients, new Comparator<Patient>()
+			Collections.sort(currentPatients, new Comparator<Patient>()
             {
                 @Override
                 public int compare(Patient patient1, Patient patient2)
                 {
-                    return (int) (patient2.probabilityOfMortality() - patient2.probabilityOfMortality());
+                	int diff = 0;
+                	if ((patient2.probabilityOfMortality() - patient1.probabilityOfMortality()) < 0)
+                	{
+                		diff = -1;
+                	}
+                	else if  (((patient2.probabilityOfMortality() - patient1.probabilityOfMortality()) > 0))
+                	{
+                		diff = 1;
+                	}
+                return diff;
                 }
             });
+            
 
             // Update the patient's stage, if needed, and administer cycle treatment
 			for (Patient patient : currentPatients)
             {
-                // Get the stage the patient should be in from the StageManager and update it
-                // if it has changed
+				// Flag used to indicate whether the hospital has the appropriate resources to treat the patient
+				boolean resourcesAvailable = true;
+				
+				// Get the stage the patient should be in from the StageManager
 				Stage stage = StageManager.getStage(patient);
-				if (!stage.equals(patient.getStage()))
+				if (stage != null)
                 {
-					patient.setStage(stage);
-				}
-            
-                // Get treatment plan for the patient's current stage and determine if the required
-                // resources for treatment in the current cycle are available
-                TreatmentPlan plan = patient.getStage().getTreatmentPlan();
+	                // Update the stage if needed
+					if (!stage.equals(patient.getStage()))
+	                {
+						patient.setStage(stage);
+					}
+	            
+	                // Get treatment plan for the patient's current stage and determine if the required
+	                // resources for treatment in the current cycle are available
+	                TreatmentPlan plan = patient.getStage().getTreatmentPlan();
                 
-                HashMap<Hospital.MaterialResource, Double> requiredMaterialResources = plan.requiredMaterialResources();
+	                HashMap<Hospital.MaterialResource, Double> requiredMaterialResources = plan.requiredMaterialResources();
+	                
+	                int requiredNurses = plan.requiredNurses();
+	                int requiredDoctors = plan.requiredDoctors();
+	
+	                for (Hospital.MaterialResource resource : 
+	                	requiredMaterialResources.keySet())
+	                {
+	                    if (resource != Hospital.MaterialResource.NONE && !Hospital.isAvailable(resource, 
+	                    		requiredMaterialResources.get(resource)))
+	                    {
+	                        resourcesAvailable = false;
+	                        //System.out.println("No material resources");
+	                        break;
+	                    }
+	                }
+	                System.out.println(patient.toString());
+	                System.out.println("Resources for patient " + patient.getPatientId());
+	                for (Hospital.MaterialResource resource: requiredMaterialResources.keySet()){
+	
+	                    String key =resource.toString();
+	                    String value = requiredMaterialResources.get(resource).toString();  
+	                    System.out.println("\t" + key + " " + value);  
+	                }
+	                
+	                
+	                
+	                if (Hospital.nurses < requiredNurses || 
+	                		Hospital.doctors < requiredDoctors)
+	                {
+	                    resourcesAvailable = false;
+	                    //System.out.println("No staff resources for patient " + patient.getPatientId());
+	                }
                 
-                int requiredNurses = plan.requiredNurses();
-                int requiredDoctors = plan.requiredDoctors();
-
-                boolean resourcesAvailable = true;
-                for (Hospital.MaterialResource resource : 
-                	requiredMaterialResources.keySet())
-                {
-                    if (!Hospital.isAvailable(resource, 
-                    		requiredMaterialResources.get(resource)))
-                    {
-                        resourcesAvailable = false;
-                        break;
-                    }
-                }
-                
-                if (Hospital.nurses < requiredNurses || 
-                		Hospital.doctors < requiredDoctors)
-                {
-                    resourcesAvailable = false;
-                }
-                
-                // Request resources from the hospital based on the treatments for the current stage
-                // if the resources are available
-                if (resourcesAvailable)
-                {
-                    // Consume the required material resources for the treatment plan from the hospital
-                    // inventory
-                    for (Hospital.MaterialResource resource : requiredMaterialResources.keySet())
-                    {
-                        Hospital.consumeResource(resource, requiredMaterialResources.get(resource));
-                        patient.setDoses(requiredMaterialResources.get(resource));
-                    }
-                    
-                    // Check out the number of nurses and doctors required for treatment in the current cycle
-                    Hospital.nurses -= requiredNurses;
-                    Hospital.doctors -= requiredDoctors;
-                    
-                    patient.setDoctor(requiredDoctors);
-                    patient.setNurse(requiredNurses);
-                    
-           
-
-                    // Treat the patient, updating his or her probability of mortality
-                    plan.treatPatient();
-                    
-                    System.out.println("Treating patient " + patient.getPatientId());
+	                // Request resources from the hospital based on the treatments for the current stage
+	                // if the resources are available
+	                
+	                if (resourcesAvailable)
+	                {
+	                    // Consume the required material resources for the treatment plan from the hospital
+	                    // inventory
+	                	for (Hospital.MaterialResource resource : requiredMaterialResources.keySet())
+	                    {  
+	                		Hospital.consumeResource(resource, requiredMaterialResources.get(resource));            
+	                        //patient.setDoses(requiredMaterialResources.get(resource));
+	                    }
+	                	
+	                    
+	                    
+	                    // Check out the number of nurses and doctors required for treatment in the current cycle
+	                    Hospital.nurses -= requiredNurses;
+	                    
+	                    //System.out.println(" ");
+	                    //System.out.println("Number of nurses required by patient " + patient.getPatientId() + ": " + requiredNurses);
+	                    //System.out.println("Number of nurses in the hospital: " + Hospital.nurses);
+	                    
+	                    Hospital.doctors -= requiredDoctors;
+	                    
+	                   // System.out.println(" ");
+	                   // System.out.println("Number of doctors required by patient " + patient.getPatientId() + ": " + requiredDoctors);
+	                    //System.out.println("Number of doctors in the hospital: " + Hospital.doctors);
+	                    
+	                    patient.setDoctor(requiredDoctors);
+	                    patient.setNurse(requiredNurses);
+	                    
+	           
+	
+	                    // Treat the patient, updating his or her probability of mortality
+	                    plan.treatPatient();
+	                    
+	                    System.out.println("Treating patient " + patient.getPatientId());
+	                }
                 }
                 else
                 {
-                    // Worsen the patient's current conditions as the patient could not be treated
+                	resourcesAvailable = false;
+                }
+                
+                // Worsen the patient's current conditions as the patient could not be treated
+                if (resourcesAvailable == false)
+                {
                     for (Condition condition : patient.getConditions())
                     {
                         condition.worsen();
@@ -260,15 +306,17 @@ public class App
             // of mortality and a random number draw.
             /////////////////////////////////////////////////////////////////////////////////
 
-            for (Patient patient : currentPatients)
+            
+			for (Patient patient : currentPatients)
             {
-			 	double variate = Math.random();
-			 	if (variate <= patient.probabilityOfMortality())
+            	double variate = 0.8;
+            	int randDie = 1 + (int)(Math.random() * (4-1+1));
+			 	if (variate <= patient.probabilityOfMortality() && (randDie == 1 || randDie == 2)) //NEW
                 {
                     patient.die();
 			 	}
             }
-
+            
             /////////////////////////////////////////////////////////////////////////////////
             // 4. Update current patient list and return and available resources to the hospital
             //
@@ -283,32 +331,42 @@ public class App
             while (iterator.hasNext())
             {
                 Patient patient = iterator.next();
-			 	TreatmentPlan plan = patient.getStage().getTreatmentPlan();
-			 	
-			 	if (patient.isAlive())
+                Stage stage = patient.getStage();
+                
+                if (stage != null)
                 {
-			 		Shiva.reassessConditions(patient);
-			 	}
-                else
-                {
-                    // Add patient to running list of deceased patients and remove from the list of
-                    // current patients
-                    deceasedPatients.add(patient);
-                    iterator.remove();
-                  
-			 	}
-			 	
-			 	
-			 	
-			 	
-			 	
-                 
-			 	int freeNurses = plan.freeNursesAfterTreatment();
-			 	int freeDoctors = plan.freeDoctorsAfterTreatment();
-                 
-			 	Hospital.nurses += freeNurses;
-			 	Hospital.doctors += freeDoctors;
-                 
+				 	TreatmentPlan plan = patient.getStage().getTreatmentPlan();
+				 	
+				 	if (patient.isAlive())
+	                {
+				 		Shiva.reassessConditions(patient);
+				 	}
+	                else
+	                {
+	                    // Add patient to running list of deceased patients and remove from the list of
+	                    // current patients
+	                    deceasedPatients.add(patient);
+	                    iterator.remove();
+	                  
+				 	}
+				 	
+				 	
+				 	
+				 	
+				 	
+	                 
+				 	int freeNurses = plan.freeNursesAfterTreatment();
+				 	int freeDoctors = plan.freeDoctorsAfterTreatment();
+	                 
+				 	Hospital.nurses += freeNurses;
+				 	Hospital.doctors += freeDoctors;
+	                
+				 	//System.out.println(" ");
+				 	
+				 	//System.out.println("Nurses in the hospital (end of cycle): " + Hospital.nurses);
+				 	//System.out.println("Doctors in the hospital (end of cycle): " + Hospital.doctors);
+				 	//System.out.println(" ");
+                }
 
 			 }
 
@@ -320,18 +378,25 @@ public class App
 
 			 // CHECK: How many cycles until night shift?
             
-            System.out.println("Cycle " + cycle + ", " + currentPatients.size() + 
-            		" patients");
-            
+            //System.out.println("Cycle " + cycle + ", " + currentPatients.size() + " patients");
+            System.out.println(" ");
+            System.out.println(" ");
             /**********************************************************JSON STORE!************************************/
            // gsonBuild(Cycle, ID, Age, Survival, DoctorsUsed);
-            
-
+            if (cycle%100 == 0)
+            {
+            	int cycleRemaining = totalCycles - cycle; 
+            	System.out.println("Cycles remaining: = " + cycleRemaining);
+            }
+            else if (cycle == (totalCycles -1))
+            {
+            	System.out.println("Run finished.");
+            }
 
             
             for (Patient patient : currentPatients)
             {
-                System.out.println("\t" + patient.toString());
+                //System.out.println("\t" + patient.toString());
                 Collector.writeLine(writer, Arrays.asList(patient.toString(), "Survived"));
                 gsonBuild2(patient, cycle);
 

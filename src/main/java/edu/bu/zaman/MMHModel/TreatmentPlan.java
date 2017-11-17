@@ -182,16 +182,16 @@ public class TreatmentPlan
 	public int requiredNurses()
     {
         boolean nursesNeeded = false;
-        
 		if (m_cycle == 0)
         {
             nursesNeeded = humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime);
+            
 		}
-		else
+		else if (!humanResourcesRequired(m_cycle-1, m_nurseOnTime, m_nurseOffTime) && humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime))
         {
-            nursesNeeded = !humanResourcesRequired(m_cycle - 1, m_nurseOnTime, m_nurseOffTime);
+            nursesNeeded = true;
+            
 		}
-
 		if (nursesNeeded)
         {
             return m_nursesNeeded;
@@ -211,9 +211,10 @@ public class TreatmentPlan
         {
             doctorsNeeded = humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime);
 		}
-		else
+		else if (!humanResourcesRequired(m_cycle-1, m_doctorOnTime, m_doctorOffTime) && humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime))
         {
-            doctorsNeeded = !humanResourcesRequired(m_cycle - 1, m_doctorOnTime, m_doctorOffTime);
+            doctorsNeeded = true;
+            
 		}
 
 		if (doctorsNeeded)
@@ -230,7 +231,7 @@ public class TreatmentPlan
      */
 	public int freeNursesAfterTreatment()
     {
-		if (!m_patient.isAlive() || !humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime))
+		if (!m_patient.isAlive() || (!humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime) && humanResourcesRequired(m_cycle -1, m_nurseOnTime, m_nurseOffTime)))
         {
             return m_nursesNeeded;
 		}
@@ -244,7 +245,7 @@ public class TreatmentPlan
      */
 	public int freeDoctorsAfterTreatment()
     {
-		if (!m_patient.isAlive() || !humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime))
+		if (!m_patient.isAlive() || (!humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime) && humanResourcesRequired(m_cycle -1, m_doctorOnTime, m_doctorOffTime)))
         {
             return m_doctorsNeeded;
 		}
