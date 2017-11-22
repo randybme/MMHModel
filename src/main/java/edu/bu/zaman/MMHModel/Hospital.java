@@ -63,25 +63,41 @@ public class Hospital
     }
     
     /**
+     * The total number of nurses that are currently on shift.
+     */
+    private static int m_totalNurses = 0;
+    
+    /**
+     * The total number of doctors that are currently on shift.
+     */
+    private static int m_totalDoctors = 0;
+    
+    /**
      * The number of nurses currently available for monitoring and procedures
      */
-    public static int nurses = 0;
+    private static int m_nurses = 0;
     
     /**
      * The number of doctors currently avaiable for procedures
      */
-    public static int doctors = 0;
+    private static int m_doctors = 0;
     
     /**
      * Stores the current inventory of disposable material resources
      */
     private static HashMap<MaterialResource, Double> m_totalDisposableResources;
     
+    /**
+     * Store the most recent treatment status for each admitted patient
+     */
+    private static HashMap<Integer, Boolean> m_patientTreatmentStatus;
+    
     @SuppressWarnings("unused")
     private static Hospital m_instance = new Hospital(); // Eager creation of singleton Hospital object
     private Hospital()
     {
         m_totalDisposableResources = new HashMap<>();
+        m_patientTreatmentStatus = new HashMap<>();
         
         // Load initial inventory of disposable resources
         stockDisposableResource(MaterialResource.OXYTOCIN, 15000);
@@ -167,12 +183,242 @@ public class Hospital
     }
     
     /**
+     * Attempts to treat the specified patients based on the available hospital resources
+     * and their patient treatment plans.
+     * 
+     * @param patients 	the list of patients to treat
+     */
+    public static void attemptTreatments(ArrayList<Patient> patients)
+    {
+    	// Split the list of patients into those that already have active nurses and doctors assigned
+    	// to them and those that do not. Patients that have active nurses and doctors shoudl be
+    	// treated first, as if the material resources to treat those patients are not avaiable, they
+    	// they shoud be returned to the hospital pool to be used to treat other patients.
+    	
+    	ArrayList<Patient> patientsWithStaff = new ArrayList<>();
+    	ArrayList<Patient> otherPatients = new ArrayList<>();
+    	
+    	for (Patient patient: patients)
+    	{
+    		int staff = patient.getActiveNurses() + patient.getActiveDoctors();
+    		if (staff > 0)
+    		{
+    			patientsWithStaff.add(patient);
+    		}
+    		else
+    		{
+    			otherPatients.add(patient);
+    		}
+    	}
+    	
+    	// Sort the patients according to their current probability of mortality from most
+        // severe to least severe
+    	Comparator<Patient> severityComparator = new Comparator<Patient>()
+        {
+            @Override
+            public int compare(Patient patient1, Patient patient2)
+            {
+            	return Double.compare(patient2.probabilityOfMortality(), patient1.probabilityOfMortality());
+            }
+        };
+        
+		Collections.sort(patientsWithStaff, severityComparator);		
+		Collections.sort(otherPatients, severityComparator);
+		
+		// Attempt to treat patients with active nurses and/or doctors first
+		for (Patient patient : patientsWithStaff)
+        {    	
+			boolean treated = attemptTreatment(patient);
+			
+			// Update patient treatment status based on whether the patient was actually treated
+			m_patientTreatmentStatus.put(patient.getPatientId(), treated);
+        }
+				
+		// Attempt to treat remaining patients
+		for (Patient patient : otherPatients)
+        {    	
+			boolean treated = attemptTreatment(patient);
+			
+			// Update patient treatment status based on whether the patient was actually treated
+			m_patientTreatmentStatus.put(patient.getPatientId(), treated);
+        }
+		
+		// Return hospital human resources once all patients have been treated
+		for (Patient patient : patients)
+        { 
+			StageManager.Stage stage = patient.getStage();
+            TreatmentPlan plan;
+			
+            if ((stage = patient.getStage()) != null && (plan = stage.getTreatmentPlan()) != null)
+            {
+            	int activeNurses = patient.getActiveNurses();
+            	int activeDoctors = patient.getActiveDoctors();
+            	int nursesNextCycle = plan.requiredNurses();
+            	int doctorsNextCycle = plan.requiredDoctors();
+            	
+            	// Return nurses to hospital pool if the same number of nurses are not required
+            	// for the patient's next treatment cycle.
+            	if (nursesNextCycle != activeNurses)
+            	{
+            		m_nurses += activeNurses;
+            		patient.setActiveNurses(0);
+            	}
+            	
+            	// Return doctors to hospital pool if the same number of doctors are not required
+            	// for the patient's next treatment cycle.
+            	if (doctorsNextCycle != activeDoctors)
+            	{
+            		m_doctors += activeDoctors;
+            		patient.setActiveDoctors(0);
+            	}
+            }
+        }
+		
+		// Make sure that the maximum number of available doctors and nurses does not exceed the
+		// number that should currently be on shift due to any shift changes.
+		
+		m_nurses = Math.min(m_nurses, m_totalNurses);
+		m_doctors = Math.min(m_doctors, m_totalDoctors);
+    }
+    
+    /**
+     * Attempts to treat a specific patient based on the required hospital staff and material resources
+     * specified by the patient's treatment plan. If the required resources are available, the patient is
+     * treated. If not, the patient's conditions are worsened, and any active nurses and/or doctors are
+     * returned to the hospital resource pool.
+     * 
+     * @param patient	the patient to treat
+     * @return			whether or not the patient was ssuccessfully treated
+     */
+    private static boolean attemptTreatment(Patient patient)
+    {
+    	// Flag used to indicate whether the hospital has the appropriate resources to treat the patient
+		boolean resourcesAvailable = true;
+		
+		// Get the stage the patient should be in from the StageManager
+		StageManager.Stage stage = StageManager.getStage(patient);
+		if (stage != null)
+        {
+            // Update the stage if needed
+			if (!stage.equals(patient.getStage()))
+            {
+				patient.setStage(stage);
+			}
+        
+            // Get treatment plan for the patient's current stage and determine if the required
+            // resources for treatment in the current cycle are available
+            TreatmentPlan plan = patient.getStage().getTreatmentPlan();
+        	            	            
+            HashMap<Hospital.MaterialResource, Double> requiredMaterialResources = plan.requiredMaterialResources();	
+            for (Hospital.MaterialResource resource : requiredMaterialResources.keySet())
+            {
+                if (resource != Hospital.MaterialResource.NONE && !Hospital.isAvailable(resource, 
+                		requiredMaterialResources.get(resource)))
+                {
+                    resourcesAvailable = false;
+                    break;
+                }
+            }
+            
+            int activeNurses = patient.getActiveNurses();
+            int activeDoctors = patient.getActiveDoctors();	            
+            int requiredNurses = plan.requiredNurses() - activeNurses;
+            int requiredDoctors = plan.requiredDoctors() - activeDoctors;
+            
+            if (Hospital.m_nurses < requiredNurses || Hospital.m_doctors < requiredDoctors)
+            {
+                resourcesAvailable = false;
+            }
+        
+            // Request resources from the hospital based on the treatments for the current stage
+            // if the resources are available	            
+            if (resourcesAvailable)
+            {
+                // Consume the required material resources for the treatment plan from the hospital
+                // inventory
+            	for (Hospital.MaterialResource resource : requiredMaterialResources.keySet())
+                {  
+            		Hospital.consumeResource(resource, requiredMaterialResources.get(resource));
+                }
+            		                    
+                // Check out the number of nurses and doctors required for treatment in the current cycle
+                m_nurses -= requiredNurses;	               
+                m_doctors -= requiredDoctors;
+                
+                // Assign the appropropriate number of nurses and doctors to the patient for
+                // the current treatment.
+                patient.setActiveNurses(requiredNurses + activeNurses);
+                patient.setActiveDoctors(requiredDoctors + activeDoctors);
+                
+                // Treat the patient, updating his or her probability of mortality and treatment
+                // status to indicate they were treated
+                plan.treatPatient();
+                
+                System.out.println("Treating patient " + patient.getPatientId());
+                
+                return true;
+            }
+        }
+        
+        // Worsen the patient's current conditions as the patient could not be treated
+    	// and return any human resources the patient already has allocated
+    	m_nurses += patient.getActiveNurses();
+    	m_doctors += patient.getActiveDoctors();
+    	
+    	patient.setActiveNurses(0);
+    	patient.setActiveDoctors(0);	        	
+    	
+        for (Condition condition : patient.getConditions())
+        {
+            condition.worsen();
+        }
+                
+        System.out.println("Unable to treat patient " + patient.getPatientId());
+        
+        return false;
+    }
+    
+    /**
+     * Notifies the hospital that the provided patient has passed away, allowing the
+     * hospital to reclaim any human resources that were still supporting the patient
+     * until his/her death.
+     * 
+     * @param patient	the patient that passed away
+     */
+    public static void notifyPatientDeath(Patient patient)
+    {
+    	m_nurses += patient.getActiveNurses();
+    	m_doctors += patient.getActiveDoctors();
+    	
+    	patient.setActiveNurses(0);
+    	patient.setActiveDoctors(0);
+    }
+    
+    /**
+     * Return a patient's most recent treatment status in the hospital. This is updated
+     * every time a treatment is attempted for the patient.
+     * 
+     * @param patient	the patient in question
+     * @return
+     */
+    public static boolean didTreat(Patient patient)
+    {
+    	Boolean result = m_patientTreatmentStatus.get(patient.getPatientId());
+    	if (result == null)
+    	{
+    		return false; 
+    	}
+    	
+    	return result; 
+    }
+    
+    /**
      * Returns whether the specified resource is available at the requested dose
      *
      * @param resource  the disposable resource being requested
      * @param dose      the amount (in mg) that is being requested
      */
-    public static boolean isAvailable(MaterialResource resource, double dose)
+    private static boolean isAvailable(MaterialResource resource, double dose)
     {
         if (!m_totalDisposableResources.containsKey(resource))
         {
@@ -189,7 +435,7 @@ public class Hospital
      * @param resource  the disposable resource being requested
      * @param dose      the amount (in mg) that is being requested and consumed
      */
-    public static void consumeResource(MaterialResource resource, double dose)
+    private static void consumeResource(MaterialResource resource, double dose)
     {
         // Check to make sure the disposable resource being requested is in stock
         if (!isAvailable(resource, dose))
@@ -203,33 +449,65 @@ public class Hospital
         m_totalDisposableResources.put(resource, currentAmount);
     }
     
+    /**
+     * Set the total number of nurses that should currently be on shift.
+     * @param nurses
+     */
+    public static void setNursesOnShift(int nurses)
+    {
+    	int additionalNurses = nurses - m_totalNurses;
+    	if (additionalNurses > 0)
+    	{
+    		// Only add additional doctors the current number of available doctors
+    		// if new doctors are coming on shift.
+    		m_nurses += additionalNurses;
+    	}
+    	
+    	m_totalNurses = nurses;
+    }
+    
+    /**
+     * Set the total number of doctors that shoudl currently be on shift.
+     * @param doctors
+     */
+    public static void setDoctorsOnShift(int doctors)
+    {
+    	int additionalDoctors = doctors - m_totalDoctors;
+    	if (additionalDoctors > 0)
+    	{
+    		// Only add additional doctors the current number of available doctors
+    		// if new doctors are coming on shift.
+    		m_doctors += additionalDoctors;
+    	}
+    	
+    	m_totalDoctors = doctors;
+    }
+    
+    /**
+     * Returns the current number of nurses available to see patients.
+     * 
+     * @return
+     */
+    public static int availableNurses()
+    {
+    	return m_nurses;
+    }
+    
+    /**
+     * Returns the current number of doctors available to see patients.
+     * @return
+     */
+    public static int availableDoctors()
+    {
+    	return m_doctors;
+    }
+    
+    /**
+     * Returns the current stock of hospital disposable resources. 
+     * @return
+     */
     public static HashMap<MaterialResource, Double> getHospitalStock() 
     {
     	return m_totalDisposableResources;
-    }
-    
-    public static void timeCheck(int cycle) 
-    {
-    	if (cycle % 16 == 0)
-    	{
-    		Hospital.nurses = 5;
-    		Hospital.doctors = 3;
-    	}
-    	else if ((cycle % 8 == 0) && (cycle % 16 != 0))
-    	{
-    		Hospital.doctors = 1;
-    	}
-    	else if (cycle % 4 == 0 && (cycle % 8 != 0) && (cycle % 16 != 0))
-    	{
-    		Hospital.nurses = 3;
-    		Hospital.doctors = 2;
-    	}
-    	
-    	if (cycle % 10 == 0) 
-    	{
-    		stockDisposableResource(MaterialResource.OXYTOCIN, 15000);
-            stockDisposableResource(MaterialResource.HYDRALAZINE, 2200);
-            stockDisposableResource(MaterialResource.MG_SO4, 15000);           
-    	}
     }
 }

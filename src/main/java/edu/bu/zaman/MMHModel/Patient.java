@@ -27,22 +27,17 @@ public class Patient
     /**
      * The current stage for the patient
      */
-    public Stage m_stage;
+    public StageManager.Stage m_stage;
     
     /**
-     * Using number of Doctors
+     * The number of nurses currently treating the patient.
      */
-    private int doctors_using;
-   
-    /**
-     * Using number of Nurses
-     */
-    private int nurses_using;
+    private int m_activeNurses = 0;
     
     /**
-     * Using number of Doses
+     * The number of doctors currently treating the patient.
      */
-   private Double doses_using;    
+    private int m_activeDoctors = 0;
     
 	/**
 	 * Creates a new patient.
@@ -158,7 +153,7 @@ public class Patient
     /**
      * {@link Patient#m_stage}
      */
-    public Stage getStage()
+    public StageManager.Stage getStage()
     {
         return m_stage;
     }
@@ -166,9 +161,51 @@ public class Patient
     /**
      * {@link Patient#m_stage}
      */
-    public void setStage(Stage stage)
+    public void setStage(StageManager.Stage stage)
     {
         m_stage = stage;
+    }
+    
+    /**
+     * {@link Patient#m_activeNureses}
+     */
+    public int getActiveNurses()
+    {
+    	return m_activeNurses;
+    }
+    
+    /**
+     * {@link Patient#m_activeNureses}
+     */
+    public void setActiveNurses(int nurses)
+    {
+    	if (nurses < 0)
+    	{
+    		return;
+    	}
+    	
+    	m_activeNurses = nurses;
+    }
+    
+    /**
+     * {@link Patient#m_activeDoctors}
+     */
+    public int getActiveDoctors()
+    {
+    	return m_activeDoctors;
+    }
+    
+    /**
+     * {@link Patient#m_activeDoctors}
+     */
+    public void setActiveDoctors(int doctors)
+    {
+    	if (doctors < 0)
+    	{
+    		return;
+    	}
+    	
+    	m_activeDoctors = doctors;
     }
     
     /**
@@ -187,40 +224,6 @@ public class Patient
 		m_isAlive = false;
 	}
 		
-	public void setDoctor(int Doctor) 
-	{
-		doctors_using = doctors_using + Doctor;
-	}
-	
-	/******Cumulative**********/
-		
-	public int getDoctor() 
-	{
-		return doctors_using;
-	}
-		
-	public void setNurse(int Nurse) 
-	{
-		nurses_using = nurses_using + Nurse;
-	}
-	
-	/******Cumulative**********/
-		
-	public int getNurse() 
-	{
-		return nurses_using;
-	}
-    	
-	public void setDoses(Double Doseage) 
-	{
-		doses_using = Double.valueOf(doses_using) + Double.valueOf(Doseage);
-	}
-		
-	public Double getDoses() 
-	{
-		return doses_using;
-	}
-	
     @Override
     public String toString()
     {
@@ -233,17 +236,4 @@ public class Patient
             
         return value;
     }    
-    
-    public String toStringCondition() {
-    	
-    	String value = "";
-    	
-        for (Condition condition : getConditions())
-        {
-            value += condition.toString() + ", ";
-        }
-            
-        return value;
-    	
-    }
 }

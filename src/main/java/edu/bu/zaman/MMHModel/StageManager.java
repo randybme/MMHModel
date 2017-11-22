@@ -31,7 +31,8 @@ public class StageManager
 		public static final int DOCTORS = 11;
 		public static final int DOCTOR_ON_TIME = 12;
 		public static final int DOCTOR_OFF_TIME = 13;
-		public static final int TOTAL_CYCLES = 14;		
+		public static final int TOTAL_CYCLES = 14;
+		public static final int NEXT_TREATMENT = 15;
 	}
 
 	/**
@@ -244,6 +245,7 @@ public class StageManager
 			
 			int totalCycles = Integer.parseInt(trajectory.getCell(Fields.TOTAL_CYCLES).getStringCellValue());
 		
+			System.out.println("Creating treatment plan with id " + id);
 			TreatmentPlan plan = new TreatmentPlan
 	        (
 	            patient,
@@ -272,13 +274,41 @@ public class StageManager
 	}
 	
 	public static Stage getStage(Patient patient)
-    {
+    {	
 		// Determine if the patient is still in the same treatment plan, and if so, return the
 		// same stage object
-		Stage currentStage = patient.getStage();
-		if (currentStage != null && patientSatisfiesRow(patient, getRowForId(currentStage.getTreatmentPlan().getID())))
-		{
-			return patient.getStage();
+		Stage currentStage;
+		TreatmentPlan plan;
+		if ((currentStage = patient.getStage()) != null && (plan = currentStage.getTreatmentPlan()) != null)
+		{			
+			if (currentStage.m_cycles >= plan.getLength())
+			{
+				System.out.println("Treatment plan complete!");
+				
+				Row currentRow = getRowForId(plan.getID());
+				int nextTreatment = Integer.parseInt(currentRow.getCell(Fields.NEXT_TREATMENT).getStringCellValue());
+				
+				System.out.println("Next treatment: " + nextTreatment);
+				
+				if (nextTreatment > 0)
+				{
+					Row newRow = getRowForId(nextTreatment);
+					System.out.println(newRow);
+					if (newRow != null)
+					{
+						return new Stage(getTreatmentPlan(patient, newRow));
+					}
+				}
+			}
+			else if (patientSatisfiesRow(patient, getRowForId(plan.getID())))
+			{
+				// Update the stage's internal cycle counter to reflect the number of cycles that the
+				// patient has been in the current stage
+				Stage patientStage = patient.getStage();
+				patientStage.m_cycles++;
+				
+				return patientStage;
+			}
 		}
 		
 		// Search for a new patient trajectory that matches the patient's current condition
@@ -298,4 +328,49 @@ public class StageManager
 		
 		return null;
     }
+	
+	static class Stage
+	{
+		/**
+		 * Internal counter that keeps track of the age of the stage in units of model cycles.
+		 */
+		private int m_cycles;
+		
+	    /**
+	     * The treatment plan associated with this stage.
+	     */
+	    private TreatmentPlan m_treatmentPlan;
+	    
+	    /**
+	     * Creates a new hospital stage for a patient trajectory.
+	     *
+	     * @param plan  the treatment plan associated with the hospital stage
+	     */
+	    public Stage(TreatmentPlan plan)
+	    {
+	    	m_cycles = 0;
+	        m_treatmentPlan = plan;
+	    }
+	    
+	    /**
+	     * {@link Stage#m_treatmentPlan}
+	     */
+	    public TreatmentPlan getTreatmentPlan()
+	    {
+	        return m_treatmentPlan;
+	    }
+	    
+	    /**
+	     * Compares two stages to see if they are equal according to their treatment plans
+	     */
+	    public boolean equals(Stage stage)
+	    {
+	        if (stage == null)
+	        {
+	            return false;
+	        }
+	        
+	        return m_treatmentPlan.getID() == stage.getTreatmentPlan().getID();
+	    }
+	}
 }

@@ -19,13 +19,7 @@ public class TreatmentPlan
      * List of condition types that this treatment treats.
      */
 	private ArrayList<Condition.Type> m_conditionTypes;
-    
-    /**
-     * Stores the initial probability of mortality for each condition associated with this
-     * treatment plan before any treatment is administered.
-     */
-    //private HashMap<Condition.Type, Double> m_initialProbabilitiesOfMortality;
-    
+
     /**
      * Stores the efficacy of this treatment plan toward the treatment of each specific condition.
      */
@@ -77,8 +71,8 @@ public class TreatmentPlan
      * The number of consecutive cycles a doctor is not needed during inactive periods of the
      * treatment plan.
      */
-	private int m_doctorOffTime;
-    
+	private int m_doctorOffTime;   
+	
     /**
      * The total length of the treatment plan in units of cycles.
      */
@@ -125,7 +119,6 @@ public class TreatmentPlan
         
         m_totalCycles = totalCycles;
         
-        //m_initialProbabilitiesOfMortality = new HashMap<>();
         m_treatmentEfficacies = new HashMap<>();
         m_materialResourceFrequencies = new HashMap<>();
         m_materialResourceDosages = new HashMap<>();
@@ -177,44 +170,37 @@ public class TreatmentPlan
 	}
     
     /**
-     * Returns the number of nurses needed from the hospital for treatment in the current treatment cycle.
+     * Returns the number of nurses needed from the hospital for the current treatment cycle.
      */
 	public int requiredNurses()
     {
-        boolean nursesNeeded = false;
-		if (m_cycle == 0)
+        if (humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime))
         {
-            nursesNeeded = humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime);
-            
-		}
-		else if (!humanResourcesRequired(m_cycle-1, m_nurseOnTime, m_nurseOffTime) && humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime))
-        {
-            nursesNeeded = true;
-            
-		}
-		if (nursesNeeded)
-        {
-            return m_nursesNeeded;
-		}
-
+        	return m_nursesNeeded;
+        }
+        
         return 0;
 	}
     
     /**
-     * Returns the number of doctors needed from the hospital for treatment right now
+     * Returns the number of doctors needed from the hospital for the current treatment cycle.
      */
 	public int requiredDoctors()
     {
-        boolean doctorsNeeded = false;
+        if (humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime))
+        {
+        	return m_doctorsNeeded;
+        }
         
-		if (m_cycle == 0)
+        return 0;
+        
+		/*if (m_cycle == 0)
         {
             doctorsNeeded = humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime);
 		}
-		else if (!humanResourcesRequired(m_cycle-1, m_doctorOnTime, m_doctorOffTime) && humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime))
+		else if (!humanResourcesRequired(m_cycle - 1, m_doctorOnTime, m_doctorOffTime) && humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime))
         {
-            doctorsNeeded = true;
-            
+            doctorsNeeded = true;      
 		}
 
 		if (doctorsNeeded)
@@ -222,27 +208,27 @@ public class TreatmentPlan
             return m_doctorsNeeded;
 		}
 
-        return 0;
+        return 0;*/
 	}
     
     /**
      * Returns the number of nurses that are free from their treatment visit after treatment has been
      * administered in the current cycle.
-     */
+     *
 	public int freeNursesAfterTreatment()
     {
 		if (!m_patient.isAlive() || (!humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime) && humanResourcesRequired(m_cycle -1, m_nurseOnTime, m_nurseOffTime)))
         {
             return m_nursesNeeded;
 		}
-            
+        
         return 0;
-	}
+	}*/
             
     /**
      * Returns the number of nurses that are free from their treatment visit after treatment has been
      * administered in the current cycle.
-     */
+     
 	public int freeDoctorsAfterTreatment()
     {
 		if (!m_patient.isAlive() || (!humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime) && humanResourcesRequired(m_cycle -1, m_doctorOnTime, m_doctorOffTime)))
@@ -251,7 +237,7 @@ public class TreatmentPlan
 		}
             
         return 0;
-	}
+	}*/
     
     /**
      * Returns whether a human resource is required with the patient for treatment in the current cycle.
@@ -307,6 +293,15 @@ public class TreatmentPlan
         m_cycle++; // Increase the relative cycle, now that treatment has been adminsitered for this patient
     }
 	
+	/**
+	 * Returns the length of the treatment plan in units of cycles.
+	 * @return
+	 */
+	public int getLength()
+	{
+		return m_totalCycles;
+	}
+	
 	/** 
      * Represents the shape of a decay function for decreasing the probability of mortality for a given
 	 * condition over the course of the treatment plan; this function should be defined such that f(0) = 1
@@ -316,6 +311,12 @@ public class TreatmentPlan
      */
 	private double decay(int cycle)
     {
+		// TODO: Update this to account for the scenario where the patient is not treated.
+		// Could potentially increase m_totalCycles by the number of treatments that were missed.
+		
+		// As currently implemented, it is possible to complete the treatment without seeing
+		// the pateint's probabily of mortality reduced to m_treatmentEfficacy for each condition.
+		
         return 1 - ((double)cycle / (double)m_totalCycles);
 	}
 }

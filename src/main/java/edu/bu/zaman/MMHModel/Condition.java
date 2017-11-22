@@ -9,14 +9,14 @@ public class Condition
     {
         DELIVERY, 
         PREECLAMPSIA,
-        //ECLAMPSIA,
-        //SEPSIS,
+        ECLAMPSIA,
+        SEPSIS,
         PPH,
         ANAEMIA,
         APH,
-        RUPTURED_UTERUS
-        //ABORTION,
-        //CARDIOMYOPATHY
+        RUPTURED_UTERUS,
+        ABORTION,
+        CARDIOMYOPATHY
     }
     
     /**
