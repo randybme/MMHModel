@@ -139,7 +139,7 @@ public class App
              
                 // TODO: Incorporate results from Benoit's near miss study
                 // Determine whether current patient remains alive
-                double variate = 1;//Math.random();
+                double variate = Math.random();
 			 	if (variate <= patient.probabilityOfMortality())
                 {
                     patient.die();
