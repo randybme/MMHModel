@@ -1,4 +1,4 @@
-package edu.bu.zaman.MMHModel;
+package edu.bu.zaman.MMHModel.Simulator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,7 +53,7 @@ public class StageManager
 	 */
 	private void loadTrajectories()
 	{
-		String filepath = App.getSetupFilepath();        
+		String filepath = Simulator.getSetupFilepath();        
         System.out.println("Reading patient trajectories from path: " + filepath);
         
         // Open the trajectories workbook and get the first sheet

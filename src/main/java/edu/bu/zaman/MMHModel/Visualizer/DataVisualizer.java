@@ -1,4 +1,4 @@
-package edu.bu.zaman.ModelVisualizer;
+package edu.bu.zaman.MMHModel.Visualizer;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -34,7 +34,7 @@ import org.knowm.xchart.style.Styler.LegendPosition;
 import javafx.util.Pair;
 import net.miginfocom.swing.MigLayout;
 
-public class ModelVisualizer extends JFrame 
+public class DataVisualizer extends JFrame 
 	implements PropertyKeyConfigurationChangedListener
 {
 	private enum DataType
@@ -60,7 +60,7 @@ public class ModelVisualizer extends JFrame
 	private JPanel m_optionsPanel;
 	private JPanel m_configurationPanel;
 	
-	public ModelVisualizer(Path dataPath)
+	public DataVisualizer(Path dataPath)
 	{
 		loadModelData(dataPath);
 		initializeViews();
@@ -131,7 +131,7 @@ public class ModelVisualizer extends JFrame
 					for (String component : components)
 					{
 						globalKey += component;
-						if (component.contains(App.ARRAY_DELIMITER))
+						if (component.contains(Visualizer.ARRAY_DELIMITER))
 						{
 							componentProperties.put(component, m_componentProperties.get(globalKey));
 						}
@@ -140,7 +140,7 @@ public class ModelVisualizer extends JFrame
 					}
 					
 					PropertyKeyConfigurationPanel configurationPanel = PropertyKeyConfigurationManager.getConfigurationPanel(selectedKey, componentProperties);
-					configurationPanel.addPropertyKeyConfigurationChangedListener(ModelVisualizer.this);
+					configurationPanel.addPropertyKeyConfigurationChangedListener(DataVisualizer.this);
 					
 					m_configurationPanel.removeAll(); // Remove existing panel
 					m_configurationPanel.add(configurationPanel, BorderLayout.CENTER);
@@ -212,7 +212,7 @@ public class ModelVisualizer extends JFrame
 				for (String component : components)
 				{
 					globalKey += component;					
-					if (!m_componentProperties.containsKey(globalKey) && component.contains(App.ARRAY_DELIMITER))
+					if (!m_componentProperties.containsKey(globalKey) && component.contains(Visualizer.ARRAY_DELIMITER))
 					{					
 						m_componentProperties.put(globalKey, getComponentProperties(globalKey + ".", m_propertyKeys));
 					}
@@ -247,7 +247,7 @@ public class ModelVisualizer extends JFrame
 			if (propertyKey.startsWith(key))
 			{
 				String propertyChain = propertyKey.substring(key.length());
-				if (!propertyChain.contains(App.ARRAY_DELIMITER))
+				if (!propertyChain.contains(Visualizer.ARRAY_DELIMITER))
 				{
 					properties.add(propertyChain);
 				}
@@ -281,7 +281,7 @@ public class ModelVisualizer extends JFrame
 			{
 				// Add # to the accumulated key to signify that subsequent properties are
 				// found within array elements
-				String accumulatedKey = (key == null) ? App.ARRAY_DELIMITER + dataKey : key + "." + App.ARRAY_DELIMITER + dataKey;
+				String accumulatedKey = (key == null) ? Visualizer.ARRAY_DELIMITER + dataKey : key + "." + Visualizer.ARRAY_DELIMITER + dataKey;
 				
 				JSONArray array = (JSONArray)value;
 				for (int index = 0; index < array.length(); index++)
@@ -367,7 +367,7 @@ public class ModelVisualizer extends JFrame
 			while (loopKey == null && pathIndex < keyComponents.length)
 			{
 				String pathComponent = keyComponents[pathIndex];
-				if (!pathComponent.contains(App.ARRAY_DELIMITER))
+				if (!pathComponent.contains(Visualizer.ARRAY_DELIMITER))
 				{
 					// Object at the current path component is assumed to be a JSONObject as we know
 					// that it is not an array based on the if-statement above, and only the final
@@ -442,7 +442,7 @@ public class ModelVisualizer extends JFrame
 				for (int propertyIndex = pathIndex; propertyIndex < keyComponents.length; propertyIndex++)
 				{
 					String pathComponent = keyComponents[propertyIndex];
-					if (pathComponent.contains(App.ARRAY_DELIMITER))
+					if (pathComponent.contains(Visualizer.ARRAY_DELIMITER))
 					{
 						// This means the next component in the path is an array, so we need to find an element in the array that
 						// matches the array component's associated conditions set

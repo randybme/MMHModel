@@ -1,4 +1,4 @@
-package edu.bu.zaman.MMHModel;
+package edu.bu.zaman.MMHModel.Simulator;
 
 import java.util.*;
 

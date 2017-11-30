@@ -1,4 +1,4 @@
-package edu.bu.zaman.MMHModel;
+package edu.bu.zaman.MMHModel.Simulator;
 
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  */
 
-public class App 
+public class Simulator 
 {
 	
 	public static HashMap<String, Object> patientList = new HashMap<String, Object>();

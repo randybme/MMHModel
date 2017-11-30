@@ -1,10 +1,10 @@
-package edu.bu.zaman.ModelVisualizer;
+package edu.bu.zaman.MMHModel.Visualizer;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.nio.file.Paths;
 
-public class App
+public class Visualizer
 {		
 	public final static String ARRAY_DELIMITER = "#";	
 	public final static String MODEL_FILE_EXT = ".json";	
@@ -12,7 +12,7 @@ public class App
 	public static void main(String[] args)
 	{
 		// Fetch the model output directory from the model
-		File outputDirectory = new File(edu.bu.zaman.MMHModel.App.getOutputDirectory());
+		File outputDirectory = new File(edu.bu.zaman.MMHModel.Simulator.Simulator.getOutputDirectory());
 		if (!outputDirectory.isDirectory())
 		{
 			System.out.println("Error: invalid model output directory " + outputDirectory.getAbsolutePath());
@@ -38,6 +38,6 @@ public class App
 		
 		String analysisFile = outputFiles[0]; // Choose a file to analyze
 		
-		new ModelVisualizer(Paths.get(outputDirectory.getAbsolutePath(), analysisFile));
+		new DataVisualizer(Paths.get(outputDirectory.getAbsolutePath(), analysisFile));
 	}
 }

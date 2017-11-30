@@ -1,4 +1,4 @@
-package edu.bu.zaman.ModelVisualizer;
+package edu.bu.zaman.MMHModel.Visualizer;
 
 public interface PropertyKeyConfigurationChangedListener 
 {

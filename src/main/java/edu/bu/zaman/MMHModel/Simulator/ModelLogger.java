@@ -1,4 +1,4 @@
-package edu.bu.zaman.MMHModel;
+package edu.bu.zaman.MMHModel.Simulator;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import edu.bu.zaman.MMHModel.Hospital.MaterialResource;
+import edu.bu.zaman.MMHModel.Simulator.Hospital.MaterialResource;
 
 public class ModelLogger 
 {

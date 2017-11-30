@@ -1,4 +1,4 @@
-package edu.bu.zaman.MMHModel;
+package edu.bu.zaman.MMHModel.Simulator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,7 +46,7 @@ public class Shiva
 	private static Shiva m_instance = new Shiva(); // Eager creation of singleton StageManager object
     private Shiva() 
     {
-    	String filepath = App.getSetupFilepath();        
+    	String filepath = Simulator.getSetupFilepath();        
         
         // Open the trajectories workbook and get the first sheet
         try (

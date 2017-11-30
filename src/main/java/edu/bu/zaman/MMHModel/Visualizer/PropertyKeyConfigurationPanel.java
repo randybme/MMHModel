@@ -1,4 +1,4 @@
-package edu.bu.zaman.ModelVisualizer;
+package edu.bu.zaman.MMHModel.Visualizer;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -9,7 +9,7 @@ import javax.swing.event.DocumentListener;
 
 import org.json.JSONObject;
 
-import edu.bu.zaman.ModelVisualizer.ArrayPropertyCondition.Type;
+import edu.bu.zaman.MMHModel.Visualizer.ArrayPropertyCondition.Type;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -73,7 +73,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		
 		for (String component : m_propertyKeyComponents)
 		{
-			if (component.startsWith(App.ARRAY_DELIMITER))
+			if (component.startsWith(Visualizer.ARRAY_DELIMITER))
 			{
 				String buttonTitle = component.substring(1);
 				JButton arrayButton = new JButton(buttonTitle);

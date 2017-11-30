@@ -1,4 +1,4 @@
-package edu.bu.zaman.ModelVisualizer;
+package edu.bu.zaman.MMHModel.Visualizer;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 
 import org.json.JSONObject;
 
-import edu.bu.zaman.ModelVisualizer.ArrayPropertyCondition.Type;
+import edu.bu.zaman.MMHModel.Visualizer.ArrayPropertyCondition.Type;
 
 public class ArrayPropertyConditionSet implements Serializable
 {
