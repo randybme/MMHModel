@@ -46,6 +46,20 @@ public class App
 	}
 	
 	/**
+	 * Provides an absolute path to the output directory where all of the model output files
+	 * are stored.
+	 * 
+	 * @return the absolute path to the model's output directory
+	 */
+	public static String getOutputDirectory()
+	{
+		String currentDir = System.getProperty("user.dir");		
+        String outputDir = Paths.get(currentDir, "outputs").toString();
+        
+        return outputDir;
+	}
+	
+	/**
 	 * Provides an absolute filepath to use for the output file containing all of the model
 	 * data for the current run.
 	 * 
@@ -53,11 +67,8 @@ public class App
 	 */
 	public static String getOutputFilepath() 
 	{
-		
-		String currentDir = System.getProperty("user.dir");
-		
 		String timestamp = new SimpleDateFormat("YYMMdd_HHmmss").format(new Date());
-        String filepath = Paths.get(currentDir, "outputs", timestamp + "_" + OUTPUT_FILENAME).toString();
+        String filepath = Paths.get(getOutputDirectory(), timestamp + "_" + OUTPUT_FILENAME).toString();
         
         return filepath;
 	}
