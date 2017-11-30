@@ -106,7 +106,7 @@ public class ModelLogger
 	public static void writeLog(String path) throws IOException
 	{
 		JSONObject outputData = new JSONObject();
-			outputData.put("patients", m_initialPatientData);
+			outputData.put("patients", m_initialPatientData.values());
 			outputData.put("cycles", m_cycleData);
 			outputData.put("deaths", m_deceasedPatients);
 		
