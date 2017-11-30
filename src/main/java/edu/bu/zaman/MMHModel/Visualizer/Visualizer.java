@@ -1,5 +1,7 @@
 package edu.bu.zaman.MMHModel.Visualizer;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.nio.file.Paths;
@@ -8,6 +10,9 @@ public class Visualizer
 {		
 	public final static String ARRAY_DELIMITER = "#";	
 	public final static String MODEL_FILE_EXT = ".json";	
+	
+	public final static Font labelFont = new Font("System", Font.BOLD, 12);
+	public final static Color labelColor = new Color(0x111111);
 	
 	public static void main(String[] args)
 	{

@@ -2,26 +2,32 @@ package edu.bu.zaman.MMHModel.Visualizer;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.json.JSONObject;
-
 import edu.bu.zaman.MMHModel.Visualizer.ArrayPropertyCondition.Type;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -36,6 +42,42 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 6797228877909920012L;
 	
+	private static final String INVALID_PATH_CONFIG = "Incomplete configuration";
+	private static final String VALID_PATH_CONFIG = "Configuration compelete";
+	
+	private static final Color INVALID_PATH_FOREGROUND = new Color(0x701010);
+	private static final Color INVALID_PATH_BACKGROUND = new Color(0xf6bfbf);
+	private static final Border INVALID_PROPERTY_BORDER = BorderFactory.createLineBorder(INVALID_PATH_FOREGROUND); 
+	private static final Border INVALID_PATH_BORDER	= new CompoundBorder(
+			INVALID_PROPERTY_BORDER,
+			BorderFactory.createEmptyBorder(5, 10, 5, 10)
+	);
+	
+	private static final Color VALID_PATH_FOREGROUND = new Color(0x103A00);
+	private static final Color VALID_PATH_BACKGROUND = new Color(0xf2fff2);
+	private static final Border VALID_PROPERTY_BORDER = BorderFactory.createLineBorder(VALID_PATH_FOREGROUND); 
+	private static final Border VALID_PATH_BORDER = new CompoundBorder(
+			VALID_PROPERTY_BORDER,
+			BorderFactory.createEmptyBorder(5, 10, 5, 10)
+	);
+	
+	private static final Border INVALID_COMPONENT_BORDER = new CompoundBorder(
+			INVALID_PROPERTY_BORDER,
+			BorderFactory.createEmptyBorder(5, 10, 5, 10)
+	);
+	private static final Border INVALID_COMPONENT_BORDER_SELECTED = new CompoundBorder(			
+			BorderFactory.createMatteBorder(0, 0, 1, 0, INVALID_PATH_FOREGROUND),
+			INVALID_COMPONENT_BORDER
+	);	
+	private static final Border VALID_COMPONENT_BORDER = new CompoundBorder(
+			VALID_PROPERTY_BORDER,
+			BorderFactory.createEmptyBorder(5, 10, 5, 10)
+	);
+	private static final Border VALID_COMPONENT_BORDER_SELECTED = new CompoundBorder(			
+			BorderFactory.createMatteBorder(0, 0, 1, 0, VALID_PATH_FOREGROUND),
+			VALID_COMPONENT_BORDER
+	);	
+	
 	/**
 	 * The property key associated with this configuration panel.
 	 */
@@ -44,7 +86,11 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	private String[] m_propertyKeyComponents;
 	private HashMap<String, ArrayList<String>> m_componentProperties;
 	
+	private JPanel m_pathComponents;
 	private JPanel m_conditionsPanel;
+	private JTextField m_seriesNameField;
+	private JLabel m_pathConfigStatus;
+	
 	private HashMap<String, ConditionsPanel> m_conditionsPanels = new HashMap<>();
 	private HashMap<String, ArrayPropertyConditionSet> m_conditionSets = new HashMap<>();
 	
@@ -66,10 +112,71 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	 */
 	private void initializeViews()
 	{
-		setLayout(new MigLayout());
+		TitledBorder border = BorderFactory.createTitledBorder("Property Configuration: " + getPropertyKey());
+		border.setTitleFont(Visualizer.labelFont);
+		border.setTitlePosition(TitledBorder.TOP);
+		border.setTitleJustification(TitledBorder.LEFT);
+		border.setTitleColor(Visualizer.labelColor);
 		
-		JLabel propertyKeyLabel = new JLabel(m_propertyKey);
-		add(propertyKeyLabel, "span");
+		setLayout(new MigLayout("fillx, ins 10, nogrid"));
+		setBorder(border);
+		
+		JLabel seriesNameLabel = new JLabel("Series name:");
+		seriesNameLabel.setFont(Visualizer.labelFont);
+		seriesNameLabel.setForeground(Visualizer.labelColor);
+		
+		JPanel labelBorder = new JPanel(new MigLayout("fillx, ins 0, nogrid"));
+		labelBorder.setBorder(INVALID_PROPERTY_BORDER);
+		
+		m_seriesNameField = new JTextField();
+		m_seriesNameField.setBorder(new EmptyBorder(5, 5, 5, 5));
+		m_seriesNameField.addKeyListener(new KeyAdapter() 
+		{		
+			String oldText;
+
+			@Override
+			public void keyReleased(KeyEvent e) 
+			{
+				String newText = m_seriesNameField.getText();
+				if (!oldText.equals(newText))
+				{
+					fireSeriesNameChanged(newText);
+				}
+				
+				if (newText.equals(""))
+				{
+					labelBorder.setBorder(INVALID_PROPERTY_BORDER);
+				}
+				else
+				{
+					labelBorder.setBorder(VALID_PROPERTY_BORDER);
+				}
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) 
+			{
+				oldText = m_seriesNameField.getText();
+			}
+		});
+		
+		labelBorder.add(m_seriesNameField, "wmin 320, span");
+		add(seriesNameLabel, "growy, split 2");
+		add(labelBorder, "aligny center, gapleft 10, wrap");
+		
+		JLabel propertyPathLabel = new JLabel("Path Configuration:");
+		propertyPathLabel.setFont(Visualizer.labelFont);
+		propertyPathLabel.setForeground(Visualizer.labelColor);
+		
+		m_pathConfigStatus = new JLabel();
+		m_pathConfigStatus.setOpaque(true);
+		m_pathConfigStatus.setFont(new Font("System", Font.PLAIN, 11));
+		
+		add(propertyPathLabel, "gaptop 10");
+		add(m_pathConfigStatus, "gapleft 10, gaptop 10, gapbottom 15, wrap");
+		
+		m_pathComponents = new JPanel(new MigLayout("ins 0 0 0 15, nogrid"));
+		add(m_pathComponents, "gapleft 15, wrap");
 		
 		for (String component : m_propertyKeyComponents)
 		{
@@ -78,43 +185,139 @@ public class PropertyKeyConfigurationPanel extends JPanel
 				String buttonTitle = component.substring(1);
 				JButton arrayButton = new JButton(buttonTitle);
 				
+				arrayButton.setBorder(INVALID_COMPONENT_BORDER);
+				arrayButton.setBackground(INVALID_PATH_BACKGROUND);
+				arrayButton.setOpaque(true);				
 				arrayButton.setActionCommand(component);
-				arrayButton.addActionListener(new ActionListener() {
-					
+				arrayButton.addActionListener(new ActionListener() 
+				{					
 					@Override
 					public void actionPerformed(ActionEvent e) 
 					{
 						String component = e.getActionCommand();
 						loadConditionsPanel(component);					
+						
+						updateArrayComponentButtons();
 					}
 				});
 				
-				add(arrayButton);
+				m_pathComponents.add(arrayButton);
 			}
 			else
 			{
 				JLabel propertyLabel = new JLabel("." + component);
-				add(propertyLabel);
+				m_pathComponents.add(propertyLabel);
 			}
 		}
 		
-		m_conditionsPanel = new JPanel(new BorderLayout());
-		add(m_conditionsPanel, "south");
+		m_conditionsPanel = new JPanel(new MigLayout("fill, ins 0"));
+		add(m_conditionsPanel, "south, gapleft 25");
+		
+		updateConfigurationStatus();
 	}
 		
+	private void updateConfigurationStatus()
+	{
+		// Check and update overall configuration
+		if (hasValidPathConfiguration())
+		{
+			m_pathConfigStatus.setText(VALID_PATH_CONFIG);
+			m_pathConfigStatus.setBackground(VALID_PATH_BACKGROUND);
+			m_pathConfigStatus.setForeground(VALID_PATH_FOREGROUND);
+			m_pathConfigStatus.setBorder(VALID_PATH_BORDER);
+		}
+		else
+		{
+			m_pathConfigStatus.setText(INVALID_PATH_CONFIG);
+			m_pathConfigStatus.setBackground(INVALID_PATH_BACKGROUND);
+			m_pathConfigStatus.setForeground(INVALID_PATH_FOREGROUND);
+			m_pathConfigStatus.setBorder(INVALID_PATH_BORDER);
+		}
+		
+		m_pathConfigStatus.repaint(); 
+	}
+	
+	private void updateArrayComponentButtons()
+	{
+		for (Component component : m_pathComponents.getComponents())
+		{
+			if (component instanceof JButton)
+			{
+				JButton button = (JButton)component;
+				ConditionsPanel panel = m_conditionsPanels.get(button.getActionCommand());
+				
+				if (panel != null && panel.hasValidConditions())
+				{
+					if (panel == m_conditionsPanel.getComponent(0))
+					{
+						button.setBorder(VALID_COMPONENT_BORDER_SELECTED);
+						button.setBackground(VALID_PATH_BACKGROUND);
+					}
+					else
+					{
+						button.setBorder(VALID_COMPONENT_BORDER);
+						button.setBackground(VALID_PATH_BACKGROUND);
+					}
+				}
+				else
+				{
+					if (panel == m_conditionsPanel.getComponent(0))
+					{
+						button.setBorder(INVALID_COMPONENT_BORDER_SELECTED);
+						button.setBackground(INVALID_PATH_BACKGROUND);
+					}
+					else
+					{
+						button.setBorder(INVALID_COMPONENT_BORDER);
+						button.setBackground(INVALID_PATH_BACKGROUND);
+					}
+				}
+			}
+		}
+		
+		m_conditionsPanel.revalidate();
+		m_conditionsPanel.repaint();
+	}
+	
+	/**
+	 * Returns whether the panel has been properly configured with a series name and fully configured
+	 * property path, which is true when every array component in the key path has at least one condition 
+	 * and or has been selected as the x-axis property for plotting.
+	 * 
+	 * @return whether the panel is properly configured
+	 */
+	public boolean hasValidConfiguration()
+	{
+		if (getSeriesName().equals("") || !hasValidPathConfiguration())
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
 	/**
 	 * Returns whether the property key path for this configuration panel has been properly configured. This is true
 	 * when every array component in the key path has at least one condition and or has been selected as the x-axis
 	 * property for plotting.
 	 * 
-	 * @return whether there is a valid configuration
+	 * @return whether there is a valid path configuration
 	 */
-	public boolean hasValidConfiguration()
+	private boolean hasValidPathConfiguration()
 	{
 		// Make sure that the number of conditions matches the number of array properties
 		if (m_conditionSets.size() < m_componentProperties.size())
 		{
 			return false;
+		}
+		
+		// Check to make sure all of the panels indepdently have a valid configuration
+		for (ConditionsPanel panel : m_conditionsPanels.values())
+		{
+			if (!panel.hasValidConditions())
+			{
+				return false;
+			}
 		}
 		
 		// Make sure that one component has been marked as an x-axis property		
@@ -125,6 +328,16 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		}
 		
 		return xAxisProperty;
+	}
+	
+	/**
+	 * Returns the series name that should be used in the plot of this data series.
+	 * 
+	 * @return the series name
+	 */
+	public String getSeriesName()
+	{
+		return m_seriesNameField.getText();
 	}
 	
 	/**
@@ -163,9 +376,20 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	 */
 	private void firePropertyKeyConfigurationChanged()
 	{
+		updateConfigurationStatus();
+		updateArrayComponentButtons();
+		
 		for (PropertyKeyConfigurationChangedListener listener : m_listeners)
 		{
 			listener.configurationChanged(this);
+		}
+	}
+	
+	private void fireSeriesNameChanged(String newName)
+	{
+		for (PropertyKeyConfigurationChangedListener listener : m_listeners)
+		{
+			listener.seriesNameChanged(this, newName);
 		}
 	}
 	
@@ -187,7 +411,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		}
 		
 		m_conditionsPanel.removeAll();
-		m_conditionsPanel.add(conditionPanel, BorderLayout.CENTER);
+		m_conditionsPanel.add(conditionPanel);
 		
 		m_conditionsPanel.revalidate();
 		m_conditionsPanel.repaint();
@@ -204,7 +428,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		private String[] m_componentProperties;
 		
 		private JCheckBox m_xAxisCheckbox;
-		private JPanel m_conditions;
+		private JPanel m_conditionsPanel;
 		
 		private ArrayList<JComboBox<String>> m_conditionProperties = new ArrayList<>();
 		private ArrayList<JComboBox<String>> m_conditionComparators = new ArrayList<>();
@@ -225,7 +449,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 				return;
 			}
 			
-			setLayout(new MigLayout());
+			setLayout(new MigLayout("fillx, ins 0"));
 			
 			m_xAxisCheckbox = new JCheckBox("x-axis property");
 			m_xAxisCheckbox.addActionListener(new ActionListener()
@@ -234,6 +458,8 @@ public class PropertyKeyConfigurationPanel extends JPanel
 				public void actionPerformed(ActionEvent e)
 				{
 					boolean checked = m_xAxisCheckbox.isSelected();
+					setConditionsEnabled(!checked);
+					
 					if (checked)
 					{
 						// Unset property for all other condition sets and then set it for this one
@@ -268,25 +494,48 @@ public class PropertyKeyConfigurationPanel extends JPanel
 				public void ancestorAdded(AncestorEvent event) 
 				{					
 					m_xAxisCheckbox.setSelected(m_conditionSet.isXAxisProperty());
+					setConditionsEnabled(!m_xAxisCheckbox.isSelected());
 				}
 			});
 			
+			m_conditionsPanel = new JPanel(new MigLayout("fillx, nogrid, ins 0"));
+			
 			JComboBox<String> properties = new JComboBox<>(m_componentProperties);
 			properties.addActionListener(this);
-			add(properties);
+			m_conditionsPanel.add(properties);
 			
 			JComboBox<String> comparators = new JComboBox<>(new String[] {"=", ">", ">=", "<", "<=", "in"});
 			comparators.addActionListener(this);
-			add(comparators);
+			m_conditionsPanel.add(comparators);
 			
 			JTextField value = new JTextField();
 			value.setPreferredSize(new Dimension(80, value.getPreferredSize().height));
 			value.getDocument().addDocumentListener(this);			
-			add(value, "wrap");
+			m_conditionsPanel.add(value, "wrap");
+			
+			add(m_conditionsPanel, "wrap");
 			
 			m_conditionProperties.add(properties);
 			m_conditionComparators.add(comparators);
 			m_conditionValues.add(value);			
+		}
+		
+		public boolean hasValidConditions()
+		{
+			if (m_conditionSet.isXAxisProperty())
+			{
+				return true;
+			}
+			
+			for (JTextField field : m_conditionValues)
+			{
+				if (field.getText().equals(""))
+				{
+					return false;
+				}
+			}
+			
+			return true;
 		}
 		
 		private void updateConditions()
@@ -301,6 +550,14 @@ public class PropertyKeyConfigurationPanel extends JPanel
 			}
 			
 			firePropertyKeyConfigurationChanged();
+		}
+		
+		private void setConditionsEnabled(boolean enabled)
+		{
+			for (Component component : m_conditionsPanel.getComponents())
+			{
+				component.setEnabled(enabled);
+			}
 		}
 		
 		@Override

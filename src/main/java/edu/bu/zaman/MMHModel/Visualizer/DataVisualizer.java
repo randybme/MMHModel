@@ -1,9 +1,12 @@
 package edu.bu.zaman.MMHModel.Visualizer;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,11 +19,15 @@ import java.util.Set;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -29,6 +36,8 @@ import org.json.JSONObject;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
+import org.knowm.xchart.XYSeries;
+import org.knowm.xchart.internal.series.Series;
 import org.knowm.xchart.style.Styler.LegendPosition;
 
 import javafx.util.Pair;
@@ -51,11 +60,14 @@ public class DataVisualizer extends JFrame
 
 	private JSONObject m_modelData;
 	private XYChart m_xyChart;
+	private HashMap<String, Series> m_chartSeries = new HashMap<>();
 	
 	private ArrayList<String> m_propertyKeys = new ArrayList<>();
 	private HashMap<String, ArrayList<String>> m_componentProperties = new HashMap<>();
 	private DefaultListModel<String> m_chartKeysModel = new DefaultListModel<>();
 	
+	private JPanel m_chartContainerPanel;
+	private JComboBox m_chartTypes;
 	private XChartPanel<XYChart> m_chartPanel;
 	private JPanel m_optionsPanel;
 	private JPanel m_configurationPanel;
@@ -75,11 +87,23 @@ public class DataVisualizer extends JFrame
 	 */
 	private void initializeViews()
 	{
-		// Initialize components
+		setLayout(new MigLayout());
+		
+		// Set up the chart panel
+		m_chartContainerPanel = new JPanel(new MigLayout());
+		m_chartContainerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		
+		JLabel chartTypeLabel = new JLabel("Chart type:");
+		m_chartContainerPanel.add(chartTypeLabel);
+		
+		m_chartTypes = new JComboBox<>();
+		m_chartContainerPanel.add(m_chartTypes, "grow, wrap");
+				
 		newChart();
 		
+		// Set up the options panel
 		m_optionsPanel = new JPanel();
-		m_optionsPanel.setLayout(new MigLayout());
+		m_optionsPanel.setLayout(new MigLayout("fill"));
 		
 		// Create property keys list
 		final JListArrayListAdapter<String> propertyKeysAdapter = new JListArrayListAdapter<>(m_propertyKeys);
@@ -103,15 +127,67 @@ public class DataVisualizer extends JFrame
 			}
 		});
 		
-		m_optionsPanel.add(propertyOptionsScroll, "span");
+		JLabel modelPropertiesLabel = new JLabel("Model Data Properties:");
+		modelPropertiesLabel.setFont(Visualizer.labelFont);
+		modelPropertiesLabel.setForeground(Visualizer.labelColor);
+		
+		m_optionsPanel.add(modelPropertiesLabel, "wrap");
+		m_optionsPanel.add(propertyOptionsScroll, "grow, span");
 		
 		// Create chart keys list
+		JPanel chartKeysPanel = new JPanel(new MigLayout("fillx, ins 0"));
 		JList<String> chartKeysList = new JList<>(m_chartKeysModel);
 		JScrollPane chartKeysScroll = new JScrollPane(chartKeysList);
+
+		JButton removeButton = new JButton("Remove");
+		removeButton.addActionListener(new ActionListener() 
+		{		
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{ 
+				String selectedProperty = chartKeysList.getSelectedValue();
+				if (selectedProperty == null)
+				{
+					return;
+				}
+				
+				int index = chartKeysList.getSelectedIndex();
+				m_chartKeysModel.remove(index);
+				
+				Component configPanel = m_configurationPanel.getComponent(0);
+				if (configPanel != null && configPanel instanceof PropertyKeyConfigurationPanel)
+				{
+					String seriesName = ((PropertyKeyConfigurationPanel)configPanel).getSeriesName();
+					m_xyChart.removeSeries(seriesName);
+					
+					m_chartPanel.revalidate();
+					m_chartPanel.repaint();
+				}
+				
+				m_configurationPanel.removeAll();
+				m_configurationPanel.revalidate();
+				m_configurationPanel.repaint();				
+			}
+		});				
+		
+		JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ActionListener() 
+		{		
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{ 
+				propertyKeysList.clearSelection();
+				clearChart();
+			}
+		});		
+				
+		chartKeysPanel.add(chartKeysScroll, "grow, span, hmax 70, wrap");
+		chartKeysPanel.add(removeButton, "split 2, align right");
+		chartKeysPanel.add(clearButton, "wrap");
 		
 		chartKeysList.setLayoutOrientation(JList.VERTICAL);
 		chartKeysList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		chartKeysList.addListSelectionListener(new ListSelectionListener() 
+		chartKeysList.addListSelectionListener(new ListSelectionListener()
 		{		
 			@Override
 			public void valueChanged(ListSelectionEvent e) 
@@ -151,27 +227,20 @@ public class DataVisualizer extends JFrame
 			}
 		});
 		
-		m_optionsPanel.add(chartKeysScroll, "grow, span");
+		JLabel chartPropertiesLabel = new JLabel("Chart Properties:");
+		chartPropertiesLabel.setFont(Visualizer.labelFont);
+		chartPropertiesLabel.setForeground(Visualizer.labelColor);
+		
+		m_optionsPanel.add(chartPropertiesLabel, "wrap, gaptop 15");
+		m_optionsPanel.add(chartKeysPanel, "grow, span");
 		
 		// Configure configuration panel
 		m_configurationPanel = new JPanel(new BorderLayout());
-		m_optionsPanel.add(m_configurationPanel, "grow, span");
-		
-		// Create buttons		
-		JButton clearButton = new JButton("Clear");
-		clearButton.addActionListener(new ActionListener() 
-		{		
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{ 
-				clearChart();
-			}
-		});
-		
-		m_optionsPanel.add(clearButton);
-		
-		// Set up frame
-		add(m_optionsPanel, BorderLayout.LINE_END);
+		m_optionsPanel.add(m_configurationPanel, "grow, span, pushy");
+				
+		// Set up frame	
+		add(m_chartContainerPanel, "west");
+		add(m_optionsPanel, "east, w 650, wmax 650");
 	}
 	
 	/**
@@ -308,13 +377,11 @@ public class DataVisualizer extends JFrame
 	private void newChart()
 	{
 		if (m_chartPanel != null)
-		{
-			remove(m_chartPanel);
+		{			
+			m_chartContainerPanel.remove(m_chartPanel);
 		}
 		
 		m_xyChart = new XYChartBuilder()
-			.width(600)
-			.height(400)
 			.title("Test Chart")
 			.xAxisTitle("X Axis")
 			.yAxisTitle("Y Axis")
@@ -324,7 +391,7 @@ public class DataVisualizer extends JFrame
 		
 		m_chartPanel = new XChartPanel<XYChart>(m_xyChart);		
 		
-		add(m_chartPanel, BorderLayout.CENTER);
+		m_chartContainerPanel.add(m_chartPanel, "south");
 		
 		m_chartPanel.revalidate();
 		m_chartPanel.repaint();
@@ -336,7 +403,11 @@ public class DataVisualizer extends JFrame
 	private void clearChart()
 	{
 		m_chartKeysModel.clear();
+		m_chartSeries.clear();
+		
 		m_configurationPanel.removeAll();
+		m_configurationPanel.revalidate();
+		m_configurationPanel.repaint();
 		
 		newChart();
 	}
@@ -403,7 +474,7 @@ public class DataVisualizer extends JFrame
 						// Loop through the current array to find the first element that matches the conditions
 						// associated with this array component
 						
-						JSONArray array = data.getJSONArray(pathComponent);
+						JSONArray array = data.getJSONArray(pathComponent.substring(1));
 						if (array == null)
 						{
 							// An error has occurred if a JSONArray is not associated with this path component
@@ -515,9 +586,9 @@ public class DataVisualizer extends JFrame
 	 * If the supplied data is numerical, the data is plotted as an XY chart.
 	 * 
 	 * @param data			the data to plot
-	 * @param seriesName	the name of the series being plotted
+	 * @param seriesName	the series name to use for the data
 	 */
-	private void plotData(ArrayList<Pair<Integer, String>> data, String seriesName)
+	private Series plotData(ArrayList<Pair<Integer, String>> data, String seriesName)
 	{
 		if (data.size() <= 0)
 		{
@@ -525,7 +596,7 @@ public class DataVisualizer extends JFrame
 			m_chartPanel.revalidate();
 			m_chartPanel.repaint();
 			
-			return;
+			return null;
 		}
 		
 		Pair<Integer, String> dataPoint = data.get(0);
@@ -567,8 +638,8 @@ public class DataVisualizer extends JFrame
 				System.out.println("Data point: (" + xDoubleData[index] + ", " + yDoubleData[index] + ")");
 			}
 			
-			plotXYData(xDoubleData, yDoubleData, seriesName);
-			return;
+			return plotXYData(xDoubleData, yDoubleData, seriesName);
+			
 			
 		case BOOLEAN:
 			double[] xBooleanData = new double[data.size()];
@@ -584,10 +655,14 @@ public class DataVisualizer extends JFrame
 				System.out.println("Data point: (" + xBooleanData[index] + ", " + yBooleanData[index] + ")");
 			}
 			
-			plotXYData(xBooleanData, yBooleanData, seriesName);
-			return;
+			return plotXYData(xBooleanData, yBooleanData, seriesName);
+			
 			
 		case STRING:
+			return null;
+			
+		default:
+			return null;
 			
 		}
 	}
@@ -600,26 +675,29 @@ public class DataVisualizer extends JFrame
 	 * @param xyData		array of XY data to plot
 	 * @param seriesName	a unique name to use for the data series
 	 */
-	private void plotXYData(double[] xData, double[] yData, String seriesName)
+	private XYSeries plotXYData(double[] xData, double[] yData, String seriesName)
 	{
 		// Make sure the chart object has been instantiated
 		if (m_xyChart == null)
 		{
-			return;
+			return null;
 		}			
 		
+		XYSeries series;
 		try 
 		{		
-			m_xyChart.addSeries(seriesName, xData, yData);
+			series = m_xyChart.addSeries(seriesName, xData, yData);
 		} 
 		catch (IllegalArgumentException iae)
 		{
 			// This is thrown if the data series already existst so we should updated it instead
-			m_xyChart.updateXYSeries(seriesName, xData, yData, null);
+			series = m_xyChart.updateXYSeries(seriesName, xData, yData, null);
 		}
 		
 		m_chartPanel.revalidate();
 		m_chartPanel.repaint();
+		
+		return series;
 	}	
 	
 	@Override
@@ -629,7 +707,73 @@ public class DataVisualizer extends JFrame
 		// in the property key path has a set of conditions or is marked as an x-axis property
 		if (panel.hasValidConfiguration())
 		{
-			plotData(getChartData(panel), panel.getPropertyKey());
+			String propertyKey = panel.getPropertyKey();
+			Series series = plotData(getChartData(panel), panel.getSeriesName());
+			
+			if (series != null)
+			{
+				m_chartSeries.put(propertyKey, series);
+			}
+		}
+		else
+		{
+			m_chartSeries.remove(panel.getPropertyKey());
+			m_xyChart.removeSeries(panel.getSeriesName());
+			
+			m_chartPanel.revalidate();
+			m_chartPanel.repaint();
+		}
+	}
+	
+	@Override
+	public void seriesNameChanged(PropertyKeyConfigurationPanel panel, String newName) 
+	{
+		String propertyKey = panel.getPropertyKey();
+		Series currentSeries = m_chartSeries.get(propertyKey);
+		
+		if (currentSeries == null)
+		{
+			// Series has not yet been added to plot the data so check to see if it has a valid
+			// configuration and then add it
+			if (panel.hasValidConfiguration())
+			{
+				Series series = plotData(getChartData(panel), panel.getSeriesName());
+				if (series != null)
+				{
+					m_chartSeries.put(propertyKey, series);
+				}
+			}
+		}
+		else
+		{		
+			String currentSeriesName = currentSeries.getName();
+			if (currentSeriesName.equals(newName))
+			{
+				return;
+			}
+			
+			// Update the series only if the panel still has a valid configuration
+			if (panel.hasValidConfiguration())
+			{
+				if (currentSeries instanceof XYSeries)
+				{
+					XYSeries xySeries = (XYSeries)currentSeries;
+					
+					double xData[] = xySeries.getXData();
+					double yData[] = xySeries.getYData();
+					
+					Series series = m_xyChart.addSeries(newName, xData, yData);
+					if (series != null)
+					{
+						m_chartSeries.put(propertyKey, series);
+					}
+				}
+			}
+			
+			m_xyChart.removeSeries(currentSeries.getName());
+			
+			m_chartPanel.revalidate();
+			m_chartPanel.repaint();
 		}
 	}
 	
