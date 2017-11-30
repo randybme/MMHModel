@@ -293,7 +293,6 @@ public class StageManager
 				if (nextTreatment > 0)
 				{
 					Row newRow = getRowForId(nextTreatment);
-					System.out.println(newRow);
 					if (newRow != null)
 					{
 						return new Stage(getTreatmentPlan(patient, newRow));
