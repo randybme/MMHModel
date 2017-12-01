@@ -1,6 +1,7 @@
 # MMHModel
 ~$setup.xlsx
 outputs/
+charts/
 
 # Eclipse
 .classpath
