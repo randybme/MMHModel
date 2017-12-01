@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -79,6 +80,13 @@ public class Simulator
 	 */
     public static void main(String[] args)
     {
+    	// Make sure the output directory for the model data exists
+		File outputDirectory = new File(getOutputDirectory());
+		if (!outputDirectory.exists())
+		{
+			outputDirectory.mkdir();
+		}
+    	
     	// Stock the hospital with the initial number of human resources
     	Hospital.setNursesOnShift(10);
 		Hospital.setDoctorsOnShift(10);

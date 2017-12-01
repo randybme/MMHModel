@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,6 +39,26 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeSelectionModel;
 import javax.swing.tree.TreePath;
 
+import org.apache.poi.poifs.nio.DataSource;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.charts.AxisCrosses;
+import org.apache.poi.ss.usermodel.charts.AxisPosition;
+import org.apache.poi.ss.usermodel.charts.ChartData;
+import org.apache.poi.ss.usermodel.charts.ChartDataSource;
+import org.apache.poi.ss.usermodel.charts.DataSources;
+import org.apache.poi.ss.usermodel.charts.ScatterChartSeries;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFChart;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
+import org.apache.poi.xssf.usermodel.XSSFDrawing;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.charts.XSSFChartLegend;
+import org.apache.poi.xssf.usermodel.charts.XSSFScatterChartData;
+import org.apache.poi.xssf.usermodel.charts.XSSFValueAxis;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.knowm.xchart.XChartPanel;
@@ -100,6 +122,8 @@ public class DataVisualizer extends JFrame
 		m_chartContainerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel chartTypeLabel = new JLabel("Chart type:");
+		chartTypeLabel.setFont(Visualizer.labelFont);
+		chartTypeLabel.setForeground(Visualizer.labelColor);
 		m_chartContainerPanel.add(chartTypeLabel);
 		
 		m_chartTypes = new JComboBox<>();
@@ -110,7 +134,9 @@ public class DataVisualizer extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				System.out.println("exporting data");
+				Path exportPath = Paths.get(Visualizer.getOutputDirectory(), "test.xlsx");
+				
+				exportChart(exportPath.toAbsolutePath().toString());
 			}
 		});
 		
@@ -884,6 +910,104 @@ public class DataVisualizer extends JFrame
 		
 		return series;
 	}	
+	
+	/**
+	 * Exports the current chart as an excel file.
+	 * 
+	 * @param path the path where the excel file should be saved
+	 */
+	private void exportChart(String path)
+	{
+		// Export the chart based on its type
+		if (m_xyChart != null)
+		{
+			Workbook workbook = new XSSFWorkbook(); // Create a new excel workbook
+			Sheet seriesSheet = workbook.createSheet("Series");
+			
+			XSSFDrawing drawing = (XSSFDrawing) seriesSheet.createDrawingPatriarch();
+            XSSFClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 10, 15);
+    
+            XSSFChart chart = drawing.createChart(anchor);
+            XSSFChartLegend legend = chart.getOrCreateLegend();
+            legend.setPosition(org.apache.poi.ss.usermodel.charts.LegendPosition.TOP_RIGHT);
+    
+            XSSFValueAxis bottomAxis = chart.createValueAxis(AxisPosition.BOTTOM);
+            XSSFValueAxis leftAxis = chart.createValueAxis(AxisPosition.LEFT);
+            leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
+            
+            XSSFScatterChartData data = chart.getChartDataFactory().createScatterChartData();
+			
+			Map<String, XYSeries> seriesMap = m_xyChart.getSeriesMap();
+			int seriesIndex = 0;
+			
+			for (Map.Entry<String, XYSeries> entry : seriesMap.entrySet())
+			{
+				String seriesName = entry.getKey();
+				XYSeries series = entry.getValue();
+				
+				Row row = seriesSheet.getRow(0);
+				if (row == null)
+				{
+					row = seriesSheet.createRow(0);
+				}
+				
+				int columnOffset = seriesIndex * 3;
+				
+				Cell seriesNameCell = row.createCell(columnOffset);
+				seriesNameCell.setCellValue(seriesName);
+				
+				row = seriesSheet.getRow(1);
+				if (row == null)
+				{
+					row = seriesSheet.createRow(1);
+				}
+				
+				Cell xLabelCell = row.createCell(columnOffset);
+				Cell yLabelCell = row.createCell(columnOffset + 1);
+				xLabelCell.setCellValue("X");
+				yLabelCell.setCellValue("Y");
+				
+				double[] xData = series.getXData();
+				double[] yData = series.getYData();
+				
+				for (int index = 0; index < xData.length; index++)
+				{
+					row = seriesSheet.getRow(2 + index);
+					if (row == null)
+					{
+						row = seriesSheet.createRow(2 + index);
+					}
+					
+					Cell xValue = row.createCell(columnOffset);
+					Cell yValue = row.createCell(columnOffset + 1);
+					
+					xValue.setCellValue(xData[index]);
+					yValue.setCellValue(yData[index]);
+				}
+				
+				// Add the series to the chart
+				ChartDataSource<Number> xDataSource = DataSources.fromNumericCellRange(seriesSheet, new CellRangeAddress(2, 2 + xData.length - 1, columnOffset, columnOffset));
+	            ChartDataSource<Number> yDataSource = DataSources.fromNumericCellRange(seriesSheet, new CellRangeAddress(2, 2 + xData.length - 1, columnOffset + 1, columnOffset + 1));
+					            
+	            ScatterChartSeries dataSeries = data.addSerie(xDataSource, yDataSource);
+	            dataSeries.setTitle(new CellReference(seriesNameCell));
+	            
+				seriesIndex++;
+			}
+			
+			chart.plot(data, bottomAxis, leftAxis);
+			
+			try (FileOutputStream out = new FileOutputStream(path)) 
+			{
+                workbook.write(out);
+                workbook.close();
+            }
+			catch (IOException ioe)
+			{
+				ioe.printStackTrace();
+			}
+		}
+	}
 	
 	@Override
 	public void configurationChanged(PropertyKeyConfigurationPanel panel)
