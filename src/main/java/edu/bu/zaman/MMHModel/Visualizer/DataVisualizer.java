@@ -1,22 +1,23 @@
 package edu.bu.zaman.MMHModel.Visualizer;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,11 +26,16 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
+import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeSelectionModel;
+import javax.swing.tree.TreePath;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -90,52 +96,154 @@ public class DataVisualizer extends JFrame
 		setLayout(new MigLayout());
 		
 		// Set up the chart panel
-		m_chartContainerPanel = new JPanel(new MigLayout());
+		m_chartContainerPanel = new JPanel(new MigLayout("fill"));
 		m_chartContainerPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel chartTypeLabel = new JLabel("Chart type:");
 		m_chartContainerPanel.add(chartTypeLabel);
 		
 		m_chartTypes = new JComboBox<>();
-		m_chartContainerPanel.add(m_chartTypes, "grow, wrap");
-				
+
+		JButton exportButton = new JButton("Export");
+		exportButton.addActionListener(new ActionListener() 
+		{			
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				System.out.println("exporting data");
+			}
+		});
+		
+		m_chartContainerPanel.add(m_chartTypes, "pushx, grow");
+		m_chartContainerPanel.add(exportButton, "wrap");
+		
 		newChart();
 		
 		// Set up the options panel
 		m_optionsPanel = new JPanel();
 		m_optionsPanel.setLayout(new MigLayout("fill"));
 		
-		// Create property keys list
-		final JListArrayListAdapter<String> propertyKeysAdapter = new JListArrayListAdapter<>(m_propertyKeys);
+		// Create property keys tree
 		
-		JList<String> propertyKeysList = new JList<>(propertyKeysAdapter);
-		JScrollPane propertyOptionsScroll = new JScrollPane(propertyKeysList);
-				
-		propertyKeysList.setLayoutOrientation(JList.VERTICAL);
-		propertyKeysList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		propertyKeysList.addListSelectionListener(new ListSelectionListener() 
-		{		
-			@Override
-			public void valueChanged(ListSelectionEvent e) 
+		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode();
+		for (String keyPath : m_propertyKeys)
+		{
+			populateTreeWithPropertyKey(rootNode, keyPath);
+		}
+		
+		sortTree(rootNode);
+		
+		JTree propertyKeysTree = new JTree(rootNode);
+		propertyKeysTree.expandRow(0);
+		propertyKeysTree.setRootVisible(false);
+		propertyKeysTree.setSelectionModel(new DefaultTreeSelectionModel()
+		{
+			private static final long serialVersionUID = 3366693914310519223L;
+
+			/**
+			 * Toggles the expansion of a tree path. This method does nothing if the path
+			 * points to a tree leaf.
+			 * 
+			 * @param path	the path to toggle
+			 */
+			private void toggleNode(TreePath path)
 			{
-				// Make sure the selection has completed
-				if (!e.getValueIsAdjusting())
+				Object lastComponent = path.getLastPathComponent(); 
+				if (lastComponent instanceof DefaultMutableTreeNode)
 				{
-					String selectedKey = propertyKeysList.getSelectedValue();
-					m_chartKeysModel.addElement(selectedKey);
-				}				
+					DefaultMutableTreeNode node = (DefaultMutableTreeNode)lastComponent;
+					if (node.isLeaf()) 
+					{
+						return;
+					}
+					
+					if (propertyKeysTree.isExpanded(path))
+					{
+						propertyKeysTree.collapsePath(path);
+					}
+					else
+					{
+						propertyKeysTree.expandPath(path);
+					}
+				}
+			}
+			
+			/**
+			 * Filters the tree paths array for paths that only lead to leaves. This method
+			 * also optionally toggles the expansion of tree nodes.
+			 * 
+			 * @param paths			the paths to filter
+			 * @param toggleNodes	whether expansion of nodes within the paths array should be toggled 
+			 * 
+			 * @return an array of TreePaths that only represent leaves
+			 */
+			private TreePath[] getLeafPaths(TreePath[] paths, boolean toggleNodes)
+			{
+				ArrayList<TreePath> leafPaths = new ArrayList<>();
+				for (TreePath path : paths)
+				{
+					Object lastComponent = path.getLastPathComponent();
+					if (lastComponent != null && 
+							lastComponent instanceof DefaultMutableTreeNode &&
+								((DefaultMutableTreeNode)lastComponent).isLeaf())
+					{
+						leafPaths.add(path);
+					}
+					else if (toggleNodes)
+					{
+						toggleNode(path);
+					}
+				}
+				
+				return leafPaths.toArray(new TreePath[leafPaths.size()]);
+			}
+			
+			@Override
+			public void setSelectionPaths(TreePath[] paths)
+			{
+			    super.setSelectionPaths(getLeafPaths(paths, true));
+			}
+
+			@Override
+			public void addSelectionPaths(TreePath[] paths)
+			{
+			    super.addSelectionPaths(getLeafPaths(paths, true));
 			}
 		});
+		propertyKeysTree.addTreeSelectionListener(new TreeSelectionListener() 
+		{
+			@Override
+			public void valueChanged(TreeSelectionEvent e) 
+			{
+				TreePath selectedPath = e.getPath();
+				
+				Object lastPathComponent = selectedPath.getLastPathComponent();
+				if (lastPathComponent != null && lastPathComponent instanceof DefaultMutableTreeNode)
+				{
+					ArrayList<Object> pathComponents = new ArrayList<>(Arrays.asList(selectedPath.getPath()));				
+					pathComponents.remove(0); // Remove the empty root node from the path					
+					String path = String.join(".", pathComponents.stream().map(object -> object.toString()).collect(Collectors.toList()));
+					
+					// Only add the path if it hasn't already been added
+					if (!m_chartKeysModel.contains(path))
+					{
+						m_chartKeysModel.addElement(path);
+					}
+				}
+			}
+		});
+		
+		JScrollPane propertyOptionsScroll = new JScrollPane(propertyKeysTree);
 		
 		JLabel modelPropertiesLabel = new JLabel("Model Data Properties:");
 		modelPropertiesLabel.setFont(Visualizer.labelFont);
 		modelPropertiesLabel.setForeground(Visualizer.labelColor);
 		
 		m_optionsPanel.add(modelPropertiesLabel, "wrap");
-		m_optionsPanel.add(propertyOptionsScroll, "grow, span");
+		m_optionsPanel.add(propertyOptionsScroll, "grow, span, hmax 200");
 		
 		// Create chart keys list
-		JPanel chartKeysPanel = new JPanel(new MigLayout("fillx, ins 0"));
+		JPanel chartKeysPanel = new JPanel(new MigLayout("fill, ins 0"));
 		JList<String> chartKeysList = new JList<>(m_chartKeysModel);
 		JScrollPane chartKeysScroll = new JScrollPane(chartKeysList);
 
@@ -176,7 +284,7 @@ public class DataVisualizer extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{ 
-				propertyKeysList.clearSelection();
+				propertyKeysTree.clearSelection();
 				clearChart();
 			}
 		});		
@@ -236,11 +344,88 @@ public class DataVisualizer extends JFrame
 		
 		// Configure configuration panel
 		m_configurationPanel = new JPanel(new BorderLayout());
-		m_optionsPanel.add(m_configurationPanel, "grow, span, pushy");
+		m_optionsPanel.add(m_configurationPanel, "grow, span, pushy, hmin 300");
 				
 		// Set up frame	
 		add(m_chartContainerPanel, "west");
 		add(m_optionsPanel, "east, w 650, wmax 650");
+	}
+	
+	/**
+	 * Populates a tree node with child nodes and leafs described by a key path provided in
+	 * dot notation (i.e. root.childnode.childleaf).
+	 * 
+	 * @param root		the root node to populate
+	 * @param keyPath	the key path describing what children must be added to the root node
+	 */
+	private void populateTreeWithPropertyKey(DefaultMutableTreeNode root, String keyPath)
+	{
+		String[] pathComponents = keyPath.split("\\.");
+		for (String component : pathComponents)
+		{
+			@SuppressWarnings("unchecked")
+			Enumeration<DefaultMutableTreeNode> children = root.children();
+			
+			boolean foundNode = false;
+			DefaultMutableTreeNode node;
+			
+			while (children.hasMoreElements())
+			{
+				node = children.nextElement();
+				if (node.getUserObject().toString().equals(component))
+				{
+					root = node;
+					foundNode = true;
+					break;
+				}
+			}
+			
+			if (!foundNode)
+			{
+				node = new DefaultMutableTreeNode(component);
+				root.add(node);
+				root = node;
+			}
+		}
+	}
+	
+	private void sortTree(DefaultMutableTreeNode root)
+	{
+		if (root == null)
+		{
+			return;
+		}
+		
+		ArrayList<DefaultMutableTreeNode> nodes = new ArrayList<>();
+		ArrayList<DefaultMutableTreeNode> leaves = new ArrayList<>();
+		
+		@SuppressWarnings("unchecked")
+		Enumeration<DefaultMutableTreeNode> children = root.children();
+		while (children.hasMoreElements())
+		{
+			DefaultMutableTreeNode node = children.nextElement();
+			sortTree(node); // Recursively sort node
+			
+			if (node.isLeaf())
+			{
+				leaves.add(node);
+			}
+			else
+			{
+				nodes.add(node);
+			}
+		}
+		
+		Comparator<DefaultMutableTreeNode> comparator = (node1, node2) -> 
+				 node1.getUserObject().toString().compareToIgnoreCase(
+						node2.getUserObject().toString());
+				 
+		Collections.sort(nodes, comparator);
+		Collections.sort(leaves, comparator);
+		
+		root.removeAllChildren();
+		nodes.forEach(root::add);
+		leaves.forEach(root::add);
 	}
 	
 	/**
@@ -391,7 +576,7 @@ public class DataVisualizer extends JFrame
 		
 		m_chartPanel = new XChartPanel<XYChart>(m_xyChart);		
 		
-		m_chartContainerPanel.add(m_chartPanel, "south");
+		m_chartContainerPanel.add(m_chartPanel, "grow, push, south");
 		
 		m_chartPanel.revalidate();
 		m_chartPanel.repaint();
@@ -775,62 +960,5 @@ public class DataVisualizer extends JFrame
 			m_chartPanel.revalidate();
 			m_chartPanel.repaint();
 		}
-	}
-	
-	/**
-	 * Adapter class that enables the use of an ArrayList<> to populate a JList.
-	 * 
-	 * @author Darash Desai
-	 *
-	 * @param <T>
-	 */
-	private class JListArrayListAdapter<T> extends AbstractListModel<T>
-	{	
-		private static final long serialVersionUID = 1L;
-		
-		private ArrayList<T> m_data;
-		//private ArrayList<T> m_filteredData;
-		
-		public JListArrayListAdapter(ArrayList<T> data)
-		{
-			m_data = data;
-			//m_filteredData = m_data;
-		}
-		
-		public int getSize()
-		{
-			return m_data.size();
-			//return m_filteredData.size();
-		}
-		
-		public T getElementAt(int index)
-		{
-			return m_data.get(index);
-			//return m_filteredData.get(index);
-		}
-
-		/*
-		public void setFilter(String filter)
-		{
-			if (filter == null)
-			{
-				m_filteredData = m_data;
-			}
-			else
-			{
-				m_filteredData = new ArrayList<>();
-				for (T key : m_data)
-				{
-					if (key.toString().startsWith(filter))
-					{
-						m_filteredData.add(key);
-					}
-				}
-				
-				// Notify list that all of the list contents have changed
-				fireContentsChanged(this, 0, m_filteredData.size());
-			}
-		}
-		*/
 	}
 }
