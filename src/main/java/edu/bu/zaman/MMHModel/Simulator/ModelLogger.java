@@ -139,10 +139,14 @@ public class ModelLogger
 						
 			ArrayList<Condition> conditions = patient.getConditions();
 			
-			JSONObject conditionData = new JSONObject();
+			JSONArray conditionData = new JSONArray();
 			for (Condition condition: conditions)
 			{
-				conditionData.put(condition.getType().name(), condition.getProbabilityOfMortality());
+				JSONObject conditionInfo = new JSONObject();
+				conditionInfo.put("name", condition.getType().name());
+				conditionInfo.put("probabiityOfMortality", condition.getProbabilityOfMortality());
+				
+				conditionData.put(conditionInfo);
 			}
 			
 			data.put("conditions", conditionData);
