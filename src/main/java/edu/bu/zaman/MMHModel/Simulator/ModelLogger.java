@@ -138,14 +138,14 @@ public class ModelLogger
 			data.put("age", age);
 						
 			ArrayList<Condition> conditions = patient.getConditions();
-			ArrayList<String> conditionStrings = new ArrayList<>(conditions.size());
 			
+			JSONObject conditionData = new JSONObject();
 			for (Condition condition: conditions)
 			{
-				conditionStrings.add(condition.getType().name());
+				conditionData.put(condition.getType().name(), condition.getProbabilityOfMortality());
 			}
 			
-			data.put("conditions", conditionStrings);
+			data.put("conditions", conditionData);
 			
 			return data;
 		}
