@@ -11,12 +11,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,14 +41,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeSelectionModel;
 import javax.swing.tree.TreePath;
 
-import org.apache.poi.poifs.nio.DataSource;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.charts.AxisCrosses;
 import org.apache.poi.ss.usermodel.charts.AxisPosition;
-import org.apache.poi.ss.usermodel.charts.ChartData;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.ss.usermodel.charts.DataSources;
 import org.apache.poi.ss.usermodel.charts.ScatterChartSeries;
@@ -61,6 +61,9 @@ import org.apache.poi.xssf.usermodel.charts.XSSFScatterChartData;
 import org.apache.poi.xssf.usermodel.charts.XSSFValueAxis;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.CategorySeries;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
@@ -81,13 +84,33 @@ public class DataVisualizer extends JFrame
 		STRING
 	};
 	
+	private enum ChartType
+	{
+		XY_SCATTER("XY Scatter"),
+		BAR_CHART("Bar Chart"),
+		PIE_CHART("Pie Chart");
+		
+		private final String m_name;
+		private ChartType(final String name)
+		{
+			m_name = name;
+		}
+		
+		public String toString()
+		{
+			return m_name;
+		}
+	}
+	
 	/**
 	 * Serial version UID used for object serialization
 	 */
 	private static final long serialVersionUID = 1109397701001808148L;
-
+	private static final String PLACEHOLDER_SERIES = "_placeholder";
+	
 	private JSONObject m_modelData;
 	private XYChart m_xyChart;
+	private CategoryChart m_categoryChart;
 	private HashMap<String, Series> m_chartSeries = new HashMap<>();
 	
 	private ArrayList<String> m_propertyKeys = new ArrayList<>();
@@ -95,8 +118,13 @@ public class DataVisualizer extends JFrame
 	private DefaultListModel<String> m_chartKeysModel = new DefaultListModel<>();
 	
 	private JPanel m_chartContainerPanel;
-	private JComboBox m_chartTypes;
-	private XChartPanel<XYChart> m_chartPanel;
+	private JComboBox<ChartType> m_chartTypes = new JComboBox<ChartType>(new ChartType[]{
+			ChartType.XY_SCATTER,
+			ChartType.BAR_CHART,
+			ChartType.PIE_CHART
+	});
+	private XChartPanel<XYChart> m_xyChartPanel;
+	private XChartPanel<CategoryChart> m_categoryChartPanel;
 	private JPanel m_optionsPanel;
 	private JPanel m_configurationPanel;
 	
@@ -125,9 +153,16 @@ public class DataVisualizer extends JFrame
 		chartTypeLabel.setFont(Visualizer.labelFont);
 		chartTypeLabel.setForeground(Visualizer.labelColor);
 		m_chartContainerPanel.add(chartTypeLabel);
-		
-		m_chartTypes = new JComboBox<>();
 
+		m_chartTypes.addActionListener(new ActionListener() 
+		{		
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				switchToChart((ChartType)m_chartTypes.getSelectedItem());
+			}
+		});
+		
 		JButton exportButton = new JButton("Export");
 		exportButton.addActionListener(new ActionListener() 
 		{			
@@ -294,8 +329,8 @@ public class DataVisualizer extends JFrame
 					String seriesName = ((PropertyKeyConfigurationPanel)configPanel).getSeriesName();
 					m_xyChart.removeSeries(seriesName);
 					
-					m_chartPanel.revalidate();
-					m_chartPanel.repaint();
+					m_xyChartPanel.revalidate();
+					m_xyChartPanel.repaint();
 				}
 				
 				m_configurationPanel.removeAll();
@@ -587,25 +622,67 @@ public class DataVisualizer extends JFrame
 	 */
 	private void newChart()
 	{
-		if (m_chartPanel != null)
+		// Remove the current chart
+		if (m_xyChartPanel != null)
 		{			
-			m_chartContainerPanel.remove(m_chartPanel);
+			m_chartContainerPanel.remove(m_xyChartPanel);
+			m_xyChartPanel = null;
 		}
+		else if (m_categoryChartPanel != null)
+		{
+			m_chartContainerPanel.remove(m_categoryChartPanel);
+			m_categoryChartPanel = null;
+		}			
 		
-		m_xyChart = new XYChartBuilder()
-			.title("Test Chart")
-			.xAxisTitle("X Axis")
-			.yAxisTitle("Y Axis")
-			.build();
+		ChartType chartType = (ChartType) m_chartTypes.getSelectedItem();		
+		switch (chartType)
+		{
 		
-		m_xyChart.getStyler().setLegendPosition(LegendPosition.InsideN);
+		case XY_SCATTER:
+			
+			m_xyChart = new XYChartBuilder()
+				.title("Test Chart")
+				.xAxisTitle("X Axis")
+				.yAxisTitle("Y Axis")
+				.build();
+						
+			m_xyChart.getStyler().setLegendPosition(LegendPosition.InsideN);
+			
+			m_xyChartPanel = new XChartPanel<XYChart>(m_xyChart);					
+			m_chartContainerPanel.add(m_xyChartPanel, "grow, push, south");
+				
+			m_xyChartPanel.revalidate();
+			m_xyChartPanel.repaint();
+			
+			break;
 		
-		m_chartPanel = new XChartPanel<XYChart>(m_xyChart);		
-		
-		m_chartContainerPanel.add(m_chartPanel, "grow, push, south");
-		
-		m_chartPanel.revalidate();
-		m_chartPanel.repaint();
+		case BAR_CHART:
+			m_categoryChart = new CategoryChartBuilder()
+					.title("Test Chart")
+					.xAxisTitle("X Axis")
+					.yAxisTitle("Y Axis")
+					.build();
+			
+			m_categoryChart.getStyler().setLegendPosition(LegendPosition.InsideN);
+			m_categoryChart.getStyler().setAvailableSpaceFill(.96);
+			m_categoryChart.getStyler().setOverlapped(true);
+			m_categoryChart.getStyler().setLegendVisible(false);
+			
+			// Need to have a series plotted to avoid an exception
+			m_categoryChart.addSeries(PLACEHOLDER_SERIES, new double[] {0}, new double[] {0});
+			
+			m_categoryChartPanel = new XChartPanel<CategoryChart>(m_categoryChart);
+			m_chartContainerPanel.add(m_categoryChartPanel, "grow, push, south");
+			
+			m_categoryChartPanel.revalidate();
+			m_categoryChartPanel.repaint();
+			
+			break;
+			
+		case PIE_CHART:
+			break;
+			
+		}
 	}
 	
 	/**
@@ -620,7 +697,64 @@ public class DataVisualizer extends JFrame
 		m_configurationPanel.revalidate();
 		m_configurationPanel.repaint();
 		
+		if (m_categoryChart != null)
+		{
+			m_categoryChart.getStyler().setLegendVisible(false);
+		}
+		
 		newChart();
+	}
+	
+	private void switchToChart(ChartType type)
+	{
+		HashMap<String, ArrayList<Pair<String, String>>> existingSeries = new HashMap<>();
+		
+		if (m_chartSeries.size() > 0)
+		{
+			Collection<Series> seriesSet = m_chartSeries.values();
+			
+			for (Series series : seriesSet)
+			{
+				ArrayList<Pair<String, String>> seriesData = new ArrayList<>();
+				if (series instanceof XYSeries)
+				{
+					XYSeries xySeries = (XYSeries)series;
+					double[] xData = xySeries.getXData();
+					double[] yData = xySeries.getYData();
+					
+					for (int index = 0;index < xData.length; index++)
+					{
+						seriesData.add(new Pair<String, String>("" + xData[index], "" + yData[index]));
+					}										
+				}
+				else if (series instanceof CategorySeries)
+				{
+					CategorySeries categorySeries = (CategorySeries)series;
+					Object[] xData = categorySeries.getXData().toArray();
+					Object[] yData = categorySeries.getYData().toArray();
+					
+					for (int index = 0;index < xData.length; index++)
+					{
+						seriesData.add(new Pair<String, String>(xData[index].toString(), yData[index].toString()));
+						System.out.println(xData.toString() + ", " + yData.toString());
+					}									
+				}
+				
+				existingSeries.put(series.getName(), seriesData);
+			}
+		}
+		
+		// Create a new chart based on the current chart type selection
+		newChart();
+		
+		// Populate new chart with previous series if any existed
+		if (existingSeries.size() > 0)
+		{
+			for (Map.Entry<String, ArrayList<Pair<String, String>>> series : existingSeries.entrySet())
+			{
+				plotData(series.getValue(), series.getKey());
+			}
+		}
 	}
 	
 	/**
@@ -631,10 +765,10 @@ public class DataVisualizer extends JFrame
 	 * @param key	the property key from which model data should be extracted
 	 * @return array of Pair<Integer, String> objects that represent XY data points for plotting
 	 */
-	private ArrayList<Pair<Integer, String>> getChartData(PropertyKeyConfigurationPanel panel)
+	private ArrayList<Pair<String, String>> getChartData(PropertyKeyConfigurationPanel panel)
 	{
 		
-		ArrayList<Pair<Integer, String>> xyData = new ArrayList<>();
+		ArrayList<Pair<String, String>> xyData = new ArrayList<>();
 		
 		String key = panel.getPropertyKey();		
 		String[] keyComponents = key.split("\\.");
@@ -747,7 +881,7 @@ public class DataVisualizer extends JFrame
 						}
 						else
 						{
-							xyData.add(new Pair<Integer, String>(index, tempData.toString()));
+							xyData.add(new Pair<String, String>("" + index, tempData.toString()));
 						}
 					}
 					
@@ -796,78 +930,67 @@ public class DataVisualizer extends JFrame
 	 * Plots a set of data using an appropriate chart based on the data type of the data set.
 	 * If the supplied data is numerical, the data is plotted as an XY chart.
 	 * 
-	 * @param data			the data to plot
+	 * @param arrayList		the data to plot
 	 * @param seriesName	the series name to use for the data
 	 */
-	private Series plotData(ArrayList<Pair<Integer, String>> data, String seriesName)
+	private Series plotData(ArrayList<Pair<String, String>> arrayList, String seriesName)
 	{
-		if (data.size() <= 0)
+		if (arrayList.size() <= 0)
 		{
 			m_xyChart.removeSeries(seriesName);
-			m_chartPanel.revalidate();
-			m_chartPanel.repaint();
+			m_xyChartPanel.revalidate();
+			m_xyChartPanel.repaint();
 			
 			return null;
 		}
 		
-		Pair<Integer, String> dataPoint = data.get(0);
-		String value = dataPoint.getValue();
+		ChartType plotType = (ChartType) m_chartTypes.getSelectedItem();
+		Pair<String, String> dataPoint = arrayList.get(0);				
 		
-		DataType type;
-		
-		try
-		{
-			Double.parseDouble(value);
-			type = DataType.NUMERIC;
-		} 
-		catch (NumberFormatException nfe)
-		{
-			if (value.equals("true") || value.equals("false"))
-			{
-				type = DataType.BOOLEAN;
-			}
-			else
-			{
-				type = DataType.STRING;
-			}
-		}
-		
-		switch (type)
+		switch (getDataType(dataPoint.getKey()))
 		{
 		
 		case NUMERIC:
-			double[] xDoubleData = new double[data.size()];
-			double[] yDoubleData = new double[data.size()];
+			DataType valueType = getDataType(dataPoint.getValue());
 			
-			for (int index = 0; index < data.size(); index++)
+			double[] xDoubleData = new double[arrayList.size()];
+			double[] yDoubleData = new double[arrayList.size()];
+			
+			if (valueType == DataType.NUMERIC)
+			{							
+				for (int index = 0; index < arrayList.size(); index++)
+				{
+					dataPoint = arrayList.get(index);
+					
+					xDoubleData[index] = Double.parseDouble(dataPoint.getKey());
+					yDoubleData[index] = Double.parseDouble(dataPoint.getValue());
+					
+					System.out.println("Data point: (" + xDoubleData[index] + ", " + yDoubleData[index] + ")");
+				}
+			}
+			else if (valueType == DataType.BOOLEAN)
 			{
-				dataPoint = data.get(index);
-				
-				xDoubleData[index] = (double)dataPoint.getKey();
-				yDoubleData[index] = Double.parseDouble(dataPoint.getValue());
-				
-				System.out.println("Data point: (" + xDoubleData[index] + ", " + yDoubleData[index] + ")");
+				for (int index = 0; index < arrayList.size(); index++)
+				{
+					dataPoint = arrayList.get(index);
+					
+					xDoubleData[index] = Double.parseDouble(dataPoint.getKey());
+					yDoubleData[index] = (Boolean.parseBoolean(dataPoint.getValue())) ? 1 : 0;
+					
+					System.out.println("Data point: (" + xDoubleData[index] + ", " + yDoubleData[index] + ")");
+				}
 			}
 			
-			return plotXYData(xDoubleData, yDoubleData, seriesName);
-			
-			
-		case BOOLEAN:
-			double[] xBooleanData = new double[data.size()];
-			double[] yBooleanData = new double[data.size()];
-			
-			for (int index = 0; index < data.size(); index++)
+			if (plotType == ChartType.XY_SCATTER)
 			{
-				dataPoint = data.get(index);
-				
-				xBooleanData[index] = (double)dataPoint.getKey();
-				yBooleanData[index] = (Boolean.parseBoolean(dataPoint.getValue())) ? 1 : 0;
-				
-				System.out.println("Data point: (" + xBooleanData[index] + ", " + yBooleanData[index] + ")");
+				return plotXYData(xDoubleData, yDoubleData, seriesName);
+			}
+			else if(plotType == ChartType.BAR_CHART)
+			{
+				return plotCategoryData(xDoubleData, yDoubleData, seriesName);
 			}
 			
-			return plotXYData(xBooleanData, yBooleanData, seriesName);
-			
+			return null;	
 			
 		case STRING:
 			return null;
@@ -892,7 +1015,7 @@ public class DataVisualizer extends JFrame
 		if (m_xyChart == null)
 		{
 			return null;
-		}			
+		}
 		
 		XYSeries series;
 		try 
@@ -905,11 +1028,40 @@ public class DataVisualizer extends JFrame
 			series = m_xyChart.updateXYSeries(seriesName, xData, yData, null);
 		}
 		
-		m_chartPanel.revalidate();
-		m_chartPanel.repaint();
+		m_xyChartPanel.revalidate();
+		m_xyChartPanel.repaint();
 		
 		return series;
-	}	
+	}
+	
+	private CategorySeries plotCategoryData(double[] xData, double[] yData, String seriesName)
+	{
+		// Make sure the chart object has been instantiated
+		if (m_categoryChart == null)
+		{
+			return null;
+		}
+		
+		CategorySeries series;
+		try 
+		{		
+			series = m_categoryChart.addSeries(seriesName, xData, yData);
+		} 
+		catch (IllegalArgumentException iae)
+		{
+			// This is thrown if the data series already existst so we should updated it instead
+			series = m_categoryChart.updateCategorySeries(seriesName, xData, yData, null);
+		}
+		
+		// Remove the placeholder series if it exists
+		m_categoryChart.removeSeries(PLACEHOLDER_SERIES);
+		m_categoryChart.getStyler().setLegendVisible(true);
+		
+		m_categoryChartPanel.revalidate();
+		m_categoryChartPanel.repaint();
+		
+		return series;
+	}
 	
 	/**
 	 * Exports the current chart as an excel file.
@@ -1029,8 +1181,8 @@ public class DataVisualizer extends JFrame
 			m_chartSeries.remove(panel.getPropertyKey());
 			m_xyChart.removeSeries(panel.getSeriesName());
 			
-			m_chartPanel.revalidate();
-			m_chartPanel.repaint();
+			m_xyChartPanel.revalidate();
+			m_xyChartPanel.repaint();
 		}
 	}
 	
@@ -1081,8 +1233,34 @@ public class DataVisualizer extends JFrame
 			
 			m_xyChart.removeSeries(currentSeries.getName());
 			
-			m_chartPanel.revalidate();
-			m_chartPanel.repaint();
+			m_xyChartPanel.revalidate();
+			m_xyChartPanel.repaint();
+		}
+	}
+	
+	/**
+	 * Returns the data type for a given String value.
+	 * 
+	 * @param value		a string value
+	 * @return the data type of the string
+	 */
+	private DataType getDataType(String value)
+	{
+		try
+		{
+			Double.parseDouble(value);
+			return DataType.NUMERIC;
+		} 
+		catch (NumberFormatException nfe)
+		{
+			if (value.equals("true") || value.equals("false"))
+			{
+				return DataType.BOOLEAN;
+			}
+			else
+			{
+				return DataType.STRING;
+			}
 		}
 	}
 }
