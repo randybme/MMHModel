@@ -1,6 +1,7 @@
 package edu.bu.zaman.MMHModel.Visualizer;
 
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -37,6 +39,12 @@ import net.miginfocom.swing.MigLayout;
 
 public class PropertyKeyConfigurationPanel extends JPanel
 {
+	public enum DataOption
+	{
+		NONE,
+		COUNT
+	}
+	
 	/**
 	 * Serial version UID used for object serialization.
 	 */
@@ -90,6 +98,8 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	private JPanel m_conditionsPanel;
 	private JTextField m_seriesNameField;
 	private JLabel m_pathConfigStatus;
+	private ButtonGroup m_dataOptions;
+	private JRadioButton m_optionCount;
 	
 	private HashMap<String, ConditionsPanel> m_conditionsPanels = new HashMap<>();
 	private HashMap<String, ArrayPropertyConditionSet> m_conditionSets = new HashMap<>();
@@ -163,6 +173,35 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		labelBorder.add(m_seriesNameField, "wmin 320, span");
 		add(seriesNameLabel, "growy, split 2");
 		add(labelBorder, "aligny center, gapleft 10, wrap");
+		
+		JLabel dataOptionsLabel = new JLabel("Data Options:");
+		dataOptionsLabel.setFont(Visualizer.labelFont);
+		dataOptionsLabel.setForeground(Visualizer.labelColor);
+		
+		m_dataOptions = new ButtonGroup();
+		
+		JRadioButton optionNone = new JRadioButton("None");
+		m_optionCount = new JRadioButton("Count");
+		
+		ActionListener notifyOptionChanged = new ActionListener() 
+		{		
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				firePropertyKeyConfigurationChanged();
+			}
+		};
+		
+		optionNone.addActionListener(notifyOptionChanged);
+		m_optionCount.addActionListener(notifyOptionChanged);
+		
+		m_dataOptions.add(optionNone);
+		m_dataOptions.add(m_optionCount);
+		optionNone.setSelected(true);
+		
+		add(dataOptionsLabel, "gaptop 10");
+		add(optionNone);
+		add(m_optionCount, "wrap");
 		
 		JLabel propertyPathLabel = new JLabel("Path Configuration:");
 		propertyPathLabel.setFont(Visualizer.labelFont);
@@ -261,7 +300,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 				}
 				else
 				{
-					if (panel == m_conditionsPanel.getComponent(0))
+					if (m_conditionsPanel.getComponents().length == 0 || panel == m_conditionsPanel.getComponent(0))
 					{
 						button.setBorder(INVALID_COMPONENT_BORDER_SELECTED);
 						button.setBackground(INVALID_PATH_BACKGROUND);
@@ -338,6 +377,21 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	public String getSeriesName()
 	{
 		return m_seriesNameField.getText();
+	}
+	
+	/**
+	 * Returns any data option that was selected for this series.
+	 * 
+	 * @return the data option
+	 */
+	public DataOption getDataOption()
+	{
+		if (m_optionCount.isSelected())
+		{
+			return DataOption.COUNT;
+		}
+		
+		return DataOption.NONE;
 	}
 	
 	/**

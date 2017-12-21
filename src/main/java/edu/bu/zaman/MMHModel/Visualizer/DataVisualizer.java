@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -627,11 +628,13 @@ public class DataVisualizer extends JFrame
 		{			
 			m_chartContainerPanel.remove(m_xyChartPanel);
 			m_xyChartPanel = null;
+			m_xyChart = null;
 		}
 		else if (m_categoryChartPanel != null)
 		{
 			m_chartContainerPanel.remove(m_categoryChartPanel);
 			m_categoryChartPanel = null;
+			m_categoryChart = null;
 		}			
 		
 		ChartType chartType = (ChartType) m_chartTypes.getSelectedItem();		
@@ -692,6 +695,8 @@ public class DataVisualizer extends JFrame
 	{
 		m_chartKeysModel.clear();
 		m_chartSeries.clear();
+		
+		PropertyKeyConfigurationManager.clear();
 		
 		m_configurationPanel.removeAll();
 		m_configurationPanel.revalidate();
@@ -768,7 +773,7 @@ public class DataVisualizer extends JFrame
 	private ArrayList<Pair<String, String>> getChartData(PropertyKeyConfigurationPanel panel)
 	{
 		
-		ArrayList<Pair<String, String>> xyData = new ArrayList<>();
+		ArrayList<Pair<String, String>> chartData = new ArrayList<>();
 		
 		String key = panel.getPropertyKey();		
 		String[] keyComponents = key.split("\\.");
@@ -793,7 +798,7 @@ public class DataVisualizer extends JFrame
 					if (data == null)
 					{
 						// An error has occurred if the path component does not return a JSONObject
-						return xyData;
+						return chartData;
 					}
 				}
 				else
@@ -803,7 +808,7 @@ public class DataVisualizer extends JFrame
 					if (!conditionSets.containsKey(pathComponent))
 					{
 						// An error has occurred if the array path component is not in the conditionSets map
-						return xyData;
+						return chartData;
 					}
 					
 					ArrayPropertyConditionSet conditionSet = conditionSets.get(pathComponent);
@@ -823,14 +828,14 @@ public class DataVisualizer extends JFrame
 						if (array == null)
 						{
 							// An error has occurred if a JSONArray is not associated with this path component
-							return xyData;
+							return chartData;
 						}
 						
 						data = arrayElementSatisfyingConditions(array, conditionSet);
 						if (data == null)
 						{
 							// Return an empty data set of an array element matching the condition set was not found
-							return xyData;
+							return chartData;
 						}
 					}
 				}
@@ -841,7 +846,7 @@ public class DataVisualizer extends JFrame
 			if (loopKey == null)
 			{
 				// An error has occurred if a loop key was not found
-				return xyData;
+				return chartData;
 			}
 			
 			JSONArray xAxisArray = data.getJSONArray(loopKey.substring(1)); // Remove array delimeter from beginning of key
@@ -852,7 +857,7 @@ public class DataVisualizer extends JFrame
 				if (elementData == null)
 				{
 					// Error has occurred if this element is null
-					return xyData;
+					return chartData;
 				}
 				
 				for (int propertyIndex = pathIndex; propertyIndex < keyComponents.length; propertyIndex++)
@@ -867,7 +872,7 @@ public class DataVisualizer extends JFrame
 						if (conditionSet == null)
 						{
 							// Error has occurred if a condition set could not be found
-							return xyData;
+							return chartData;
 						}
 						
 						elementData = arrayElementSatisfyingConditions(array, conditionSet);
@@ -881,7 +886,7 @@ public class DataVisualizer extends JFrame
 						}
 						else
 						{
-							xyData.add(new Pair<String, String>("" + index, tempData.toString()));
+							chartData.add(new Pair<String, String>("" + index, tempData.toString()));
 						}
 					}
 					
@@ -895,7 +900,51 @@ public class DataVisualizer extends JFrame
 			}				
 		}
 		
-		return xyData;
+		// Perform any post-processing on the data based on the series options
+		switch (panel.getDataOption())
+		{
+		
+		case COUNT:
+			
+			HashMap<String, Integer> counter = new HashMap<>();
+			ArrayList<Pair<String, String>> countData = new ArrayList<>();
+			
+			for (Pair<String, String> dataPoint : chartData)
+			{
+				String value = dataPoint.getValue();
+				Integer count = counter.get(value);
+				if (count == null)
+				{
+					count = 0;
+				}
+				
+				count++;
+				counter.put(value, count);
+			}
+			
+			for (Entry<String, Integer> entry : counter.entrySet())
+			{
+				// Rename key if it refers to a boolean value
+				String entryKey = entry.getKey();
+				if (entryKey.equals("true"))
+				{
+					entryKey = "Yes";
+				}
+				else if (entryKey.equals("false"))
+				{
+					entryKey = "No";
+				}
+				
+				System.out.println("Count " + entryKey + " : " + entry.getValue());
+				countData.add(new Pair<String, String>(entryKey, entry.getValue().toString()));
+			}
+			
+			return countData;
+			
+		default:
+			return chartData;
+			
+		}			
 	}
 	
 	/**
@@ -937,10 +986,7 @@ public class DataVisualizer extends JFrame
 	{
 		if (arrayList.size() <= 0)
 		{
-			m_xyChart.removeSeries(seriesName);
-			m_xyChartPanel.revalidate();
-			m_xyChartPanel.repaint();
-			
+			removeSeries(seriesName);			
 			return null;
 		}
 		
@@ -953,8 +999,8 @@ public class DataVisualizer extends JFrame
 		case NUMERIC:
 			DataType valueType = getDataType(dataPoint.getValue());
 			
-			double[] xDoubleData = new double[arrayList.size()];
-			double[] yDoubleData = new double[arrayList.size()];
+			ArrayList<Double> xDoubleData = new ArrayList<>(arrayList.size());
+			ArrayList<Double> yDoubleData = new ArrayList<>(arrayList.size());
 			
 			if (valueType == DataType.NUMERIC)
 			{							
@@ -962,10 +1008,8 @@ public class DataVisualizer extends JFrame
 				{
 					dataPoint = arrayList.get(index);
 					
-					xDoubleData[index] = Double.parseDouble(dataPoint.getKey());
-					yDoubleData[index] = Double.parseDouble(dataPoint.getValue());
-					
-					System.out.println("Data point: (" + xDoubleData[index] + ", " + yDoubleData[index] + ")");
+					xDoubleData.add(Double.parseDouble(dataPoint.getKey()));
+					yDoubleData.add(Double.parseDouble(dataPoint.getValue()));
 				}
 			}
 			else if (valueType == DataType.BOOLEAN)
@@ -974,18 +1018,20 @@ public class DataVisualizer extends JFrame
 				{
 					dataPoint = arrayList.get(index);
 					
-					xDoubleData[index] = Double.parseDouble(dataPoint.getKey());
-					yDoubleData[index] = (Boolean.parseBoolean(dataPoint.getValue())) ? 1 : 0;
-					
-					System.out.println("Data point: (" + xDoubleData[index] + ", " + yDoubleData[index] + ")");
+					xDoubleData.add(Double.parseDouble(dataPoint.getKey()));
+					yDoubleData.add((Boolean.parseBoolean(dataPoint.getValue())) ? 1.0 : 0.0);					
 				}
+			}
+			else if (valueType == DataType.STRING)
+			{
+				return null;
 			}
 			
 			if (plotType == ChartType.XY_SCATTER)
 			{
 				return plotXYData(xDoubleData, yDoubleData, seriesName);
 			}
-			else if(plotType == ChartType.BAR_CHART)
+			else if (plotType == ChartType.BAR_CHART)
 			{
 				return plotCategoryData(xDoubleData, yDoubleData, seriesName);
 			}
@@ -993,6 +1039,23 @@ public class DataVisualizer extends JFrame
 			return null;	
 			
 		case STRING:
+			
+			ArrayList<String> xCategoryData = new ArrayList<>(arrayList.size());
+			ArrayList<Double> yCategoryData = new ArrayList<>(arrayList.size());
+								
+			for (int index = 0; index < arrayList.size(); index++)
+			{
+				dataPoint = arrayList.get(index);
+				
+				xCategoryData.add(dataPoint.getKey());
+				yCategoryData.add(Double.parseDouble(dataPoint.getValue()));
+			}
+			
+			if (plotType == ChartType.BAR_CHART)
+			{
+				return plotCategoryData(xCategoryData, yCategoryData, seriesName);
+			}
+			
 			return null;
 			
 		default:
@@ -1009,7 +1072,7 @@ public class DataVisualizer extends JFrame
 	 * @param xyData		array of XY data to plot
 	 * @param seriesName	a unique name to use for the data series
 	 */
-	private XYSeries plotXYData(double[] xData, double[] yData, String seriesName)
+	private XYSeries plotXYData(ArrayList<? extends Number> xData, ArrayList<? extends Number> yData, String seriesName)
 	{
 		// Make sure the chart object has been instantiated
 		if (m_xyChart == null)
@@ -1034,7 +1097,7 @@ public class DataVisualizer extends JFrame
 		return series;
 	}
 	
-	private CategorySeries plotCategoryData(double[] xData, double[] yData, String seriesName)
+	private CategorySeries plotCategoryData(ArrayList<?> xData, ArrayList<? extends Number> yData, String seriesName)
 	{
 		// Make sure the chart object has been instantiated
 		if (m_categoryChart == null)
@@ -1050,7 +1113,16 @@ public class DataVisualizer extends JFrame
 		catch (IllegalArgumentException iae)
 		{
 			// This is thrown if the data series already existst so we should updated it instead
-			series = m_categoryChart.updateCategorySeries(seriesName, xData, yData, null);
+			try
+			{
+				series = m_categoryChart.updateCategorySeries(seriesName, xData, yData, null);
+			}
+			catch (ClassCastException cce)
+			{
+				// This is thrown if the x-axis data type has changed for the same series
+				removeSeries(seriesName);
+				series = m_categoryChart.addSeries(seriesName, xData, yData);
+			}
 		}
 		
 		// Remove the placeholder series if it exists
@@ -1061,6 +1133,30 @@ public class DataVisualizer extends JFrame
 		m_categoryChartPanel.repaint();
 		
 		return series;
+	}
+	
+	private void removeSeries(String series)
+	{
+		if (m_xyChart != null && m_xyChartPanel != null)
+		{
+			m_xyChart.removeSeries(series);
+			
+			m_xyChartPanel.revalidate();
+			m_xyChartPanel.repaint();
+		}
+		else if (m_categoryChart != null && m_categoryChartPanel != null)
+		{
+			Map<String, CategorySeries> map = m_categoryChart.getSeriesMap();
+			if (map.size() == 1 && !map.containsKey(PLACEHOLDER_SERIES))
+			{
+				m_categoryChart.addSeries(PLACEHOLDER_SERIES, new double[] {0}, new double[] {0});
+			}
+			
+			m_categoryChart.removeSeries(series);
+			
+			m_categoryChartPanel.revalidate();
+			m_categoryChartPanel.repaint();
+		}
 	}
 	
 	/**
@@ -1179,13 +1275,11 @@ public class DataVisualizer extends JFrame
 		else
 		{
 			m_chartSeries.remove(panel.getPropertyKey());
-			m_xyChart.removeSeries(panel.getSeriesName());
-			
-			m_xyChartPanel.revalidate();
-			m_xyChartPanel.repaint();
+			removeSeries(panel.getSeriesName());
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void seriesNameChanged(PropertyKeyConfigurationPanel panel, String newName) 
 	{
@@ -1229,12 +1323,22 @@ public class DataVisualizer extends JFrame
 						m_chartSeries.put(propertyKey, series);
 					}
 				}
+				else if (currentSeries instanceof CategorySeries)
+				{
+					CategorySeries categorySeries = (CategorySeries)currentSeries;
+					
+					List<Object> xData = (List<Object>) categorySeries.getXData();
+					List<Number> yData = (List<Number>) categorySeries.getYData();					
+					
+					Series series = m_categoryChart.addSeries(newName, xData, yData);
+					if (series != null)
+					{
+						m_chartSeries.put(propertyKey, series);
+					}
+				}
 			}
 			
-			m_xyChart.removeSeries(currentSeries.getName());
-			
-			m_xyChartPanel.revalidate();
-			m_xyChartPanel.repaint();
+			removeSeries(currentSeries.getName());
 		}
 	}
 	

@@ -12,6 +12,8 @@ import java.util.HashMap;
  */
 public class PropertyKeyConfigurationManager 
 {
+	private static HashMap<String, PropertyKeyConfigurationPanel> m_configurationPanels = new HashMap<>();
+	
 	/**
 	 * Provides a configuration panel for a property key.
 	 * 
@@ -20,6 +22,24 @@ public class PropertyKeyConfigurationManager
 	 */
 	public static PropertyKeyConfigurationPanel getConfigurationPanel(String key, HashMap<String, ArrayList<String>> componentProperties)
 	{
-		return new PropertyKeyConfigurationPanel(key, componentProperties);
+		// Return a cached panel if it already exists
+		if (m_configurationPanels.containsKey(key))
+		{
+			return m_configurationPanels.get(key);
+		}
+		
+		// Create new panel and cache it
+		PropertyKeyConfigurationPanel panel = new PropertyKeyConfigurationPanel(key, componentProperties); 
+		m_configurationPanels.put(key, panel);
+		
+		return panel; 
+	}
+	
+	/**
+	 * Clears the current set of configuration panels.
+	 */
+	public static void clear()
+	{
+		m_configurationPanels.clear();
 	}
 }
