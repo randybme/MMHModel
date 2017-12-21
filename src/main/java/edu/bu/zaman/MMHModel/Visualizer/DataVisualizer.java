@@ -328,10 +328,7 @@ public class DataVisualizer extends JFrame
 				if (configPanel != null && configPanel instanceof PropertyKeyConfigurationPanel)
 				{
 					String seriesName = ((PropertyKeyConfigurationPanel)configPanel).getSeriesName();
-					m_xyChart.removeSeries(seriesName);
-					
-					m_xyChartPanel.revalidate();
-					m_xyChartPanel.repaint();
+					removeSeries(seriesName);
 				}
 				
 				m_configurationPanel.removeAll();
@@ -904,7 +901,7 @@ public class DataVisualizer extends JFrame
 		switch (panel.getDataOption())
 		{
 		
-		case COUNT:
+		case HISTOGRAM:
 			
 			HashMap<String, Integer> counter = new HashMap<>();
 			ArrayList<Pair<String, String>> countData = new ArrayList<>();
@@ -1147,7 +1144,7 @@ public class DataVisualizer extends JFrame
 		else if (m_categoryChart != null && m_categoryChartPanel != null)
 		{
 			Map<String, CategorySeries> map = m_categoryChart.getSeriesMap();
-			if (map.size() == 1 && !map.containsKey(PLACEHOLDER_SERIES))
+			if (map.size() == 1 && !map.values().stream().findFirst().get().getName().equals(PLACEHOLDER_SERIES))
 			{
 				m_categoryChart.addSeries(PLACEHOLDER_SERIES, new double[] {0}, new double[] {0});
 			}

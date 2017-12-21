@@ -42,7 +42,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	public enum DataOption
 	{
 		NONE,
-		COUNT
+		HISTOGRAM
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	private JTextField m_seriesNameField;
 	private JLabel m_pathConfigStatus;
 	private ButtonGroup m_dataOptions;
-	private JRadioButton m_optionCount;
+	private JRadioButton m_optionHistogram;
 	
 	private HashMap<String, ConditionsPanel> m_conditionsPanels = new HashMap<>();
 	private HashMap<String, ArrayPropertyConditionSet> m_conditionSets = new HashMap<>();
@@ -181,7 +181,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		m_dataOptions = new ButtonGroup();
 		
 		JRadioButton optionNone = new JRadioButton("None");
-		m_optionCount = new JRadioButton("Count");
+		m_optionHistogram = new JRadioButton("Histogram");
 		
 		ActionListener notifyOptionChanged = new ActionListener() 
 		{		
@@ -193,15 +193,15 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		};
 		
 		optionNone.addActionListener(notifyOptionChanged);
-		m_optionCount.addActionListener(notifyOptionChanged);
+		m_optionHistogram.addActionListener(notifyOptionChanged);
 		
 		m_dataOptions.add(optionNone);
-		m_dataOptions.add(m_optionCount);
+		m_dataOptions.add(m_optionHistogram);
 		optionNone.setSelected(true);
 		
 		add(dataOptionsLabel, "gaptop 10");
 		add(optionNone);
-		add(m_optionCount, "wrap");
+		add(m_optionHistogram, "wrap");
 		
 		JLabel propertyPathLabel = new JLabel("Path Configuration:");
 		propertyPathLabel.setFont(Visualizer.labelFont);
@@ -386,9 +386,9 @@ public class PropertyKeyConfigurationPanel extends JPanel
 	 */
 	public DataOption getDataOption()
 	{
-		if (m_optionCount.isSelected())
+		if (m_optionHistogram.isSelected())
 		{
-			return DataOption.COUNT;
+			return DataOption.HISTOGRAM;
 		}
 		
 		return DataOption.NONE;
