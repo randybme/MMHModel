@@ -281,14 +281,15 @@ public class StageManager
 		TreatmentPlan plan;
 		if ((currentStage = patient.getStage()) != null && (plan = currentStage.getTreatmentPlan()) != null)
 		{			
+			// Check to see if the current stage is complete and select the next treatment plan if so
 			if (currentStage.m_cycles >= plan.getLength())
 			{
-				System.out.println("Treatment plan complete!");
+				//System.out.println("Treatment plan complete!");
 				
 				Row currentRow = getRowForId(plan.getID());
 				int nextTreatment = Integer.parseInt(currentRow.getCell(Fields.NEXT_TREATMENT).getStringCellValue());
 				
-				System.out.println("Next treatment: " + nextTreatment);
+				//System.out.println("Next treatment: " + nextTreatment);
 				
 				if (nextTreatment > 0)
 				{
@@ -297,6 +298,10 @@ public class StageManager
 					{
 						return new Stage(getTreatmentPlan(patient, newRow));
 					}
+				}
+				else if(nextTreatment == 0)
+				{
+					return Stage.Complete; // If the next treatment has an ID of 0, the patient is ready to be discharged
 				}
 			}
 			else if (patientSatisfiesRow(patient, getRowForId(plan.getID())))
@@ -330,6 +335,23 @@ public class StageManager
 	
 	static class Stage
 	{
+		public static final Stage Complete = new Stage(new TreatmentPlan(
+				null,
+	            Integer.MAX_VALUE,
+	            null,
+	            null,
+	            null,
+	            null,
+	            null,
+	            0,
+	            0,
+	            0,
+	            0,
+	            0,
+	            0,
+	            0
+		));
+		
 		/**
 		 * Internal counter that keeps track of the age of the stage in units of model cycles.
 		 */

@@ -305,6 +305,12 @@ public class Hospital
             {
 				patient.setStage(stage);
 			}
+			
+			// Check it see if the patient is ready for discharge and skip treatment if so
+			if (stage.equals(StageManager.Stage.Complete))
+			{
+				return true;
+			}
         
             // Get treatment plan for the patient's current stage and determine if the required
             // resources for treatment in the current cycle are available
@@ -355,7 +361,7 @@ public class Hospital
                 // status to indicate they were treated
                 plan.treatPatient();
                 
-                System.out.println("Treating patient " + patient.getPatientId());
+                //System.out.println("Treating patient " + patient.getPatientId());
                 
                 return true;
             }
@@ -374,7 +380,7 @@ public class Hospital
             condition.worsen();
         }
                 
-        System.out.println("Unable to treat patient " + patient.getPatientId());
+        //System.out.println("Unable to treat patient " + patient.getPatientId());
         
         return false;
     }
