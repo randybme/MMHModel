@@ -98,7 +98,7 @@ public class Simulator
         ModelLogger.newCycle();
         
 		double probabilityNewPatient = 0.41; // The probability of acquiring a new patient
-		int totalCycles = 15; // Number of cycles to run simulation, 1 cycle is 15 minutes		
+		int totalCycles = 8640; // Number of cycles to run simulation, 1 cycle is 15 minutes		
 		
         // Iterates through cycles of 15 minutes
 		for (int cycle = 0; cycle < totalCycles; cycle++)

@@ -14,7 +14,7 @@ public class Condition
         PPH,
         ANAEMIA,
         APH,
-        RUPTURED_UTERUS,
+        RU,
         ABORTION,
         CARDIOMYOPATHY
     }

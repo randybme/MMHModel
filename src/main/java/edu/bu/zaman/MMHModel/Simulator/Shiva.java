@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -22,15 +23,35 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Shiva
 {	
 	/**
+	 * Internal Random instance used to draw random numbers.
+	 */
+	private static Random m_random = new Random();
+	
+	/**
 	 * Reference to the condition probabilities excel spreadsheet.
 	 */
-	private static Sheet m_conditionProbabilitiesSheet;
+	private static Sheet m_conditionProbabilitiesSheet;	
 	
 	/**
 	 * Contains list of probabilities associated with the incidence of each condition or set
 	 * of conditions that patients arrive with.
 	 */
 	private static ArrayList<Double> m_conditionProbabilities = new ArrayList<>();
+	
+	/**
+	 * Stores the mean initial probability of mortality for each condition observed among
+	 * patients when they are admitted to the hospital. This is populated at startup from
+	 * the setup.xlsx file. 
+	 */
+	private static HashMap<Condition.Type, Double> m_pomMean = new HashMap<>();
+	
+	/**
+	 * Stores the standard deviation of the initial probabilty of mortality for each condition
+	 * observed among patients when they are admitted to the hospital. This is used together
+	 * with <code>m_pomMean</code> to define a gaussian probability distribution to use for
+	 * drawing a random variate when randomly assigning a condition to a new patient at admission.  
+	 */
+	private static HashMap<Condition.Type, Double> m_pomStdev = new HashMap<>();
 	
 	/**
 	 * Stores the deterioration rates associated with each condition.
@@ -67,10 +88,15 @@ public class Shiva
         		}
         		
         		Condition.Type condition = Condition.Type.valueOf(row.getCell(0).getStringCellValue());
-        		double deterioration = row.getCell(1).getNumericCellValue();
+        		
+        		double pomMean = row.getCell(1).getNumericCellValue();
+        		double pomStdev = row.getCell(2).getNumericCellValue();
+        		double deterioration = row.getCell(3).getNumericCellValue();
         		
         		if (condition != null)
         		{
+        			m_pomMean.put(condition, pomMean);
+        			m_pomStdev.put(condition, pomStdev);
         			m_deteriorationRates.put(condition, deterioration);
         		}
         	}
@@ -110,6 +136,18 @@ public class Shiva
         }
     }
     
+    /**
+     * Creates a new patient to admit to the hospital with a random age and set of conditions.
+     * The probability of being assigned any given condition is defined by the incidence rates
+     * provided in the setup file, and the initial probabilty of mortality for each condition
+     * is randomly drawn using a gaussian probabilty distribution with a mean and standard
+     * deviation that is also defined for each condition in the setup file.
+     * 
+     * @param minAge	the minimum age the patient should be
+     * @param maxAge	the maximum age the patient should be
+     * 
+     * @return	a new patient to admit to the hospital 
+     */
 	public static Patient createPatient(int minAge, int maxAge)
     {
         // Generates a random age for the patient
@@ -136,7 +174,7 @@ public class Shiva
         	{
                 conditions.add(new Condition(
                     type,
-                    Math.random(), // TODO: Should be changed to a more appropriate binomial distribution
+                    getProbabilityOfMortality(type),
                     m_deteriorationRates.get(type)
                 ));
         	}
@@ -145,6 +183,35 @@ public class Shiva
         return new Patient(++m_patientCount, age, conditions);
     }
 
+	/**
+	 * Generates a probability of mortality for a random patient based on the mean and stdev defined
+	 * for that condition's probability distribution. These values are fetched from the "Conditions"
+	 * sheet of the setup.xlsx file.
+	 * 
+	 * @param conditionType 	the condition to fetch a random probability of mortality for
+	 * @return a probability of mortality
+	 */
+	private static double getProbabilityOfMortality(Condition.Type conditionType)
+	{
+		double pom = 0;
+		double pomMean = m_pomMean.getOrDefault(conditionType, 0.0);
+		double pomStdev = m_pomStdev.getOrDefault(conditionType, 0.0);
+		
+		// Make sure the condition type exists in the hash maps
+		if (pomMean * pomStdev == 0)
+		{
+			return 0;
+		}
+		
+		do
+		{
+			pom = m_random.nextGaussian() * pomStdev + pomMean;
+		}
+		while (pom <= 0 || pom >= 1);
+		
+		return pom;
+	}
+	
     /**
      * Assess the current patient and determines whether any conditions are spotaneously
      * cured and also whether the patient spotaneously contracts new conditions

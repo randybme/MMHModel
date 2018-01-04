@@ -30,7 +30,7 @@ public class Hospital
         METRONIDAZOLE_TAB,
         PARACETAMOL,
         METHYLDOPA,
-        MISPROSTOL,
+        MISOPROSTOL,
         NIFEDIPINE,
         ERYTHROMYCIN,
         ZNO_PLASTER,
@@ -120,6 +120,7 @@ public class Hospital
         stockDisposableResource(MaterialResource.AMOXICILLIN, 500000);
         stockDisposableResource(MaterialResource.FESO4_FOLIC, 200000);
         stockDisposableResource(MaterialResource.DICLOFENAC_NA_TAB, 50000);
+        stockDisposableResource(MaterialResource.MISOPROSTOL, 2000000);
         stockDisposableResource(MaterialResource.METRONIDAZOLE_TAB, 2000000);
         stockDisposableResource(MaterialResource.PARACETAMOL, 2000000);
         stockDisposableResource(MaterialResource.METHYLDOPA, 700000);
