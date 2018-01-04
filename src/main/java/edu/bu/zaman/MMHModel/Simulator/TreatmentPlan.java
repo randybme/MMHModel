@@ -124,16 +124,19 @@ public class TreatmentPlan
         m_materialResourceDosages = new HashMap<>();
         
         // Store the treatment efficacies internally as a HashMap rather than an array
-        for (int index = 0; index < conditionTypes.size(); index++)
+        if (conditionTypes != null)
         {
-            m_treatmentEfficacies.put(conditionTypes.get(index), treatmentEfficacies[index]);
-        }
-        
-        // Stores the dosages and frequencies as a HashMap rather than as arrays
-        for (int index = 0; index < materialResources.length; index++)
-        {
-            m_materialResourceDosages.put(materialResources[index], materialResourceDosages[index]);
-            m_materialResourceFrequencies.put(materialResources[index], materialResourceFrequencies[index]);
+	        for (int index = 0; index < conditionTypes.size(); index++)
+	        {
+	            m_treatmentEfficacies.put(conditionTypes.get(index), treatmentEfficacies[index]);
+	        }
+	        
+	        // Stores the dosages and frequencies as a HashMap rather than as arrays
+	        for (int index = 0; index < materialResources.length; index++)
+	        {
+	            m_materialResourceDosages.put(materialResources[index], materialResourceDosages[index]);
+	            m_materialResourceFrequencies.put(materialResources[index], materialResourceFrequencies[index]);
+	        }
         }
 	}
 	
@@ -192,52 +195,8 @@ public class TreatmentPlan
         	return m_doctorsNeeded;
         }
         
-        return 0;
-        
-		/*if (m_cycle == 0)
-        {
-            doctorsNeeded = humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime);
-		}
-		else if (!humanResourcesRequired(m_cycle - 1, m_doctorOnTime, m_doctorOffTime) && humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime))
-        {
-            doctorsNeeded = true;      
-		}
-
-		if (doctorsNeeded)
-        {
-            return m_doctorsNeeded;
-		}
-
-        return 0;*/
+        return 0;      
 	}
-    
-    /**
-     * Returns the number of nurses that are free from their treatment visit after treatment has been
-     * administered in the current cycle.
-     *
-	public int freeNursesAfterTreatment()
-    {
-		if (!m_patient.isAlive() || (!humanResourcesRequired(m_cycle, m_nurseOnTime, m_nurseOffTime) && humanResourcesRequired(m_cycle -1, m_nurseOnTime, m_nurseOffTime)))
-        {
-            return m_nursesNeeded;
-		}
-        
-        return 0;
-	}*/
-            
-    /**
-     * Returns the number of nurses that are free from their treatment visit after treatment has been
-     * administered in the current cycle.
-     
-	public int freeDoctorsAfterTreatment()
-    {
-		if (!m_patient.isAlive() || (!humanResourcesRequired(m_cycle, m_doctorOnTime, m_doctorOffTime) && humanResourcesRequired(m_cycle -1, m_doctorOnTime, m_doctorOffTime)))
-        {
-            return m_doctorsNeeded;
-		}
-            
-        return 0;
-	}*/
     
     /**
      * Returns whether a human resource is required with the patient for treatment in the current cycle.
@@ -269,10 +228,7 @@ public class TreatmentPlan
      */
 	public void treatPatient()
     {
-		double pi;
-		double pf;
-		double newProbability;
-            
+		double newProbability;           
         for (Condition.Type type: m_conditionTypes)
         {
             Condition patientCondition = m_patient.getCondition(type);
@@ -281,13 +237,11 @@ public class TreatmentPlan
                 continue;
             }
             
-			pi = patientCondition.getProbabilityOfMortality();
-			pf = m_treatmentEfficacies.get(type);
-            
-			newProbability = ((pi - pf) * decay(m_cycle + 1)) + pf;
+			newProbability = treatedProbabilityOfMortality(
+					patientCondition.getProbabilityOfMortality(), 
+					m_treatmentEfficacies.get(type)
+			);
             patientCondition.setProbabilityOfMortality(newProbability);
-            
-            //System.out.println("\t\tTreating patient " + m_patient.getPatientId() +", pom=" + newProbability + ", pi=" + pi + ", pf=" + pf + ", cycle="+m_cycle);
 		}
             
         m_cycle++; // Increase the relative cycle, now that treatment has been adminsitered for this patient
@@ -302,21 +256,17 @@ public class TreatmentPlan
 		return m_totalCycles;
 	}
 	
-	/** 
-     * Represents the shape of a decay function for decreasing the probability of mortality for a given
-	 * condition over the course of the treatment plan; this function should be defined such that f(0) = 1
-	 * and f(c) = 0, where c is final cycle of the treatment plan.
-     *
-     * @param cycle the cycle number for which the decay factor is being requested
-     */
-	private double decay(int cycle)
-    {
-		// TODO: Update this to account for the scenario where the patient is not treated.
-		// Could potentially increase m_totalCycles by the number of treatments that were missed.
-		
-		// As currently implemented, it is possible to complete the treatment without seeing
-		// the pateint's probabily of mortality reduced to m_treatmentEfficacy for each condition.
-		
-        return 1 - ((double)cycle / (double)m_totalCycles);
+	/**
+	 * Returns the new probability of mortality after a treatment based on the current probability
+	 * of mortality and a treatment efficacy.
+	 *  
+	 * @param current			the current probability of mortality
+	 * @param treatmentEfficacy the treatment efficacy
+	 * 
+	 * @return the new probability of mortality after treatment
+	 */
+	private double treatedProbabilityOfMortality(double current, double treatmentEfficacy)
+	{
+		return (current * (1 - treatmentEfficacy)); // implements a geometric decay;
 	}
 }

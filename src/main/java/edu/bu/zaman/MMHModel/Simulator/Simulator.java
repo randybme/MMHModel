@@ -155,10 +155,15 @@ public class Simulator
             while (iterator.hasNext())
             {
                 Patient patient = iterator.next();
-             
+                StageManager.Stage stage = patient.getStage();
+                
                 // TODO: Incorporate results from Benoit's near miss study
                 // Determine whether current patient remains alive
                 double variate = Math.random();
+                if (stage.equals(StageManager.Stage.Complete))
+                {
+                	iterator.remove(); // Remove the patient if they are ready for discharge
+                }
 			 	if (variate <= patient.probabilityOfMortality())
                 {
                     patient.die();
