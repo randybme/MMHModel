@@ -333,6 +333,40 @@ public class StageManager
 		return null;
     }
 	
+	/**
+	 * Returns the current estimate of the remaining stay for a patient based on the patient's
+	 * current stage and set of conditions.
+	 * 
+	 * @param patient	the patient
+	 * @return the current estimated remaining stay in cycles 
+	 */
+	public static int getRemainingStay(Patient patient)
+	{
+		Stage stage;
+		TreatmentPlan plan;
+		if ((stage = patient.getStage()) == null || (plan = stage.getTreatmentPlan()) == null)
+		{
+			return 0;
+		}		
+		
+		int planId = plan.getID();
+				
+		int totalStay = 0;
+		while (planId != 0)
+		{
+			Row treatmentRow = getRowForId(planId);
+			
+			totalStay += Integer.parseInt(treatmentRow.getCell(Fields.TOTAL_CYCLES).getStringCellValue());
+			planId = Integer.parseInt(treatmentRow.getCell(Fields.NEXT_TREATMENT).getStringCellValue());
+		}
+		
+		// Adjust total stay by the number of cycles that have already elapsed 
+		// for the current stage
+		totalStay -= stage.m_cycles; 
+		
+		return totalStay;
+	}
+	
 	static class Stage
 	{
 		public static final Stage Complete = new Stage(new TreatmentPlan(

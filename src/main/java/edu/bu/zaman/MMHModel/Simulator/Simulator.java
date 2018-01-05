@@ -94,7 +94,7 @@ public class Simulator
         ArrayList<Patient> currentPatients = new ArrayList<>();
         ArrayList<Patient> deceasedPatients = new ArrayList<>();
 
-        // Initiate data logging for intial cycle
+        // Initiate data logging for initial cycle
         ModelLogger.newCycle();
         
 		double probabilityNewPatient = 0.41; // The probability of acquiring a new patient
@@ -157,26 +157,46 @@ public class Simulator
                 Patient patient = iterator.next();
                 StageManager.Stage stage = patient.getStage();
                 
-                // TODO: Incorporate results from Benoit's near miss study
-                // Determine whether current patient remains alive
-                double variate = Math.random();
+                // Determine whether the patient is ready for discharge and remove them from
+                // the current patients array if they are
                 if (stage.equals(StageManager.Stage.Complete))
                 {
                 	iterator.remove(); // Remove the patient if they are ready for discharge
                 }
-			 	if (variate <= patient.probabilityOfMortality())
+                else
                 {
-                    patient.die();
-                    Hospital.notifyPatientDeath(patient);
-                    
-                    // Add patient to running list of deceased patients and remove from the list of
-                    // current patients
-                    deceasedPatients.add(patient);
-                    iterator.remove();	  
-			 	}
-			 	else
-                {
-				 	Shiva.reassessConditions(patient);
+                	double variate = Math.random();
+                	double pom = patient.probabilityOfMortality();
+                	int remainingStay = StageManager.getRemainingStay(patient);
+                	
+                	// As the probability of mortality is typically considered the probability of dying
+                	// over a patient's full hospital stay, the probability of dying at any given cycle, pᵢ,
+                	// is actually much smaller and is governed by the binomial distribution. In other
+                	// words, the probability of mortality is actually a cumulative probability of dying
+                	// at all cycles.
+                	//
+                	// pom = sum(1 ≤ k ≤ total cycles) : Pr(k;n,pᵢ) = permutations(n,k) * (pᵢ^k) * (1-pᵢ)^(n-k)
+                	//
+                	// This is equivalent to 1 - Pr(0;n,pᵢ). This simplifies to pom = 1 - (1 - pᵢ)^n.
+                	// Solving for pᵢ gives pᵢ = 1 - (1 - pom)^(1/n).
+                	double cyclePOM = 1 - Math.pow(1 - pom, 1.0 / remainingStay);
+                	
+                	// TODO: Incorporate results from Benoit's near miss study
+                	// Determine whether current patient remains alive
+                	if (variate <= cyclePOM)
+	                {
+	                    patient.die();
+	                    Hospital.notifyPatientDeath(patient);
+	                    
+	                    // Add patient to running list of deceased patients and remove from the list of
+	                    // current patients
+	                    deceasedPatients.add(patient);
+	                    iterator.remove();	  
+				 	}
+				 	else
+	                {
+					 	Shiva.reassessConditions(patient);
+	                }
                 }
 			 	
 			 	// Log the patient state at the end of the cycle
