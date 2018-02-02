@@ -20,6 +20,7 @@ public class ModelLogger
 	private static JSONArray m_deceasedPatients = new JSONArray();;
 	
 	private static int m_cycle = -1;
+	private static int m_cycleDeaths = 0;
 	
 	/**
 	 * Signal data logging for a new model cycle.
@@ -51,7 +52,9 @@ public class ModelLogger
 			JSONObject cycleData = new JSONObject();
 				cycleData.put("patients", m_cyclePatientData);
 				cycleData.put("hospitalResources", hospitalData);
-			
+				cycleData.put("numberOfPatients", Hospital.currentPatients.size());
+				cycleData.put("numberOfDeaths", m_cycleDeaths);
+				
 			m_cycleData.put(cycleData);
 		}
 	
@@ -95,6 +98,11 @@ public class ModelLogger
 		}
 		
 		return true;
+	}
+	
+	public static void logDeaths(int deaths)
+	{
+		m_cycleDeaths = deaths;
 	}
 	
 	/**

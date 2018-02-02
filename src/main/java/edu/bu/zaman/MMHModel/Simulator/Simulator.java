@@ -91,13 +91,12 @@ public class Simulator
     	Hospital.setNursesOnShift(10);
 		Hospital.setDoctorsOnShift(10);
     	
-        ArrayList<Patient> currentPatients = new ArrayList<>();
         ArrayList<Patient> deceasedPatients = new ArrayList<>();
 
         // Initiate data logging for initial cycle
         ModelLogger.newCycle();
         
-		double probabilityNewPatient = 0.41; // The probability of acquiring a new patient
+		double probabilityNewPatient = 0.1; // The probability of acquiring a new patient
 		int totalCycles = 8640; // Number of cycles to run simulation, 1 cycle is 15 minutes		
 		
         // Iterates through cycles of 15 minutes
@@ -110,7 +109,7 @@ public class Simulator
             // by Shiva with a random age and set of conditions.
             /////////////////////////////////////////////////////////////////////////////////
                         
-			System.out.println("Cycle " + cycle + ", " + currentPatients.size() + " patients");
+			System.out.println("Cycle " + cycle + ", " + Hospital.currentPatients.size() + " patients");
 			
 			// Determine if a new patient has arrived
 			double newPatient = Math.random();		
@@ -118,7 +117,7 @@ public class Simulator
 			{
                 // Create a new patient with a random age and set of conditions
                 Patient patient = Shiva.createPatient(18, 45);
-				currentPatients.add(patient);
+                Hospital.currentPatients.add(patient);
 
 				// Log the new patient
 				ModelLogger.logPatient(patient);
@@ -137,7 +136,7 @@ public class Simulator
 			// handled by the Hospital object.
             /////////////////////////////////////////////////////////////////////////////////
 			
-			Hospital.attemptTreatments(currentPatients); 
+			Hospital.attemptTreatments(Hospital.currentPatients); 
             
             /////////////////////////////////////////////////////////////////////////////////
             // 3. Evaluate patient health and update current patient list
@@ -151,7 +150,8 @@ public class Simulator
 			// Signal the beginning of a new logging cycle to the ModelLogger
 			ModelLogger.newCycle();
 			
-            Iterator<Patient> iterator = currentPatients.iterator();
+			int numDeaths = 0;
+            Iterator<Patient> iterator = Hospital.currentPatients.iterator();
             while (iterator.hasNext())
             {
                 Patient patient = iterator.next();
@@ -183,15 +183,19 @@ public class Simulator
                 	
                 	// TODO: Incorporate results from Benoit's near miss study
                 	// Determine whether current patient remains alive
-                	if (variate <= cyclePOM)
+                	if (remainingStay > 0 && variate <= cyclePOM)
 	                {
+                		System.out.println("Patient died with cyclePOM of " + cyclePOM + " and POM of " + pom + " remaining stay: " + remainingStay);
+                		
 	                    patient.die();
 	                    Hospital.notifyPatientDeath(patient);
 	                    
 	                    // Add patient to running list of deceased patients and remove from the list of
 	                    // current patients
 	                    deceasedPatients.add(patient);
-	                    iterator.remove();	  
+	                    iterator.remove();
+	                    
+	                    numDeaths++;
 				 	}
 				 	else
 	                {
@@ -202,6 +206,8 @@ public class Simulator
 			 	// Log the patient state at the end of the cycle
 			 	ModelLogger.logPatient(patient);
 			 }
+            
+             ModelLogger.logDeaths(numDeaths);
 
 			 /*
 

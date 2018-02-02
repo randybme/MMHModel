@@ -64,6 +64,11 @@ public class Hospital
     }
     
     /**
+     * The current list of patients staying at the hospital.
+     */
+    public static ArrayList<Patient> currentPatients = new ArrayList<>();
+    
+    /**
      * The total number of nurses that are currently on shift.
      */
     private static int m_totalNurses = 0;
@@ -121,7 +126,7 @@ public class Hospital
         stockDisposableResource(MaterialResource.DIAZEPAM, 0);
         stockDisposableResource(MaterialResource.DICLOFENAC_NA_LIQ, 4200);
         stockDisposableResource(MaterialResource.DICLOFENAC_NA_TAB, 50000);
-        stockDisposableResource(MaterialResource.ERYTHROMYCIN, 0);
+        stockDisposableResource(MaterialResource.ERYTHROMYCIN, 1000);
         stockDisposableResource(MaterialResource.FESO4_FOLIC, 200000);
         stockDisposableResource(MaterialResource.GENTAMYCIN, 0);
         stockDisposableResource(MaterialResource.GLOVES_LATEX, 12000);
@@ -139,7 +144,7 @@ public class Hospital
         stockDisposableResource(MaterialResource.NACL, 312000);
         stockDisposableResource(MaterialResource.NACL_DEXTROSE, 60000);
         stockDisposableResource(MaterialResource.NIFEDIPINE, 0);
-        stockDisposableResource(MaterialResource.OXYTOCIN, 15000);
+        stockDisposableResource(MaterialResource.OXYTOCIN, 150000);
         stockDisposableResource(MaterialResource.PARACETAMOL, 2000000);
         stockDisposableResource(MaterialResource.POVIDINE, 40);
         stockDisposableResource(MaterialResource.SCALP_BLADE, 500);
