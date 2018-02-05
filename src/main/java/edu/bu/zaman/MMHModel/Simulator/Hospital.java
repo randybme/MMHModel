@@ -144,7 +144,7 @@ public class Hospital
         stockDisposableResource(MaterialResource.NACL, 312000);
         stockDisposableResource(MaterialResource.NACL_DEXTROSE, 60000);
         stockDisposableResource(MaterialResource.NIFEDIPINE, 0);
-        stockDisposableResource(MaterialResource.OXYTOCIN, 150000);
+        stockDisposableResource(MaterialResource.OXYTOCIN, 15000);
         stockDisposableResource(MaterialResource.PARACETAMOL, 2000000);
         stockDisposableResource(MaterialResource.POVIDINE, 40);
         stockDisposableResource(MaterialResource.SCALP_BLADE, 500);
