@@ -150,7 +150,6 @@ public class Simulator
 			// Signal the beginning of a new logging cycle to the ModelLogger
 			ModelLogger.newCycle();
 			
-			int numDeaths = 0;
             Iterator<Patient> iterator = Hospital.currentPatients.iterator();
             while (iterator.hasNext())
             {
@@ -194,8 +193,6 @@ public class Simulator
 	                    // current patients
 	                    deceasedPatients.add(patient);
 	                    iterator.remove();
-	                    
-	                    numDeaths++;
 				 	}
 				 	else
 	                {
@@ -206,8 +203,6 @@ public class Simulator
 			 	// Log the patient state at the end of the cycle
 			 	ModelLogger.logPatient(patient);
 			 }
-            
-             ModelLogger.logDeaths(numDeaths);
 
 			 /*
 

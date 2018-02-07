@@ -17,10 +17,13 @@ public class ModelLogger
 	private static HashMap<Integer, Integer> m_patientStartCycles = new HashMap<>();
 	private static JSONArray m_cycleData = new JSONArray();
 	private static JSONArray m_cyclePatientData;
-	private static JSONArray m_deceasedPatients = new JSONArray();;
+	private static JSONArray m_deceasedPatients = new JSONArray();
+	private static JSONArray m_dischargedPatients = new JSONArray();
 	
 	private static int m_cycle = -1;
 	private static int m_cycleDeaths = 0;
+	private static int m_cycleDischarges = 0;
+	private static int m_cycleAdmissions = 0;
 	
 	/**
 	 * Signal data logging for a new model cycle.
@@ -53,6 +56,8 @@ public class ModelLogger
 				cycleData.put("patients", m_cyclePatientData);
 				cycleData.put("hospitalResources", hospitalData);
 				cycleData.put("numberOfPatients", Hospital.currentPatients.size());
+				cycleData.put("numberOfAdmissions", m_cycleAdmissions);
+				cycleData.put("numberOfDischarges", m_cycleDischarges);
 				cycleData.put("numberOfDeaths", m_cycleDeaths);
 				
 			m_cycleData.put(cycleData);
@@ -60,6 +65,9 @@ public class ModelLogger
 	
 		// Initialize new array to store patient data for new cycle
 		m_cyclePatientData = new JSONArray();
+		m_cycleAdmissions = 0;
+		m_cycleDischarges = 0;
+		m_cycleDeaths = 0;
 		m_cycle++;
 	}
 	
@@ -68,14 +76,17 @@ public class ModelLogger
 	 * 
 	 * If this is the first log for the patient, the patient data is logged as the
 	 * initial data for the patient upon admission. Otherwise, the patient data is
-	 * stored as the patient's current state under hospital care.
+	 * stored as the patient's current state under hospital care. If the patient
+	 * is deceased, the patient will also be logged as a death. Note that calling
+	 * this method multiple times with the same patient for any given cycle will
+	 * result in recording duplicate data.
 	 * 
 	 * @param patient
 	 * @return Whether the patient was successfully logged.
 	 */
 	public static boolean logPatient(Patient patient)
 	{
-		if (m_cyclePatientData == null)
+		if (m_cyclePatientData == null || patient == null)
 		{
 			return false;
 		}
@@ -87,24 +98,25 @@ public class ModelLogger
 		{
 			m_initialPatientData.put(patientId, PatientSerializer.intialPatientData(patient));
 			m_patientStartCycles.put(patientId, m_cycle);
+			
+			m_cycleAdmissions++;
+		}
+		else if(patient.getStage().equals(StageManager.Stage.Complete))
+		{
+			m_dischargedPatients.put(PatientSerializer.patientDischargeData(patient));
+			m_cycleDischarges++;
+		}
+		else if (!patient.isAlive())
+		{
+			m_deceasedPatients.put(PatientSerializer.patientDeathData(patient));
+			m_cycleDeaths++;
 		}
 		
 		m_cyclePatientData.put(PatientSerializer.patientData(patient));
 		
-		// Check to see if patient died
-		if (!patient.isAlive())
-		{
-			m_deceasedPatients.put(PatientSerializer.patientDeathData(patient));
-		}
-		
 		return true;
 	}
-	
-	public static void logDeaths(int deaths)
-	{
-		m_cycleDeaths = deaths;
-	}
-	
+
 	/**
 	 * Writes the model log as JSON output to a file at the specified file path.
 	 * 
@@ -116,6 +128,7 @@ public class ModelLogger
 		JSONObject outputData = new JSONObject();
 			outputData.put("patients", m_initialPatientData.values());
 			outputData.put("cycles", m_cycleData);
+			outputData.put("discharges", m_dischargedPatients);
 			outputData.put("deaths", m_deceasedPatients);
 		
 		FileWriter writer = new FileWriter(path);
@@ -230,7 +243,7 @@ public class ModelLogger
 				JSONObject conditionData = new JSONObject();
 				
 				conditionData.put("name", condition.getType().name());
-				conditionData.put("probabiityOfMortality", condition.getProbabilityOfMortality());	
+				conditionData.put("probabilityOfMortality", condition.getProbabilityOfMortality());	
 				
 				conditions.put(conditionData);
 			}
@@ -238,6 +251,42 @@ public class ModelLogger
 			data.put("conditions", conditions);
 			
 			return data;
+		}
+		
+		private static JSONObject patientDischargeData(Patient patient)
+		{
+			int patientId = patient.getPatientId();
+			if (!patient.getStage().equals(StageManager.Stage.Complete) || !m_patientStartCycles.containsKey(patientId))
+			{
+				return null;
+			}
+			
+			JSONObject data = new JSONObject();
+			
+			// Retreive patient data			
+			int age = patient.getAge();
+			double probabilityOfMortality = patient.probabilityOfMortality();
+			int stay = m_cycle - m_patientStartCycles.get(patientId);
+
+			data.put("patientId", patientId);			
+			data.put("age", age);
+			data.put("probabilityOfMortality", probabilityOfMortality);
+			data.put("stay", stay);
+			
+			JSONArray conditions = new JSONArray();
+			for (Condition condition: patient.getConditions())
+			{
+				JSONObject conditionData = new JSONObject();
+				
+				conditionData.put("name", condition.getType().name());
+				conditionData.put("probabilityOfMortality", condition.getProbabilityOfMortality());	
+				
+				conditions.put(conditionData);
+			}
+			
+			data.put("conditions", conditions);
+			
+			return data; 
 		}
 	}
 }
