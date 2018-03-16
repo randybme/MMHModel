@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -52,28 +53,39 @@ public class Visualizer
 			return;
 		}
 		
-		JFileChooser fileChooser = new JFileChooser(outputDirectory);		
-		fileChooser.setMultiSelectionEnabled(false);
-		fileChooser.setFileFilter(new FileFilter() {
-			
-			@Override
-			public String getDescription() 
-			{
-				return "JSON";
-			}
-			
-			@Override
-			public boolean accept(File f) 
-			{
-				return f.getName().endsWith(MODEL_FILE_EXT);
-			}
-		});
-		
-		int returnValue = fileChooser.showOpenDialog(null);		
-		if (returnValue == JFileChooser.APPROVE_OPTION)
+		// Open a directory chooser on the event dispatch thread
+		Runnable chooserTask = new Runnable()
 		{
-			File selectedFile = fileChooser.getSelectedFile();
-			new DataVisualizer(selectedFile.toPath());
-		}
+
+			@Override
+			public void run() 
+			{
+				JFileChooser fileChooser = new JFileChooser(outputDirectory);		
+				fileChooser.setMultiSelectionEnabled(false);
+				fileChooser.setFileFilter(new FileFilter() {
+					
+					@Override
+					public String getDescription() 
+					{
+						return "JSON";
+					}
+					
+					@Override
+					public boolean accept(File f) 
+					{
+						return f.getName().endsWith(MODEL_FILE_EXT);
+					}
+				});
+				
+				int returnValue = fileChooser.showOpenDialog(null);		
+				if (returnValue == JFileChooser.APPROVE_OPTION)
+				{
+					File selectedFile = fileChooser.getSelectedFile();
+					new DataVisualizer(selectedFile.toPath());
+				}				
+			}			
+		};
+		
+		SwingUtilities.invokeLater(chooserTask);
 	}
 }
