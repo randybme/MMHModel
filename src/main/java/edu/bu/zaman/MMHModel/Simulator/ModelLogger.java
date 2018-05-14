@@ -26,6 +26,24 @@ public class ModelLogger
 	private static int m_cycleAdmissions = 0;
 	
 	/**
+	 * Reset the model logger.
+	 */
+	public static void reset()
+	{
+		m_initialPatientData = new HashMap<>();	
+		m_patientStartCycles = new HashMap<>();
+		m_cycleData = new JSONArray();
+		m_cyclePatientData = null;
+		m_deceasedPatients = new JSONArray();
+		m_dischargedPatients = new JSONArray();
+		
+		m_cycle = -1;
+		m_cycleDeaths = 0;
+		m_cycleDischarges = 0;
+		m_cycleAdmissions = 0;
+	}
+	
+	/**
 	 * Signal data logging for a new model cycle.
 	 */
 	public static void newCycle()
