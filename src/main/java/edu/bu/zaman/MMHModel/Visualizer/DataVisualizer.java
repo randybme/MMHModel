@@ -772,7 +772,7 @@ public class DataVisualizer extends JFrame
 		
 		ArrayList<Pair<String, String>> chartData = new ArrayList<>();
 		
-		String key = panel.getPropertyKey();		
+		String key = panel.getPropertyKey();
 		String[] keyComponents = key.split("\\.");
 		
 		if (keyComponents.length > 0)
@@ -782,6 +782,7 @@ public class DataVisualizer extends JFrame
 						
 			String loopKey = null;
 			int pathIndex = 0;
+			
 			while (loopKey == null && pathIndex < keyComponents.length)
 			{
 				String pathComponent = keyComponents[pathIndex];
@@ -828,12 +829,14 @@ public class DataVisualizer extends JFrame
 							return chartData;
 						}
 						
-						data = arrayElementSatisfyingConditions(array, conditionSet);
-						if (data == null)
+						ArrayList<JSONObject> elements = arrayElementSatisfyingConditions(array, conditionSet, true); 						
+						if (elements == null || elements.size() == 0)
 						{
-							// Return an empty data set of an array element matching the condition set was not found
+							// Return an empty data set if an array element matching the condition set was not found
 							return chartData;
 						}
+						
+						data = elements.get(0); // Only inspect first array element that satisfies conditions before the loop key
 					}
 				}
 				
@@ -844,6 +847,27 @@ public class DataVisualizer extends JFrame
 			{
 				// An error has occurred if a loop key was not found
 				return chartData;
+			}
+			
+			// Find any property keys that could be used to generate multiple series
+			String multiSeriesKey = null;
+			for (int index = pathIndex; index < keyComponents.length - 1; index++)
+			{
+				String pathComponent = keyComponents[index];
+				if (pathComponent.contains(Visualizer.ARRAY_DELIMITER))
+				{
+					ArrayPropertyConditionSet conditionSet = conditionSets.get(pathComponent);
+					if (conditionSet == null)
+					{
+						// Error has occurred if a condition set could not be found
+						return chartData;
+					}
+					
+					if (!conditionSet.isUnique())
+					{
+						multiSeriesKey = pathComponent;
+					}
+				}
 			}
 			
 			JSONArray xAxisArray = data.getJSONArray(loopKey.substring(1)); // Remove array delimeter from beginning of key
@@ -866,13 +890,13 @@ public class DataVisualizer extends JFrame
 						// matches the array component's associated conditions set
 						JSONArray array = elementData.getJSONArray(pathComponent.substring(1));
 						ArrayPropertyConditionSet conditionSet = conditionSets.get(pathComponent);
-						if (conditionSet == null)
-						{
-							// Error has occurred if a condition set could not be found
-							return chartData;
-						}
+						ArrayList<JSONObject> matchingElements = arrayElementSatisfyingConditions(array, conditionSet, false);
 						
-						elementData = arrayElementSatisfyingConditions(array, conditionSet);
+						elementData = null;
+						if (matchingElements != null && matchingElements.size() > 0)
+						{
+							elementData = matchingElements.get(0); 
+						}
 					}
 					else
 					{
@@ -949,11 +973,13 @@ public class DataVisualizer extends JFrame
 	 * 
 	 * @param array			the array to search
 	 * @param conditionSet	the condition set used to match an element
+	 * @param findFirst		flag indicating whether or not only the first match should be returned
 	 * 
-	 * @return the first array element that matches the condition set, or null if one was not found
+	 * @return a list of array elements that match the condition set, or null if one was not found
 	 */
-	private JSONObject arrayElementSatisfyingConditions(JSONArray array, ArrayPropertyConditionSet conditionSet)
+	private ArrayList<JSONObject> arrayElementSatisfyingConditions(JSONArray array, ArrayPropertyConditionSet conditionSet, boolean findFirst)
 	{
+		ArrayList<JSONObject> matches = new ArrayList<>();
 		for (int index = 0; index < array.length(); index++)
 		{
 			JSONObject arrayElement = array.getJSONObject(index);
@@ -965,11 +991,20 @@ public class DataVisualizer extends JFrame
 			
 			if (conditionSet.isSatisfied(arrayElement))
 			{
-				return arrayElement;
+				matches.add(arrayElement);
+				if (findFirst)
+				{
+					return matches;
+				}
 			}
 		}
 		
-		return null;
+		if (matches.size() == 0)
+		{		
+			return null;
+		}
+		
+		return matches;
 	}
 	
 	/**

@@ -142,7 +142,7 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		m_seriesNameField.setBorder(new EmptyBorder(5, 5, 5, 5));
 		m_seriesNameField.addKeyListener(new KeyAdapter() 
 		{		
-			String oldText;
+			String oldText = "";
 
 			@Override
 			public void keyReleased(KeyEvent e) 
@@ -482,6 +482,8 @@ public class PropertyKeyConfigurationPanel extends JPanel
 		private String[] m_componentProperties;
 		
 		private JCheckBox m_xAxisCheckbox;
+		private JCheckBox m_multiSeriesCheckbox;
+		private JTextField m_groupByTextField;
 		private JPanel m_conditionsPanel;
 		
 		private ArrayList<JComboBox<String>> m_conditionProperties = new ArrayList<>();
@@ -535,6 +537,17 @@ public class PropertyKeyConfigurationPanel extends JPanel
 			});
 			
 			add(m_xAxisCheckbox, "span");
+			
+			m_multiSeriesCheckbox = new JCheckBox("multi-series property");
+			m_groupByTextField = new JTextField();
+			
+			JLabel groupByLabel = new JLabel("Group by: ");
+			groupByLabel.setFont(Visualizer.labelFont);
+			groupByLabel.setForeground(Visualizer.labelColor);
+			
+			add(m_multiSeriesCheckbox);
+			add(groupByLabel, "gapleft 10");
+			add(m_groupByTextField, "wrap, wmin 120");
 			
 			addAncestorListener(new AncestorListener() {
 				

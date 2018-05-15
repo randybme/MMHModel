@@ -141,7 +141,7 @@ public class ArrayPropertyCondition implements Serializable
 			try 
 			{
 				double testValue = Double.parseDouble(m_value);
-				double doubleValue = (double)value;
+				double doubleValue = Double.parseDouble(value.toString());
 				
 				switch (m_conditionType)
 				{

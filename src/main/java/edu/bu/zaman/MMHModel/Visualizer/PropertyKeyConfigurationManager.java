@@ -28,9 +28,17 @@ public class PropertyKeyConfigurationManager
 			return m_configurationPanels.get(key);
 		}
 		
+		String hashKey = key;
+		
+		int dashIndex = key.indexOf("-");
+		if (dashIndex >= 0)
+		{
+			key = key.substring(0, dashIndex);
+		}
+		
 		// Create new panel and cache it
 		PropertyKeyConfigurationPanel panel = new PropertyKeyConfigurationPanel(key, componentProperties); 
-		m_configurationPanels.put(key, panel);
+		m_configurationPanels.put(hashKey, panel);
 		
 		return panel; 
 	}

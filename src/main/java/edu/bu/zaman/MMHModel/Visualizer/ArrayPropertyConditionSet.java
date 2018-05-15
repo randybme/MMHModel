@@ -64,6 +64,26 @@ public class ArrayPropertyConditionSet implements Serializable
 	}
 	
 	/**
+	 * Returns whether this condition set will always result in a unique match.
+	 * 
+	 * @return
+	 */
+	public boolean isUnique()
+	{
+		if (m_conditions.size() <= 0)
+		{
+			return false;
+		}
+		
+		if (m_conditions.values().stream().findFirst().get().getConditionType() == Type.EQUAL)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * Provides a read-only collection of the current conditions.
 	 * 
 	 * @return	the collection of current property conditions
