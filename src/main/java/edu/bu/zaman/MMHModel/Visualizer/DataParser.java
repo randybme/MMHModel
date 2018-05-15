@@ -10,6 +10,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -50,6 +52,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -66,21 +69,35 @@ public class DataParser extends JFrame
 	private JPanel m_optionsPanel;
 	private JPanel m_configurationPanel;
 	
+	private ArrayList<File> m_directories;
 	private File m_directory;
 	private File[] m_outputFiles;
 	
 	public DataParser(File directory)
 	{
-		
-		m_directory = directory;
-		m_outputFiles = directory.listFiles(new FilenameFilter() 
+		FilenameFilter outputFilesFilter = new FilenameFilter() 
 		{
 			@Override
 			public boolean accept(File dir, String name) 
 			{
 				return name.endsWith(Visualizer.MODEL_FILE_EXT);
 			}			
-		});
+		};
+
+		// List all directories and subdirectories that contain output files
+		m_directories = new ArrayList<>();
+		try (Stream<Path> paths = Files.walk(directory.toPath()))
+		{				
+			paths.filter(path -> (Files.isDirectory(path) && path.toFile().listFiles(outputFilesFilter).length > 0))
+				.forEach(path -> m_directories.add(path.toFile()));			
+		}
+		catch (IOException ioe)
+		{
+			ioe.printStackTrace();
+		}
+		
+		m_directory = m_directories.get(0);
+		m_outputFiles = m_directory.listFiles(outputFilesFilter);
 		
 		if (m_outputFiles.length < 1)
 		{
@@ -196,6 +213,11 @@ public class DataParser extends JFrame
 			@Override
 			public void valueChanged(TreeSelectionEvent e) 
 			{
+				if (!e.isAddedPath())
+				{
+					return;
+				}
+				
 				TreePath selectedPath = e.getPath();
 				
 				Object lastPathComponent = selectedPath.getLastPathComponent();
@@ -205,11 +227,48 @@ public class DataParser extends JFrame
 					pathComponents.remove(0); // Remove the empty root node from the path					
 					String path = String.join(".", pathComponents.stream().map(object -> object.toString()).collect(Collectors.toList()));
 					
-					// Only add the path if it hasn't already been added
-					if (!m_chartKeysModel.contains(path))
+					// Allow adding same key multiple times (to allow for varying conditions)
+					String propertyKey = "";
+					if (m_chartKeysModel.contains(path))
 					{
-						m_chartKeysModel.addElement(path);
+						int counter = 0;
+						for (Object key : m_chartKeysModel.toArray())
+						{
+							if (key.toString().startsWith(path))
+							{
+								counter++;
+							}							
+						}
+						
+						propertyKey = path + "-" + counter;
 					}
+					else
+					{
+						propertyKey = path;
+					}
+					
+					m_chartKeysModel.addElement(propertyKey);
+					
+					propertyKeysTree.clearSelection();
+					
+					// Create a new configuration panel for the key
+					HashMap<String, ArrayList<String>> componentProperties = new HashMap<>();
+					String[] components = path.split("\\.");
+					
+					String globalKey = "";
+					for (String component : components)
+					{
+						globalKey += component;
+						if (component.contains(Visualizer.ARRAY_DELIMITER))
+						{
+							componentProperties.put(component, m_componentProperties.get(globalKey));
+						}
+						
+						globalKey += ".";
+					}
+					
+					PropertyKeyConfigurationPanel configurationPanel = PropertyKeyConfigurationManager.getConfigurationPanel(propertyKey, componentProperties);
+					m_configurationPanels.add(configurationPanel);
 				}
 			}
 		});
@@ -276,29 +335,13 @@ public class DataParser extends JFrame
 			{
 				if (!e.getValueIsAdjusting())
 				{
-					String selectedKey = chartKeysList.getSelectedValue();
-					if (selectedKey == null)
+					int selectedIndex = chartKeysList.getSelectedIndex();
+					if (selectedIndex < 0)
 					{
 						return;
 					}
 					
-					HashMap<String, ArrayList<String>> componentProperties = new HashMap<>();
-					String[] components = selectedKey.split("\\.");
-					
-					String globalKey = "";
-					for (String component : components)
-					{
-						globalKey += component;
-						if (component.contains(Visualizer.ARRAY_DELIMITER))
-						{
-							componentProperties.put(component, m_componentProperties.get(globalKey));
-						}
-						
-						globalKey += ".";
-					}
-					
-					PropertyKeyConfigurationPanel configurationPanel = PropertyKeyConfigurationManager.getConfigurationPanel(selectedKey, componentProperties);
-					m_configurationPanels.add(configurationPanel);
+					PropertyKeyConfigurationPanel configurationPanel = m_configurationPanels.get(selectedIndex);
 					
 					m_configurationPanel.removeAll(); // Remove existing panel
 					m_configurationPanel.add(configurationPanel, BorderLayout.CENTER);
@@ -326,52 +369,74 @@ public class DataParser extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				System.out.println(m_configurationPanels.size());
+				
 				// Make sure all properties are properly configured
 				for (PropertyKeyConfigurationPanel panel : m_configurationPanels)
 				{
 					if(!panel.hasValidConfiguration())
 					{
+						System.out.println(panel.getPropertyKey());
 						JOptionPane.showMessageDialog(null, "All property keys must have a valid configuration");
 						return;
 					}
 				}
 				
-				HashMap<String, ArrayList<ArrayList<Pair<String, String>>>> allData = new HashMap<>();
-				int run = 0;
-				for(File outputFile : m_outputFiles)
+				for(File outputDirectory : m_directories)
 				{
-					try 
+					System.out.println("Parsing output files in " + outputDirectory.getPath());
+										
+					if (Files.exists(Paths.get(outputDirectory.getPath().toString(), "outputData.xlsx")))
 					{
-						String jsonText = new String(Files.readAllBytes(outputFile.toPath()));
-						JSONObject modelData = new JSONObject(jsonText);
-						
-						for (PropertyKeyConfigurationPanel panel : m_configurationPanels)
-						{
-							ArrayList<Pair<String, String>> data = extractData(modelData, panel);
-							ArrayList<ArrayList<Pair<String, String>>> seriesData = allData.get(panel.getSeriesName());
-							
-							if (seriesData == null)
-							{
-								seriesData = new ArrayList<>();
-								seriesData.add(data);
-								
-								allData.put(panel.getSeriesName(), seriesData);
-							}
-							else
-							{
-								seriesData.add(data);
-							}
-						}						
-					} 
-					catch (IOException ioe) 
-					{
-						ioe.printStackTrace();
+						continue;
 					}
 					
-					System.out.println("Run " + (++run) + " completed.");
+					m_directory = outputDirectory;
+					m_outputFiles = m_directory.listFiles(new FilenameFilter() 
+					{
+						@Override
+						public boolean accept(File dir, String name) 
+						{
+							return name.endsWith(Visualizer.MODEL_FILE_EXT);
+						}			
+					});
+					
+					HashMap<String, ArrayList<ArrayList<Pair<String, String>>>> allData = new HashMap<>();
+					int run = 0;
+					for(File outputFile : m_outputFiles)
+					{
+						try 
+						{
+							String jsonText = new String(Files.readAllBytes(outputFile.toPath()));
+							JSONObject modelData = new JSONObject(jsonText);
+							for (PropertyKeyConfigurationPanel panel : m_configurationPanels)
+							{
+								ArrayList<Pair<String, String>> data = extractData(modelData, panel);
+								ArrayList<ArrayList<Pair<String, String>>> seriesData = allData.get(panel.getSeriesName());
+								
+								if (seriesData == null)
+								{
+									seriesData = new ArrayList<>();
+									seriesData.add(data);
+									
+									allData.put(panel.getSeriesName(), seriesData);
+								}
+								else
+								{
+									seriesData.add(data);
+								}
+							}						
+						} 
+						catch (IOException ioe) 
+						{
+							ioe.printStackTrace();
+						}
+						
+						System.out.println("Run " + (++run) + " completed.");
+					}
+					
+					writeData(allData);
 				}
-				
-				writeData(allData);
 			}
 		});
 				
@@ -700,7 +765,7 @@ public class DataParser extends JFrame
 						elementData = null;
 						if (matchingElements != null && matchingElements.size() > 0)
 						{
-							elementData = matchingElements.get(0); 
+							elementData = matchingElements.get(0);
 						}
 					}
 					else
@@ -819,7 +884,7 @@ public class DataParser extends JFrame
 	 */
 	private void writeData(HashMap<String, ArrayList<ArrayList<Pair<String, String>>>> data)
 	{
-		System.out.println("Writing data");
+		System.out.println("Writing data...");
 		Workbook workbook = new XSSFWorkbook();
 		
 		CellStyle percentStyle = workbook.createCellStyle();
@@ -878,47 +943,44 @@ public class DataParser extends JFrame
 					}
 					catch (NumberFormatException nfe)
 					{
-						cell.setCellValue(dataPoint.getKey());
+						cell.setCellValue(dataPoint.getValue());
 					}									
 				}
 			}	
 			
-			seriesSheet.getRow(1).createCell(seriesData.size() * 3).setCellValue("Mean");
-			seriesSheet.getRow(1).createCell(seriesData.size() * 3 + 1).setCellValue("Stdev");
-			seriesSheet.getRow(1).createCell(seriesData.size() * 3 + 2).setCellValue("RSD");
+			int meanColumn = seriesData.size() * 3;
+			
+			seriesSheet.getRow(1).createCell(meanColumn).setCellValue("Mean");
+			seriesSheet.getRow(1).createCell(meanColumn + 1).setCellValue("Stdev");
+			seriesSheet.getRow(1).createCell(meanColumn + 2).setCellValue("RSD");
 			
 			int dataRow = 2;
 			while ((row = seriesSheet.getRow(dataRow)) != null)
 			{
 				int lastCell = row.getLastCellNum() - 1;
 				
-				char[] cellLetters = Integer.toString(lastCell, 26).toCharArray();
-			    for (int i = 0; i < cellLetters.length; i++) {
-			    	cellLetters[i] += cellLetters[i] > '9' ? 10 : 17;
-			    }
-			    
 			    String firstCellReference = (new CellReference(row.getRowNum(), row.getFirstCellNum())).formatAsString();
 			    String lastCellReference = (new CellReference(row.getRowNum(), lastCell)).formatAsString();
 			    
-			    CellReference meanCell = new CellReference(row.getRowNum(), lastCell + 2);
+			    CellReference meanCell = new CellReference(row.getRowNum(), meanColumn);
 			    seriesSheet.setArrayFormula(
 			    	"SUMPRODUCT("
 			    		+ "--(MOD(COLUMN(" + firstCellReference + ":" + lastCellReference + ") - COLUMN(A1), 3) = 1)," 
 			    				+ firstCellReference + ":" + lastCellReference + ") / "
 			    						+ "SUM(--(MOD(COLUMN(" + firstCellReference + ":" + lastCellReference + ") - COLUMN(A1), 3) = 1))"				    				
-			    	, new CellRangeAddress(row.getRowNum(), row.getRowNum(), lastCell + 2, lastCell + 2)
+			    	, new CellRangeAddress(row.getRowNum(), row.getRowNum(), meanColumn, meanColumn)
 			    );
 			    
-			    CellReference stdevCell = new CellReference(row.getRowNum(), lastCell + 3);
+			    CellReference stdevCell = new CellReference(row.getRowNum(), meanColumn + 1);
 			    seriesSheet.setArrayFormula(
 			    	"SQRT(SUMPRODUCT("
 			    		+ "--(MOD(COLUMN(" + firstCellReference + ":" + lastCellReference + ") - COLUMN(A1), 3) = 1)," 
-			    				+ "(" + firstCellReference + ":" + lastCellReference + " - " + meanCell.formatAsString() + ") ^ 2) / "
+			    				+ "IFERROR(" + firstCellReference + ":" + lastCellReference + " - " + meanCell.formatAsString() + ", 0) ^ 2) / "
 			    						+ "(SUM(--(MOD(COLUMN(" + firstCellReference + ":" + lastCellReference + ") - COLUMN(A1), 3) = 1)) - 1))"				    				
-			    	, new CellRangeAddress(row.getRowNum(), row.getRowNum(), lastCell + 3, lastCell + 3)
+			    	, new CellRangeAddress(row.getRowNum(), row.getRowNum(), meanColumn + 1, meanColumn + 1)
 			    );
 			    
-			    Cell rsdCell = row.createCell(lastCell + 4); 
+			    Cell rsdCell = row.createCell(meanColumn + 2); 
 			    rsdCell.setCellFormula(stdevCell.formatAsString() + "/" + meanCell.formatAsString());
 			    rsdCell.setCellStyle(percentStyle);
 			    
@@ -940,6 +1002,8 @@ public class DataParser extends JFrame
 		{
 			e.printStackTrace();
 		}
+		
+		System.out.println("Done.");
 	}
 	
 	public static void main(String[] args) 
