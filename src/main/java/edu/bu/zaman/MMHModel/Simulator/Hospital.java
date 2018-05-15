@@ -89,6 +89,11 @@ public class Hospital
     private static int m_doctors = 0;
     
     /**
+     * The probability of patient admission
+     */
+    private static double m_probabilityNewPatient = 0.00;
+    
+    /**
      * Stores the current inventory of disposable material resources
      */
     private static HashMap<MaterialResource, Double> m_totalDisposableResources;
@@ -122,7 +127,7 @@ public class Hospital
         stockDisposableResource(MaterialResource.COATED_PGA, 600);
         stockDisposableResource(MaterialResource.COTTON_WOOL, 0);
         stockDisposableResource(MaterialResource.DETTOL, 10);
-        stockDisposableResource(MaterialResource.DEXAMETHASONE, 300);        
+        stockDisposableResource(MaterialResource.DEXAMETHASONE, 3000);        
         stockDisposableResource(MaterialResource.DIAZEPAM, 0);
         stockDisposableResource(MaterialResource.DICLOFENAC_NA_LIQ, 4200);
         stockDisposableResource(MaterialResource.DICLOFENAC_NA_TAB, 50000);
@@ -144,7 +149,7 @@ public class Hospital
         stockDisposableResource(MaterialResource.NACL, 312000);
         stockDisposableResource(MaterialResource.NACL_DEXTROSE, 60000);
         stockDisposableResource(MaterialResource.NIFEDIPINE, 0);
-        stockDisposableResource(MaterialResource.OXYTOCIN, 15000);
+        stockDisposableResource(MaterialResource.OXYTOCIN, 20000);
         stockDisposableResource(MaterialResource.PARACETAMOL, 2000000);
         stockDisposableResource(MaterialResource.POVIDINE, 40);
         stockDisposableResource(MaterialResource.SCALP_BLADE, 500);
@@ -517,6 +522,24 @@ public class Hospital
     }
     
     /**
+     * Set the rate of patient admission for the current shift
+     * @param probabilityNewPatient
+     */
+    public static void setProbabilityNewPatient(double probabilityNewPatient)
+    {
+    	m_probabilityNewPatient = probabilityNewPatient;
+    }
+    
+    /**
+     * Returns the rate of patient admission for the current shift
+     * @param probabilityNewPatient
+     */
+    public static double getProbabilityNewPatient()
+    {
+    return 	m_probabilityNewPatient;
+    }
+    
+    /**
      * Returns the current stock of hospital disposable resources. 
      * @return
      */
@@ -524,4 +547,5 @@ public class Hospital
     {
     	return m_totalDisposableResources;
     }
+    
 }

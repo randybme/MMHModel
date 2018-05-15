@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import edu.bu.zaman.MMHModel.Simulator.Hospital.MaterialResource;
+
 /**
  * 
  *
@@ -78,7 +80,39 @@ public class Simulator
         
         return filepath;
 	}
-		
+	/***********************************TIME CHECK**********************************************
+	 * Method to check for medication restocking and staff shift changes at appropriate times
+	 *
+	 ***/
+	
+    public static void timeCheck(int cycle)
+    {
+    if (cycle > 0 && 2880%cycle == 0) //Restocking
+    {
+    	Hospital.stockDisposableResource(MaterialResource.OXYTOCIN, 20000);
+    	Hospital.stockDisposableResource(MaterialResource.HYDRALAZINE, 2200);
+    }
+    
+    if (cycle > 0 && cycle%96 == 0) //Morning shift
+    {
+    	Hospital.setNursesOnShift(5);
+    	Hospital.setDoctorsOnShift(3);
+    	Hospital.setProbabilityNewPatient(0.4);
+    }
+    else if (cycle > 0 && cycle%64 == 0) // Night shift
+    {
+    	Hospital.setNursesOnShift(3);
+    	Hospital.setDoctorsOnShift(1);
+    	Hospital.setProbabilityNewPatient(0.625);
+    }
+    else if (cycle > 0 && cycle%32 == 0) //Evening shift
+    {
+    	Hospital.setNursesOnShift(3);
+    	Hospital.setDoctorsOnShift(2);
+    	Hospital.setProbabilityNewPatient(0.28);
+    }
+    }
+	
 	/***********************************************************MODEL**************************************************************
 	 * The main run loop for the model.
 	 * @param args
@@ -95,15 +129,16 @@ public class Simulator
 		for (int replicate = 0; replicate < NUM_REPLICATES; replicate++)
 		{
 	    	// Stock the hospital with the initial number of human resources
-	    	Hospital.setNursesOnShift(10);
-			Hospital.setDoctorsOnShift(10);
+	    	Hospital.setNursesOnShift(5);
+			Hospital.setDoctorsOnShift(3);
+			Hospital.setProbabilityNewPatient(0.4);
 	    	
 	        ArrayList<Patient> deceasedPatients = new ArrayList<>();
 	
 	        // Initiate data logging for initial cycle
 	        ModelLogger.newCycle();
 	        
-			double probabilityNewPatient = 0.1; // The probability of acquiring a new patient
+			double probabilityNewPatient = Hospital.getProbabilityNewPatient(); // The probability of acquiring a new patient
 			int totalCycles = 8640; // Number of cycles to run simulation, 1 cycle is 15 minutes		
 			
 	        // Iterates through cycles of 15 minutes
@@ -217,7 +252,7 @@ public class Simulator
 	
 				 */
 	
-				 // TODO: Update staff resources based on day/night shifts
+				 timeCheck(cycle);
 			}
 			
 			// Write the log data to file
